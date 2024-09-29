@@ -9,7 +9,7 @@ const RegisterPage = () => {
                         <form>
                             <div className="mb-12">
                                 <h3 className="text-gray-800 text-3xl font-extrabold">Register</h3>
-                                <p className="text-sm mt-4 text-gray-800">Already have an account <Link href="/login" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</Link></p>
+                                <p className="text-sm mt-4 text-gray-800">Already have an account <Link href="/login" className="myTextColor font-semibold hover:underline ml-1 whitespace-nowrap">Login here</Link></p>
                             </div>
 
                             <div>
@@ -18,7 +18,7 @@ const RegisterPage = () => {
                                     <input
                                         type="text"
                                         required
-                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md myOutline"
                                         placeholder="Enter name" />
                                 </div>
                             </div>
@@ -29,7 +29,7 @@ const RegisterPage = () => {
                                     <input
                                         type="email"
                                         required
-                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md myOutline"
                                         placeholder="Enter email" />
                                 </div>
                             </div>
@@ -40,7 +40,7 @@ const RegisterPage = () => {
                                     <input
                                         type="password"
                                         required
-                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md myOutline"
                                         placeholder="Enter password" />
                                 </div>
                             </div>
@@ -51,7 +51,7 @@ const RegisterPage = () => {
                                     <input
                                         type="password"
                                         required
-                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md myOutline"
                                         placeholder="Re-enter password" />
                                 </div>
                             </div>
@@ -59,7 +59,7 @@ const RegisterPage = () => {
                             <div className="mt-12">
                                 <button
                                     type="button"
-                                    className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                    className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md myBtn focus:outline-none">
                                     Register
                                 </button>
                             </div>

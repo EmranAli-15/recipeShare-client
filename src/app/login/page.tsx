@@ -9,7 +9,7 @@ const LoginPage = () => {
                         <form>
                             <div className="mb-12">
                                 <h3 className="text-gray-800 text-3xl font-extrabold">Sign in</h3>
-                                <p className="text-sm mt-4 text-gray-800">Don't have an account <Link href="/register" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</Link></p>
+                                <p className="text-sm mt-4 text-gray-800">Don't have an account <Link href="/register" className="myTextColor font-semibold hover:underline ml-1 whitespace-nowrap">Register here</Link></p>
                             </div>
 
                             <div>
@@ -18,7 +18,7 @@ const LoginPage = () => {
                                     <input
                                         type="email"
                                         required
-                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md myOutline"
                                         placeholder="Enter email" />
                                 </div>
                             </div>
@@ -29,15 +29,15 @@ const LoginPage = () => {
                                     <input
                                         type="password"
                                         required
-                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md myOutline"
                                         placeholder="Enter password" />
                                 </div>
                             </div>
 
                             <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
                                 <div className="flex items-center">
-                                    <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-                                    <label htmlFor="remember-me" className="ml-3 block text-sm text-gray-800">
+                                    <input type="checkbox" className="h-4 w-4 border-gray-300 rounded" />
+                                    <label className="ml-3 block text-sm text-gray-800">
                                         Remember me
                                     </label>
                                 </div>
@@ -49,7 +49,7 @@ const LoginPage = () => {
                             </div>
 
                             <div className="mt-12">
-                                <button type="button" className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                <button type="button" className="w-full shadow-xl py-2.5 px-4 text-sm tracking-wide rounded-md text-white myBtn focus:outline-none">
                                     Sign in
                                 </button>
                             </div>

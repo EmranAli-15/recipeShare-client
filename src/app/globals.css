@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* For text color */
+.myTextColor {
+    color: #70e000;
+}
+
+
+
+/* For outline color */
+.myOutline {
+    outline-color: #70e000;
+}
+
+
+
+/* For all button entire the project */
+.myBtn,
+.form-btn {
+    color: white;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 13px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #70e000;
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.myBtn:active {
+    scale: 90% 90%;
+    transition: 0.2s;
+}
+
+.myBtn::before,
+.form-btn::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 100%;
+    background-image: linear-gradient(45deg, #70e000 0%, #38b000 100%);
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+}
+
+.form-btn:hover:before,
+.myBtn:hover:before {
+    width: 100%;
+}
