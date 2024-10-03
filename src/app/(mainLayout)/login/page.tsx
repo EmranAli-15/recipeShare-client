@@ -3,7 +3,7 @@ import Link from "next/link";
 const LoginPage = () => {
     return (
         <div className="font-[sans-serif]">
-            <div className="min-h-screen flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center">
                 <div className="flex justify-center items-center w-full md:max-w-md p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md">
                     <div className="md:max-w-md w-full px-4 py-4">
                         <form>
@@ -18,7 +18,7 @@ const LoginPage = () => {
                                     <input
                                         type="email"
                                         required
-                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md myOutline"
+                                        className="myInput"
                                         placeholder="Enter email" />
                                 </div>
                             </div>
@@ -29,7 +29,7 @@ const LoginPage = () => {
                                     <input
                                         type="password"
                                         required
-                                        className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md myOutline"
+                                        className="myInput"
                                         placeholder="Enter password" />
                                 </div>
                             </div>

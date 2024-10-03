@@ -1,7 +1,9 @@
 const Page = () => {
   return (
-    <div>
-      <h1>Welcome to the Page page</h1>
+    <div className="max-w-7xl mx-auto">
+      <div className="px-2">
+        <h1>Welcome to the Page page</h1>
+      </div>
     </div>
   );
 };

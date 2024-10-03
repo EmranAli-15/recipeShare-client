@@ -5,14 +5,14 @@
 
 /* For text color */
 .myTextColor {
-    color: #70e000;
+    @apply text-[#70e000]
 }
 
 
 
-/* For outline color */
-.myOutline {
-    outline-color: #70e000;
+/* For input field style */
+.myInput {
+    @apply w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#70e000]
 }
 
 
@@ -21,7 +21,6 @@
 .myBtn,
 .form-btn {
     color: white;
-    font-weight: bold;
     overflow: hidden;
     padding: 13px 26px;
     display: flex;
