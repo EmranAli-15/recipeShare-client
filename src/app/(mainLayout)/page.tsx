@@ -1,4 +1,10 @@
 import LatestRecipes from "@/components/home/LatestRecipes";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Halal Foods",
+  description: "Make your day wonderful with healthy foods",
+};
 
 const Page = () => {
   return (

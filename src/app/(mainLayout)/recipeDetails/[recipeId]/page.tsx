@@ -38,6 +38,7 @@ import { SlLike } from "react-icons/sl";
 import { FaComments } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import { MdDone } from "react-icons/md";
+import { RiUserFollowFill } from "react-icons/ri";
 
 const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
     console.log(params.recipeId);
@@ -51,36 +52,55 @@ const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
                     </div>
                     <div>
                         <p className="text-gray-500">{chef.name}</p>
-                        <h1 className="text-xl font-semibold">{dish.dishName}</h1>
+                        <h1 className="text-xl font-semibold md:hidden">{dish.dishName}</h1>
                     </div>
                 </div>
+
+
                 <hr className="my-1" />
-                <div>
+
+
+                <div className="grid md:grid-cols-2 md:gap-x-10">
                     <div className="w-full h-48 md:h-96">
                         <img className="w-full h-48 md:h-96 object-cover" src={dish.dishImage} alt="" />
                     </div>
-                    <hr className="my-1" />
-                    <div className="grid grid-cols-3 justify-items-center">
-                        <div>
-                            <p><SlLike></SlLike></p>
-                            <p>56</p>
-                        </div>
-                        <div>
-                            <p className="text-blue-600"><FaComments></FaComments></p>
-                            <p>12</p>
-                        </div>
-                        <div className="flex items-center text-yellow-500">
-                            <p><FaStar size={13}></FaStar></p>
-                            <p><FaStar size={13}></FaStar></p>
-                            <p><FaStar size={13}></FaStar></p>
-                            <p><FaStar size={13}></FaStar></p>
-                            <p><FaStar size={13}></FaStar></p>
+
+                    <hr className="my-1 md:hidden" />
+
+                    <div>
+                        <h1 className="text-4xl font-bold hidden md:block my-5">{dish.dishName}</h1>
+                        <div className="md:mt-10">
+                            <div className="grid grid-cols-3 justify-items-center md:justify-items-start md:content-start">
+                                <div>
+                                    <p><SlLike className="md:size-6"></SlLike></p>
+                                    <p>56</p>
+                                </div>
+                                <div>
+                                    <p className="text-blue-600"><FaComments className="md:size-6"></FaComments></p>
+                                    <p>12</p>
+                                </div>
+                                <div className="flex items-center text-yellow-500">
+                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
+                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
+                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
+                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
+                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
+                                </div>
+                            </div>
+                            <div className="my-3 flex items-center md:items-start justify-between md:justify-evenly">
+                                <h1 className="font-semibold italic">Followers : 49</h1>
+                                <button className="myBtn h-7"><RiUserFollowFill className="text-white size-6"></RiUserFollowFill></button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
                 <hr className="my-1" />
+
+
                 <div>
-                    <h1 className="font-semibold my-2">RECIPE / INGREDIENTS</h1>
+                    <h1 className="font-semibold my-2 md:text-2xl">RECIPE / INGREDIENTS</h1>
                     <div>
                         {
                             dish.recipe.map((item, index) => (
@@ -94,7 +114,7 @@ const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
                 </div>
 
                 <div className="mt-10">
-                    <p className="font-semibold">Comments :</p>
+                    <p className="font-semibold md:text-xl">Comments :</p>
 
                     <div className="mb-3 py-1">
                         Past a comment

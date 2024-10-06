@@ -53,7 +53,7 @@ const Navbar = () => {
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
                                     <div onClick={()=>setOpen(false)} className="w-full flex items-center gap-x-1">
-                                        <div className="text-red-900"><BsFillCupHotFill width={24}></BsFillCupHotFill></div>
+                                        <div className="text-red-900"><BsFillCupHotFill width={24} className="md:size-6"></BsFillCupHotFill></div>
                                         Breakfast
                                     </div>
                                 </Link>
@@ -61,7 +61,7 @@ const Navbar = () => {
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
                                     <div onClick={()=>setOpen(false)} className="w-full flex items-center gap-x-1">
-                                        <div className="text-red-500"><GiChickenOven width={24}></GiChickenOven></div>
+                                        <div className="text-red-500"><GiChickenOven width={24} className="md:size-6"></GiChickenOven></div>
                                         Lanch
                                     </div>
                                 </Link>
@@ -69,7 +69,7 @@ const Navbar = () => {
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
                                     <div onClick={()=>setOpen(false)} className="w-full flex items-center gap-x-1">
-                                        <div className="text-green-500"><MdDinnerDining width={24}></MdDinnerDining></div>
+                                        <div className="text-green-500"><MdDinnerDining width={24} className="md:size-6"></MdDinnerDining></div>
                                         Dinner
                                     </div>
                                 </Link>
@@ -77,7 +77,7 @@ const Navbar = () => {
                             <div className="px-2 py-2 hover:bg-white">
                                 <Link href="/login">
                                     <div onClick={()=>setOpen(false)} className="w-full flex items-center gap-x-1">
-                                        <div className="text-green-700"><TbLogin width={24}></TbLogin></div>
+                                        <div className="text-green-700"><TbLogin width={24} className="md:size-6"></TbLogin></div>
                                         Login
                                     </div>
                                 </Link>
