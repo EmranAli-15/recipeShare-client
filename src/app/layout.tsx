@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
+import ContextProvider from "@/contextProvider/ContextProvider";
 
 
 // export const metadata: Metadata = {
@@ -19,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Provider store={store}>
-          {children}
-        </Provider>
+        <ContextProvider>
+          <Provider store={store}>
+            {children}
+          </Provider>
+        </ContextProvider>
       </body>
     </html>
   );

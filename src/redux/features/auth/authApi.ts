@@ -1,3 +1,4 @@
+import { loginUser, registerUser } from "@/services/auth/auth";
 import { baseApi } from "../../api/baseApi";
 import { userLoggedIn } from "./authSlice";
 
@@ -24,6 +25,7 @@ const authApi = baseApi.injectEndpoints({
                         token: result.data.token
                     };
                     dispatch(userLoggedIn(data));
+                    registerUser(data.token)
                     localStorage.setItem("auth", JSON.stringify(
                         {
                             accessToken: data.token,
@@ -55,6 +57,7 @@ const authApi = baseApi.injectEndpoints({
                         token: result.data.token
                     };
                     dispatch(userLoggedIn(data));
+                    loginUser(data.token)
                     localStorage.setItem("auth", JSON.stringify(
                         {
                             accessToken: data.token,

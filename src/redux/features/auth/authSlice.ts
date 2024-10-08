@@ -1,9 +1,11 @@
+import { logOutUser } from "@/services/auth/auth";
 import { createSlice } from "@reduxjs/toolkit";
 
 type TUser = {
     name: string;
     email: string;
     role: string;
+    photo?: string
 };
 
 type TAuth = {
@@ -28,7 +30,7 @@ const authSlice = createSlice({
             state.user = undefined;
             state.accessToken = undefined;
             localStorage.removeItem("auth");
-
+            logOutUser()
         },
     }
 });

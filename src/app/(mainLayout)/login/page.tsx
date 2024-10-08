@@ -1,5 +1,6 @@
 "use client"
 
+import { useUser } from "@/contextProvider/ContextProvider";
 import { useLoginUserMutation } from "@/redux/features/auth/authApi";
 import CommonLoader from "@/ui/loader/CommonLoader";
 import Link from "next/link";
@@ -7,9 +8,11 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 
 const LoginPage = () => {
-    const [email, setEmail] = useState("emran@gmail.com");
-    const [password, setPassword] = useState("emran");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    const {setUserLoading} = useUser()
 
     const router = useRouter();
 
@@ -25,6 +28,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (isSuccess) {
+            setUserLoading(true);
             router.push("/");
         }
         if (resError) {

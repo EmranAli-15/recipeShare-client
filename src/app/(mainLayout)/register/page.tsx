@@ -1,5 +1,6 @@
 "use client"
 
+import { useUser } from "@/contextProvider/ContextProvider";
 import { useRegisterUserMutation } from "@/redux/features/auth/authApi";
 import CommonLoader from "@/ui/loader/CommonLoader";
 import Link from "next/link";
@@ -13,6 +14,8 @@ const RegisterPage = () => {
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
     const [error, setError] = useState("");
+
+    const { setUserLoading } = useUser()
 
     const router = useRouter();
 
@@ -33,6 +36,7 @@ const RegisterPage = () => {
 
     useEffect(() => {
         if (isSuccess) {
+            setUserLoading(true);
             router.push("/");
         }
         if (resError) {
