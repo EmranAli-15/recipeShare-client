@@ -5,7 +5,8 @@ import { getCurrentUser } from './services/auth/auth';
 
 
 const authRoutes = ["/login", "/register"];
-const userRoutes = ["/profile/addItem"]
+const userRoutes = ["/user/addItem"];
+const adminRoutes = ["/admin/addItem"];
 
 
 export async function middleware(request: NextRequest) {
@@ -28,6 +29,11 @@ export async function middleware(request: NextRequest) {
         if (match) {
             return NextResponse.next()
         }
+    } else if (user?.role && user.role === "admin") {
+        const match = adminRoutes.find(path => path == pathname);
+        if (match) {
+            return NextResponse.next()
+        }
     }
 
     return NextResponse.redirect(new URL('/', request.url))
@@ -35,5 +41,5 @@ export async function middleware(request: NextRequest) {
 
 
 export const config = {
-    matcher: ['/profile/:page*', '/login', '/register'],
+    matcher: ['/user/:page*', '/admin/:page*', '/login', '/register'],
 }

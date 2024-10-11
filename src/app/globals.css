@@ -54,3 +54,10 @@
 .myBtn:hover:before {
     width: 100%;
 }
+
+
+
+
+.ql-container {
+    height: 350px !important;
+}
