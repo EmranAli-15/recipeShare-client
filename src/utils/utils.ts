@@ -1,8 +1,8 @@
 const api_key = 'https://api.imgbb.com/1/upload?key=7c5149d68aa7c8554ec08575ce91bdaa'
 
 export async function uploadImage(image: any) {
-    
-    let liveUrl = false;
+
+    let liveUrl = null;
     const formData = new FormData();
     formData.append('image', image);
 
@@ -15,7 +15,7 @@ export async function uploadImage(image: any) {
             if (imgResponse.success) {
                 liveUrl = imgResponse.data.url;
             } else {
-                liveUrl = false;
+                liveUrl = null;
             }
         });
     return liveUrl

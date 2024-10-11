@@ -7,7 +7,6 @@ type TAuthContext = {
     userLoading: boolean;
     setUser: (user: any) => void;
     setUserLoading: (userLoading: boolean) => void;
-    handleUser: () => void
 }
 
 export const authContext = createContext<TAuthContext | undefined>(undefined);
@@ -34,7 +33,6 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
         userLoading,
         setUser,
         setUserLoading,
-        handleUser
     }
 
     return (
