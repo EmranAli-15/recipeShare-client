@@ -15,11 +15,14 @@ import { useAppDispatch } from "@/redux/hooks";
 import { userLoggedOut } from "@/redux/features/auth/authSlice";
 import { FaUser } from "react-icons/fa";
 import { PiSignOutFill } from "react-icons/pi";
+import Dashboard from "@/components/dashboard/Dashboard";
 
 const Navbar = () => {
     const dispatch = useAppDispatch();
 
     const [open, setOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+
     const { user: userFromContext, setUserLoading } = useUser();
 
     const photo = userFromContext?.photo;
@@ -32,6 +35,15 @@ const Navbar = () => {
 
     return (
         <div>
+
+            {
+                openModal &&
+                <Dashboard
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}>
+                </Dashboard>
+            }
+
             <div className="w-full h-[60px] border-b">
                 <div className="max-w-7xl mx-auto">
                     <div className="h-[60px] flex items-center justify-around md:justify-between">
@@ -52,7 +64,13 @@ const Navbar = () => {
                             <div className="hidden md:block">
                                 {
                                     userFromContext ?
-                                        photo ? <img className="size-9 rounded-full" src={photo} alt="" /> : "no" :
+                                        photo ? <span onClick={() => setOpenModal(!openModal)}>
+                                            <img className="size-9 rounded-full cursor-pointer" src={photo} alt="" />
+                                        </span> :
+                                            <span className="cursor-pointer" onClick={() => setOpenModal(!openModal)}>
+                                                "no"
+                                            </span>
+                                        :
                                         <Link href="/login">
                                             <button className="myBtn h-[38px]">Login</button>
                                         </Link>
@@ -69,15 +87,18 @@ const Navbar = () => {
                 <div className={`${open ? 'block z-10' : 'hidden'} absolute`}>
                     <div className="w-[100vw] md:max-w-7xl md:mx-auto bg-slate-50 border-l-[1px] border-r-[1px] border-b-[1px] rounded-b-md px-3 font-semibold shadow-2xl">
                         <div className="flex flex-col">
-                            <div className="border-b px-2 py-3 hover:bg-white">
+                            <div
+                                onClick={() => setOpen(false)}
+                                className="border-b px-2 py-3 hover:bg-white">
                                 {
                                     userFromContext ?
-                                        photo ?
-                                            <div className="flex items-center gap-x-2 cursor-pointer">
-                                                <img className="size-7 rounded-full" src={photo} alt="" />
-                                                <span>Profile</span>
-                                            </div>
-                                            : <FaUser></FaUser> :
+                                        photo ? <span onClick={() => setOpenModal(!openModal)}>
+                                            <img className="size-7 rounded-full cursor-pointer" src={photo} alt="" />
+                                        </span> :
+                                            <span className="cursor-pointer" onClick={() => setOpenModal(!openModal)}>
+                                                "no"
+                                            </span>
+                                        :
                                         <Link href="/login">
                                             <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-1">
                                                 <div className="text-green-700"><TbLogin width={24} className="md:size-6"></TbLogin></div>
