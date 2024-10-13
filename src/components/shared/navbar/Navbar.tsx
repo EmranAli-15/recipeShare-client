@@ -5,20 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-import { BsFillCupHotFill } from "react-icons/bs";
-import { TbLogin } from "react-icons/tb";
-import { GiChickenOven } from "react-icons/gi";
-import { MdDinnerDining } from "react-icons/md";
-import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { useUser } from "@/contextProvider/ContextProvider";
 import { useAppDispatch } from "@/redux/hooks";
 import { userLoggedOut } from "@/redux/features/auth/authSlice";
-import { FaUser } from "react-icons/fa";
-import { PiSignOutFill } from "react-icons/pi";
 import Dashboard from "@/components/dashboard/Dashboard";
+import { Breakfast, Close, Dinner, Lunch, Login, Logout, Menu, Occasion } from "@/ui/icons/Icons";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const [open, setOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
@@ -31,6 +27,7 @@ const Navbar = () => {
     const handleLogOut = () => {
         dispatch(userLoggedOut());
         setUserLoading(true);
+        router.push("/");
     }
 
     return (
@@ -49,7 +46,7 @@ const Navbar = () => {
                     <div className="h-[60px] flex items-center justify-around md:justify-between">
                         <div onClick={() => setOpen(!open)} className={`${open ? 'rotate-90' : 'rotate-0'} transition duration-300 cursor-pointer`}>
                             {
-                                open ? <IoMdClose size={24}></IoMdClose> : <IoMdMenu size={24}></IoMdMenu>
+                                open ? <Close></Close> : <Menu></Menu>
                             }
                         </div>
 
@@ -89,11 +86,11 @@ const Navbar = () => {
                         <div className="flex flex-col">
                             <div
                                 onClick={() => setOpen(false)}
-                                className="border-b px-2 py-3 hover:bg-white">
+                                className="border-b px-2 py-3 hover:bg-white cursor-pointer">
                                 {
                                     userFromContext ?
                                         photo ? <span onClick={() => setOpenModal(!openModal)}>
-                                            <img className="size-7 rounded-full cursor-pointer" src={photo} alt="" />
+                                            <img className="size-7 rounded-full" src={photo} alt="" />
                                         </span> :
                                             <span className="cursor-pointer" onClick={() => setOpenModal(!openModal)}>
                                                 "no"
@@ -101,7 +98,9 @@ const Navbar = () => {
                                         :
                                         <Link href="/login">
                                             <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-1">
-                                                <div className="text-green-700"><TbLogin width={24} className="md:size-6"></TbLogin></div>
+                                                <div>
+                                                    <Login></Login>
+                                                </div>
                                                 Login
                                             </div>
                                         </Link>
@@ -109,25 +108,41 @@ const Navbar = () => {
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
-                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-1">
-                                        <div className="text-red-900"><BsFillCupHotFill width={24} className="md:size-6"></BsFillCupHotFill></div>
+                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-2">
+                                        <div>
+                                            <Breakfast></Breakfast>
+                                        </div>
                                         Breakfast
                                     </div>
                                 </Link>
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
-                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-1">
-                                        <div className="text-red-500"><GiChickenOven width={24} className="md:size-6"></GiChickenOven></div>
-                                        Lanch
+                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-2">
+                                        <div>
+                                            <Lunch></Lunch>
+                                        </div>
+                                        Lunch
                                     </div>
                                 </Link>
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
-                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-1">
-                                        <div className="text-green-500"><MdDinnerDining width={24} className="md:size-6"></MdDinnerDining></div>
+                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-2">
+                                        <div>
+                                            <Dinner></Dinner>
+                                        </div>
                                         Dinner
+                                    </div>
+                                </Link>
+                            </div>
+                            <div className="border-b px-2 py-2 hover:bg-white">
+                                <Link href="#">
+                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-2">
+                                        <div>
+                                            <Occasion></Occasion>
+                                        </div>
+                                        Occasion
                                     </div>
                                 </Link>
                             </div>
@@ -135,7 +150,9 @@ const Navbar = () => {
                                 {
                                     userFromContext && <div className="px-2 py-2 hover:bg-white">
                                         <button onClick={handleLogOut} className="w-full flex items-center gap-x-1">
-                                            <div className="text-red-500"><PiSignOutFill width={24} className="md:size-6"></PiSignOutFill></div>
+                                            <div>
+                                                <Logout></Logout>
+                                            </div>
                                             LogOut
                                         </button>
                                     </div>

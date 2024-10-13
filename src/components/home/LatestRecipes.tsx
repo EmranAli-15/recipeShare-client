@@ -142,8 +142,8 @@ const foods = [
 ];
 
 
+import { Star } from "@/ui/icons/Icons";
 import Link from "next/link";
-import { FaStar } from "react-icons/fa";
 
 const LatestRecipes = () => {
     return (
@@ -163,7 +163,7 @@ const LatestRecipes = () => {
                                     <div className="flex items-start">
                                         <div className="flex items-center text-[12px] bg-gray-100 px-1">
                                             <span className="text-yellow-500">
-                                                <FaStar></FaStar>
+                                                <Star w="17"></Star>
                                             </span>
                                             <p>
                                                 {food.rating}

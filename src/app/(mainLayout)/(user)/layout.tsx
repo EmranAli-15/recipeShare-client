@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ReactNode, useState } from "react";
-import { FaHome, FaSignOutAlt } from "react-icons/fa";
 
 const Layout = ({ children }: { children: ReactNode }) => {
 

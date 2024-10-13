@@ -1,5 +1,5 @@
+import { Close } from "@/ui/icons/Icons";
 import UserDashboard from "./user/UserDashboard";
-import { MdCancel } from "react-icons/md";
 
 
 const Dashboard = ({ openModal, setOpenModal }: { openModal: boolean, setOpenModal: (arg: boolean) => void }) => {
@@ -12,7 +12,9 @@ const Dashboard = ({ openModal, setOpenModal }: { openModal: boolean, setOpenMod
             ></div>
             <div className="rounded w-[400px] lg:w-[600px] space-y-8 bg-white p-5 absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
                 <div className="flex justify-end -mt-3 -mr-3">
-                    <MdCancel onClick={() => setOpenModal(false)} className="size-6 cursor-pointer"></MdCancel>
+                    <span className="cursor-pointer" onClick={() => setOpenModal(false)}>
+                        <Close></Close>
+                    </span>
                 </div>
                 {
                     <UserDashboard></UserDashboard>

@@ -34,11 +34,7 @@ const dish = {
     ]
 }
 
-import { SlLike } from "react-icons/sl";
-import { FaComments } from "react-icons/fa";
-import { FaStar } from "react-icons/fa6";
-import { MdDone } from "react-icons/md";
-import { RiUserFollowFill } from "react-icons/ri";
+import { Comment, Following, Like, Star } from "@/ui/icons/Icons";
 
 const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
     console.log(params.recipeId);
@@ -70,26 +66,26 @@ const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
                     <div>
                         <h1 className="text-4xl font-bold hidden md:block my-5">{dish.dishName}</h1>
                         <div className="md:mt-10">
-                            <div className="grid grid-cols-3 justify-items-center md:justify-items-start md:content-start">
+                            <div className="grid grid-cols-3 justify-items-center md:justify-items-start">
                                 <div>
-                                    <p><SlLike className="md:size-6"></SlLike></p>
+                                    <p><Like></Like></p>
                                     <p>56</p>
                                 </div>
                                 <div>
-                                    <p className="text-blue-600"><FaComments className="md:size-6"></FaComments></p>
+                                    <p><Comment></Comment></p>
                                     <p>12</p>
                                 </div>
                                 <div className="flex items-center text-yellow-500">
-                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
-                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
-                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
-                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
-                                    <p><FaStar size={13} className="md:size-6"></FaStar></p>
+                                    <p><Star w="22"></Star></p>
+                                    <p><Star w="22"></Star></p>
+                                    <p><Star w="22"></Star></p>
+                                    <p><Star w="22"></Star></p>
+                                    <p><Star w="22"></Star></p>
                                 </div>
                             </div>
                             <div className="my-3 flex items-center md:items-start justify-between md:justify-evenly">
                                 <h1 className="font-semibold italic">Followers : 49</h1>
-                                <button className="myBtn h-7"><RiUserFollowFill className="text-white size-6"></RiUserFollowFill></button>
+                                <button className="myBtn h-7"><Following></Following></button>
                             </div>
                         </div>
                     </div>
@@ -105,7 +101,6 @@ const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
                         {
                             dish.recipe.map((item, index) => (
                                 <div className="border-b flex items-start gap-x-2">
-                                    <p className="text-green-400 font-extrabold"><MdDone size={20}></MdDone></p>
                                     <p>{item}</p>
                                 </div>
                             ))

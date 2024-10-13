@@ -23,6 +23,7 @@ export const getCurrentUser = async () => {
             photo: decodedToken.photo,
             email: decodedToken.email,
             role: decodedToken.role,
+            userId: decodedToken.userId
         })
     } else {
         return decodedToken;
