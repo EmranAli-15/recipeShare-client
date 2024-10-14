@@ -1,22 +1,9 @@
 import { BaseQueryApi, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { RootState } from '../store';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:5000',
-    prepareHeaders: (headers, { getState }) => {
-        // const auth = localStorage.getItem("auth");
-        const auth = (getState() as RootState)?.authFormRedux?.accessToken;
-        let token;
-
-        if (auth) {
-            const accessToken = JSON.parse(auth);
-            token = accessToken;
-        }
-
-        if (token) {
-            headers.set('authorization', `Bearer ${token}`);
-        };
-
+    credentials: "include",
+    prepareHeaders: (headers, { }) => {
         return headers;
     },
 })

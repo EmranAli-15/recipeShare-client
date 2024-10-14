@@ -6,7 +6,7 @@ const recipeApi = baseApi.injectEndpoints({
             query: (data) => ({
                 url: '/api/recipe/createRecipe',
                 body: data,
-                method: 'POST'
+                method: 'POST',
             })
         }),
     })

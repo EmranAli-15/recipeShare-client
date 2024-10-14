@@ -17,11 +17,29 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
     const [userLoading, setUserLoading] = useState(true);
 
     const handleUser = async () => {
-        const user = await getCurrentUser();
+        const currentUser = await getCurrentUser();
 
-        setUser(user);
+        setUser(currentUser);
         setUserLoading(false)
     }
+
+    // useEffect(() => {
+    //     let user = null
+
+    //     const data = localStorage.getItem("auth");
+    //     if (data) {
+    //         const parsed = JSON.parse(data);
+    //         user = {
+    //             email: parsed.user.email,
+    //             name: parsed.user.name,
+    //             photo: parsed.user.photo,
+    //             role: parsed.user.role,
+    //             userId: parsed.user.userId,
+    //         }
+    //     }
+
+    //     setUser(user)
+    // }, [])
 
     useEffect(() => {
         handleUser();

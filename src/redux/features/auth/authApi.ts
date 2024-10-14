@@ -41,7 +41,7 @@ const authApi = baseApi.injectEndpoints({
             query: (data) => ({
                 url: '/api/auth/login',
                 body: data,
-                method: 'POST'
+                method: 'POST',
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 arg;
@@ -50,17 +50,19 @@ const authApi = baseApi.injectEndpoints({
                     const user = {
                         name: result.data.data.name,
                         email: result.data.data.email,
+                        photo: result.data.data?.photo,
                         role: result.data.data.role,
+                        userId: result.data.data._id,
                     }
                     const data = {
                         data: user,
-                        token: result.data.token
+                        // token: result.data.token
                     };
                     dispatch(userLoggedIn(data));
-                    loginUser(data.token)
+                    // loginUser(data.token)
                     localStorage.setItem("auth", JSON.stringify(
                         {
-                            accessToken: data.token,
+                            // accessToken: data.token,
                             user: user
                         }
                     ));

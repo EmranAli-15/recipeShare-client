@@ -1,8 +1,6 @@
-
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getCurrentUser } from './services/auth/auth';
-
 
 const authRoutes = ["/login", "/register"];
 const userRoutes = ["/user/addItem"];

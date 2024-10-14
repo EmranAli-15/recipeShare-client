@@ -5,7 +5,8 @@ type TUser = {
     name: string;
     email: string;
     role: string;
-    photo?: string
+    photo?: string,
+    userId?: string
 };
 
 type TAuth = {
