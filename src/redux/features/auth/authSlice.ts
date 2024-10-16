@@ -1,40 +1,18 @@
 import { logOutUser } from "@/services/auth/auth";
 import { createSlice } from "@reduxjs/toolkit";
 
-type TUser = {
-    name: string;
-    email: string;
-    role: string;
-    photo?: string,
-    userId?: string
-};
-
-type TAuth = {
-    user: TUser | undefined;
-    accessToken: string | undefined;
-}
-
-const initialState: TAuth = {
-    user: undefined,
-    accessToken: undefined
-};
+const initialState = {};
 
 const authSlice = createSlice({
     name: "auth",
     initialState: initialState,
     reducers: {
-        userLoggedIn: (state, action) => {
-            state.user = action.payload.data;
-            state.accessToken = action.payload.token;
-        },
-        userLoggedOut: (state) => {
-            state.user = undefined;
-            state.accessToken = undefined;
+        userLoggedOut: () => {
+            logOutUser();
             localStorage.removeItem("auth");
-            logOutUser()
         },
     }
 });
 
 export default authSlice.reducer;
-export const { userLoggedIn, userLoggedOut } = authSlice.actions;
+export const { userLoggedOut } = authSlice.actions;

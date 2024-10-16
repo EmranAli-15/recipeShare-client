@@ -1,9 +1,6 @@
-import { loginUser, registerUser } from "@/services/auth/auth";
 import { baseApi } from "../../api/baseApi";
-import { userLoggedIn } from "./authSlice";
 
 const authApi = baseApi.injectEndpoints({
-
     endpoints: (builder) => ({
         registerUser: builder.mutation({
             query: (data) => ({
@@ -11,30 +8,19 @@ const authApi = baseApi.injectEndpoints({
                 body: data,
                 method: 'POST'
             }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-                arg;
+            async onQueryStarted({ queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
-                    const user = {
-                        name: result.data.data.name,
-                        email: result.data.data.email,
-                        role: result.data.data.role,
-                    }
-                    const data = {
-                        data: user,
-                        token: result.data.token
-                    };
-                    dispatch(userLoggedIn(data));
-                    registerUser(data.token)
                     localStorage.setItem("auth", JSON.stringify(
                         {
-                            accessToken: data.token,
-                            user: user
+                            name: result.data.data.name,
+                            email: result.data.data.email,
+                            photo: result.data.data?.photo,
+                            role: result.data.data.role,
+                            userId: result.data.data._id,
                         }
                     ));
-                } catch (error) {
-
-                }
+                } catch (error) { }
             }
         }),
         loginUser: builder.mutation({
@@ -43,32 +29,19 @@ const authApi = baseApi.injectEndpoints({
                 body: data,
                 method: 'POST',
             }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-                arg;
+            async onQueryStarted(arg, { queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
-                    const user = {
-                        name: result.data.data.name,
-                        email: result.data.data.email,
-                        photo: result.data.data?.photo,
-                        role: result.data.data.role,
-                        userId: result.data.data._id,
-                    }
-                    const data = {
-                        data: user,
-                        // token: result.data.token
-                    };
-                    dispatch(userLoggedIn(data));
-                    // loginUser(data.token)
                     localStorage.setItem("auth", JSON.stringify(
                         {
-                            // accessToken: data.token,
-                            user: user
+                            name: result.data.data.name,
+                            email: result.data.data.email,
+                            photo: result.data.data?.photo,
+                            role: result.data.data.role,
+                            userId: result.data.data._id,
                         }
                     ));
-                } catch (error) {
-
-                }
+                } catch (error) { }
             }
         })
     })

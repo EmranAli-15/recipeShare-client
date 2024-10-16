@@ -1,5 +1,3 @@
-
-import { getCurrentUser } from "@/services/auth/auth";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 type TAuthContext = {
@@ -16,33 +14,18 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<any | null>(null);
     const [userLoading, setUserLoading] = useState(true);
 
-    const handleUser = async () => {
-        const currentUser = await getCurrentUser();
-
+    const handleUser = async (currentUser: any) => {
         setUser(currentUser);
         setUserLoading(false)
     }
 
-    // useEffect(() => {
-    //     let user = null
-
-    //     const data = localStorage.getItem("auth");
-    //     if (data) {
-    //         const parsed = JSON.parse(data);
-    //         user = {
-    //             email: parsed.user.email,
-    //             name: parsed.user.name,
-    //             photo: parsed.user.photo,
-    //             role: parsed.user.role,
-    //             userId: parsed.user.userId,
-    //         }
-    //     }
-
-    //     setUser(user)
-    // }, [])
-
     useEffect(() => {
-        handleUser();
+        let userData = null;
+        const auth = localStorage.getItem("auth");
+        if (auth) {
+            userData = JSON.parse(auth);
+        }
+        handleUser(userData);
     }, [userLoading])
 
 

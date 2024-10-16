@@ -23,7 +23,6 @@ const Navbar = () => {
 
     const photo = userFromContext?.photo;
 
-
     const handleLogOut = () => {
         dispatch(userLoggedOut());
         setUserLoading(true);
