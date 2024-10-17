@@ -9,15 +9,15 @@ import { useUser } from "@/contextProvider/ContextProvider";
 import { useAppDispatch } from "@/redux/hooks";
 import { userLoggedOut } from "@/redux/features/auth/authSlice";
 import Dashboard from "@/components/dashboard/Dashboard";
-import { Breakfast, Close, Dinner, Lunch, Login, Logout, Menu, Occasion } from "@/ui/icons/Icons";
+import { Breakfast, Close, Dinner, Lunch, Login, Logout, Menu, Occasion, User } from "@/ui/icons/Icons";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const [open, setOpen] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
+    const [openMenu, setOpenMenu] = useState(false);
+    const [openDashboardModal, setOpenDashboardModal] = useState(false);
 
     const { user: userFromContext, setUserLoading } = useUser();
 
@@ -33,19 +33,21 @@ const Navbar = () => {
         <div>
 
             {
-                openModal &&
+                openDashboardModal &&
                 <Dashboard
-                    openModal={openModal}
-                    setOpenModal={setOpenModal}>
+                    openDashboardModal={openDashboardModal}
+                    setOpenDashboardModal={setOpenDashboardModal}>
                 </Dashboard>
             }
 
+
+            {/* This is for navbar with responsive */}
             <div className="w-full h-[60px] border-b">
                 <div className="max-w-7xl mx-auto">
                     <div className="h-[60px] flex items-center justify-around md:justify-between">
-                        <div onClick={() => setOpen(!open)} className={`${open ? 'rotate-90' : 'rotate-0'} transition duration-300 cursor-pointer`}>
+                        <div onClick={() => setOpenMenu(!openMenu)} className={`${openMenu ? 'rotate-90' : 'rotate-0'} transition duration-300 cursor-pointer`}>
                             {
-                                open ? <Close></Close> : <Menu></Menu>
+                                openMenu ? <Close></Close> : <Menu></Menu>
                             }
                         </div>
 
@@ -60,11 +62,11 @@ const Navbar = () => {
                             <div className="hidden md:block">
                                 {
                                     userFromContext ?
-                                        photo ? <span onClick={() => setOpenModal(!openModal)}>
-                                            <img className="size-9 rounded-full cursor-pointer" src={photo} alt="" />
+                                        photo ? <span onClick={() => setOpenDashboardModal(!openDashboardModal)}>
+                                            <Image width={35} height={35} className="rounded-full cursor-pointer" src={photo} alt="" />
                                         </span> :
-                                            <span className="cursor-pointer" onClick={() => setOpenModal(!openModal)}>
-                                                "no"
+                                            <span className="cursor-pointer" onClick={() => setOpenDashboardModal(!openDashboardModal)}>
+                                                <User w="30"></User>
                                             </span>
                                         :
                                         <Link href="/login">
@@ -73,30 +75,40 @@ const Navbar = () => {
                                 }
                             </div>
                             <Link href="/">
+                                {/* Website Logo */}
                                 <Image height={4} width={43} alt="logo" src={logo} />
                             </Link>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            {/* This is for navbar menus */}
             <div className="max-w-7xl mx-auto relative">
-                <div className={`${open ? 'block z-10' : 'hidden'} absolute`}>
+                <div className={`${openMenu ? 'block z-10' : 'hidden'} absolute`}>
                     <div className="w-[100vw] md:max-w-7xl md:mx-auto bg-slate-50 border-l-[1px] border-r-[1px] border-b-[1px] rounded-b-md px-3 font-semibold shadow-2xl">
                         <div className="flex flex-col">
                             <div
-                                onClick={() => setOpen(false)}
+                                onClick={() => setOpenMenu(false)}
                                 className="border-b px-2 py-3 hover:bg-white cursor-pointer">
                                 {
                                     userFromContext ?
-                                        photo ? <span onClick={() => setOpenModal(!openModal)}>
-                                            <img className="size-7 rounded-full" src={photo} alt="" />
+                                        photo ? <span onClick={() => setOpenDashboardModal(!openDashboardModal)}>
+                                            <span className="cursor-pointer flex items-center gap-x-2" onClick={() => setOpenDashboardModal(!openDashboardModal)}>
+                                                <Image width={30} height={30} className="rounded-full" src={photo} alt="" />
+                                                <p>My Profile</p>
+                                            </span>
                                         </span> :
-                                            <span className="cursor-pointer" onClick={() => setOpenModal(!openModal)}>
-                                                "no"
+                                            <span className="cursor-pointer flex items-center gap-x-2" onClick={() => setOpenDashboardModal(!openDashboardModal)}>
+                                                <span className="rounded-full border">
+                                                    <User w="30"></User>
+                                                </span>
+                                                <p>My Profile</p>
                                             </span>
                                         :
                                         <Link href="/login">
-                                            <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-1">
+                                            <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-1">
                                                 <div>
                                                     <Login></Login>
                                                 </div>
@@ -107,7 +119,7 @@ const Navbar = () => {
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
-                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-2">
+                                    <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
                                         <div>
                                             <Breakfast></Breakfast>
                                         </div>
@@ -117,7 +129,7 @@ const Navbar = () => {
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
-                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-2">
+                                    <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
                                         <div>
                                             <Lunch></Lunch>
                                         </div>
@@ -127,7 +139,7 @@ const Navbar = () => {
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
-                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-2">
+                                    <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
                                         <div>
                                             <Dinner></Dinner>
                                         </div>
@@ -137,7 +149,7 @@ const Navbar = () => {
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href="#">
-                                    <div onClick={() => setOpen(false)} className="w-full flex items-center gap-x-2">
+                                    <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
                                         <div>
                                             <Occasion></Occasion>
                                         </div>
@@ -148,7 +160,7 @@ const Navbar = () => {
                             <div>
                                 {
                                     userFromContext && <div className="px-2 py-2 hover:bg-white">
-                                        <button onClick={handleLogOut} className="w-full flex items-center gap-x-1">
+                                        <button onClick={handleLogOut} className="w-full flex items-center gap-x-2">
                                             <div>
                                                 <Logout></Logout>
                                             </div>

@@ -1,12 +1,13 @@
 "use client"
 
 import { uploadImage } from '@/utils/utils';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { Gallery } from "@/ui/icons/Icons";
 import ReactQuill from 'react-quill';
 import { useCreateRecipeMutation } from '@/redux/features/recipe/recipeApi';
 import { useUser } from '@/contextProvider/ContextProvider';
+import CommonLoader from '@/ui/loader/CommonLoader';
 
 
 const AddItemPage = () => {
@@ -16,6 +17,8 @@ const AddItemPage = () => {
     const [thumbnailName, setThumbnailName] = useState("");
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("Occasion");
+
+    const [error, setError] = useState("");
 
     const { user } = useUser();
 
@@ -61,10 +64,22 @@ const AddItemPage = () => {
         createRecipe(data)
     }
 
+    useEffect(() => {
+        if (isSuccess) {
+        }
+        if (isError) {
+            if (isError) {
+            } else {
+                setError("Something went wrong!");
+            }
+        }
+    }, [isError, isSuccess])
+
     return (
         <div>
+            {isLoading && <CommonLoader></CommonLoader>}
             <div className="my-5">
-                <label>Title</label>
+                <label className='text-gray-400'>Title</label>
                 <input
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -74,7 +89,7 @@ const AddItemPage = () => {
 
             <div className='md:flex md:items-center gap-x-2'>
                 <div className="my-5 md:w-1/2">
-                    <label>Select Thumbnail Image</label>
+                    <label className='text-gray-400'>Select Thumbnail Image</label>
                     <label className="myInput text-center block cursor-pointer" htmlFor="thumbnailImg">
                         <div className="flex items-center justify-center gap-x-2">
                             {
@@ -92,7 +107,7 @@ const AddItemPage = () => {
                     />
                 </div>
                 <div className="my-5 md:w-1/2">
-                    <label>Select A Category</label>
+                    <label className='text-gray-400'>Select A Category</label>
                     <select
                         onChange={(e) => setCategory(e.target.value)}
                         className="myInput text-center block cursor-pointer"
@@ -108,7 +123,7 @@ const AddItemPage = () => {
 
             {/* For rich text editor */}
             <div>
-                <label>Write here recipe details</label>
+                <label className='text-gray-400'>Write here recipe details</label>
                 <div className='relative'>
                     <ReactQuill theme="snow" modules={modules} value={recipeDetails} onChange={setRecipeDetails} />
                     <label className='cursor-pointer absolute top-2 right-4' htmlFor="img">

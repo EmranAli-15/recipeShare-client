@@ -193,9 +193,9 @@ export const RecipeList = () => {
     )
 };
 
-export const User = () => {
+export const User = ({ w }: { w: any }) => {
     return (
-        <svg width="70px" height="70px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width={`${w ? w + "px" : "22px"}`} height={`${w ? w + "px" : "22px"}`} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z" fill="#134B70" />
             <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z" fill="#134B70" />
         </svg>
@@ -205,5 +205,29 @@ export const User = () => {
 export const Occasion = () => {
     return (
         <svg fill="#000000" width="30px" height="30px" viewBox="0 0 24 24" id="cake-2" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" className="icon flat-color"><circle id="secondary" cx="12" cy="9" r="3" fill="rgb(44, 169, 188)"></circle><path id="secondary-2" data-name="secondary" d="M12,8a1,1,0,0,1-1-1,3.52,3.52,0,0,1,1.44-2.83,1,1,0,0,1,1.13,1.65A1.53,1.53,0,0,0,13,7,1,1,0,0,1,12,8Z" fill="rgb(44, 169, 188)"></path><path id="primary" d="M20.1,11.75a2,2,0,0,0-2-1.75H5.88a2,2,0,0,0-2,1.75L3,18.88a1,1,0,0,0,.24.78A1,1,0,0,0,4,20H20a1,1,0,0,0,.75-.34,1,1,0,0,0,.24-.78Z" fill="rgb(0, 0, 0)"></path><path id="secondary-3" data-name="secondary" d="M21,20H3a1,1,0,0,1,0-2H21a1,1,0,0,1,0,2Z" fill="rgb(44, 169, 188)"></path></svg>
+    )
+};
+
+export const Warning = () => {
+    return (
+        <svg width="30px" height="30px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" className="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet">
+
+            <path d="M5.9 62c-3.3 0-4.8-2.4-3.3-5.3L29.3 4.2c1.5-2.9 3.9-2.9 5.4 0l26.7 52.5c1.5 2.9 0 5.3-3.3 5.3H5.9z" fill="#ffce31">
+
+            </path>
+
+            <g fill="#231f20">
+
+                <path d="M27.8 23.6l2.8 18.5c.3 1.8 2.6 1.8 2.9 0l2.7-18.5c.5-7.2-8.9-7.2-8.4 0">
+
+                </path>
+
+                <circle cx="32" cy="49.6" r="4.2">
+
+                </circle>
+
+            </g>
+
+        </svg>
     )
 }
