@@ -1,4 +1,4 @@
-// const foods = [
+// const recipes = [
 //     {
 //         id: 1,
 //         recipeName: "Yeammy Dish 1",
@@ -158,11 +158,11 @@ type recipeType = {
 }
 
 const LatestRecipes = async () => {
-    const { data: Foods } = await getLatestRecipes();
-    // console.log(Foods);
+    const { data: recipes } = await getLatestRecipes();
+    // console.log(recipes);
 
 
-    if (!Foods) {
+    if (!recipes) {
         return <Error heading="NO RECIPES FOUND!" description="Please refresh the page or wait a moment!"></Error>
     }
 
@@ -172,24 +172,24 @@ const LatestRecipes = async () => {
 
             <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
                 {
-                    Foods.map((food: recipeType) => (
-                        <Link href={`/recipeDetails/${food._id}`} key={food._id} className="border rounded-md p-1">
+                    recipes.map((recipe: recipeType) => (
+                        <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id} className="border rounded-md p-1">
                             <div>
                                 <div className="w-full h-32">
-                                    <img className="w-full h-full object-cover" src={food.image} alt={food.title} />
+                                    <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
                                 </div>
                                 <div className="md:px-2">
-                                    <h1 className="font-semibold my-2">{food.title}</h1>
+                                    <h1 className="font-semibold my-2">{recipe.title}</h1>
                                     <div className="flex items-start">
                                         <div className="flex items-center text-[12px] bg-gray-100 px-1">
                                             <span className="text-yellow-500">
                                                 <Star w="17"></Star>
                                             </span>
                                             <p>
-                                                {food.rating}
+                                                {recipe.rating}
                                             </p>
                                         </div>
-                                        <p className="ml-5 text-gray-500 text-sm">{food.user.name}</p>
+                                        <p className="ml-5 text-gray-500 text-sm">{recipe.user.name}</p>
                                     </div>
                                 </div>
                             </div>

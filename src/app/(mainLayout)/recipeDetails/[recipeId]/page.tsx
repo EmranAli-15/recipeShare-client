@@ -34,10 +34,23 @@ const dish = {
     ]
 }
 
+import { getSingleRecipe } from "@/services/recipes/recipes";
+import Error from "@/ui/Error/Error";
 import { Comment, Following, Like, Star } from "@/ui/icons/Icons";
 
-const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
-    console.log(params.recipeId);
+const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) => {
+    const recipeData = await getSingleRecipe(params.recipeId);
+    const { title, image, user, recipe, totalComment, comments, like, category, rating } = recipeData.data || {};
+
+    if (!recipeData?.data) {
+        return <div className="max-w-7xl mx-auto px-2 md:px-0">
+            <Error
+                heading="The recipe not found!"
+                description="For some reason the recipe is not founded, You can Refresh the page or report us."
+            >
+            </Error>
+        </div>
+    }
 
     return (
         <div>
@@ -58,22 +71,22 @@ const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
 
                 <div className="grid md:grid-cols-2 md:gap-x-10">
                     <div className="w-full h-48 md:h-96">
-                        <img className="w-full h-48 md:h-96 object-cover" src={dish.dishImage} alt="" />
+                        <img className="w-full h-48 md:h-96 object-cover" src={image} alt="" />
                     </div>
 
                     <hr className="my-1 md:hidden" />
 
                     <div>
-                        <h1 className="text-4xl font-bold hidden md:block my-5">{dish.dishName}</h1>
+                        <h1 className="text-4xl font-bold hidden md:block my-5">{title}</h1>
                         <div className="md:mt-10">
                             <div className="grid grid-cols-3 justify-items-center md:justify-items-start">
                                 <div>
                                     <p><Like></Like></p>
-                                    <p>56</p>
+                                    <p>{like}</p>
                                 </div>
                                 <div>
                                     <p><Comment></Comment></p>
-                                    <p>12</p>
+                                    <p>{totalComment}</p>
                                 </div>
                                 <div className="flex items-center text-yellow-500">
                                     <p><Star w="22"></Star></p>
@@ -97,14 +110,9 @@ const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
 
                 <div>
                     <h1 className="font-semibold my-2 md:text-2xl">RECIPE / INGREDIENTS</h1>
-                    <div>
-                        {
-                            dish.recipe.map((item, index) => (
-                                <div className="border-b flex items-start gap-x-2">
-                                    <p>{item}</p>
-                                </div>
-                            ))
-                        }
+                    <div
+                        dangerouslySetInnerHTML={{ __html: recipe }}
+                    >
                     </div>
                 </div>
 
@@ -121,13 +129,13 @@ const recipeDetailsPage = ({ params }: { params: { recipeId: string } }) => {
 
                     <div>
                         {
-                            dish.comments.map((comment, index) => (
-                                <div className="border rounded-md p-2">
+                            comments.map((comment: string, index: number) => (
+                                <div key={index} className="border rounded-md p-2">
                                     <div className="flex items-center gap-x-1">
-                                        <img className="size-8 rounded-full" src={chef.authorImage} alt="" />
-                                        <p className="text-gray-500">{chef.name}</p>
+                                        {/* <img className="size-8 rounded-full" src={user?.photo} alt="" />
+                                        <p className="text-gray-500">{user.name}</p> */}
                                     </div>
-                                    <p>{comment}</p>
+                                    {/* <p>{comment}</p> */}
                                 </div>
                             ))
                         }
