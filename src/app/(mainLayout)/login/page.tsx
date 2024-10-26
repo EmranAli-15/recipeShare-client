@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 
 const LoginPage = () => {
-    const [email, setEmail] = useState("emran@gmail.com");
-    const [password, setPassword] = useState("emran");
+    const [email, setEmail] = useState("opu@gmail.com");
+    const [password, setPassword] = useState("opu");
     const [error, setError] = useState("");
 
     const {setUserLoading} = useUser()
