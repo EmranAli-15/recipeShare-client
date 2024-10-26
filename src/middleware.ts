@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 import { getCurrentUser } from './services/auth/auth';
 
 const authRoutes = ["/login", "/register"];
-const userRoutes = ["/user/addItem"];
+const userRoutes = ["/user/addItem", "/user/myProfile"];
 const adminRoutes = ["/admin/addItem"];
 
 

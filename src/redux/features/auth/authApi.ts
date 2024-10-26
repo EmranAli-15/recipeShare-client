@@ -43,8 +43,17 @@ const authApi = baseApi.injectEndpoints({
                     ));
                 } catch (error) { }
             }
+        }),
+        myProfile: builder.query({
+            query: (id) => ({
+                url: `/api/auth/myProfile/${id}`,
+                method: 'GET',
+            }),
+            transformResponse(response: any) {
+                return response.data
+            }
         })
     })
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation } = authApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useMyProfileQuery } = authApi;
