@@ -1,14 +1,18 @@
 import Link from "next/link";
 import { AddRecipe, RecipeList, User } from "@/ui/icons/Icons";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg: boolean) => void }) => {
     return (
         <div>
             <div className="flex justify-center -mt-6">
-                <div className="flex flex-col items-center">
+                <Link
+                    href="/admin/adminProfile"
+                    className="flex flex-col items-center"
+                    onClick={() => setOpenDashboardModal(false)}
+                >
                     <User w="70"></User>
-                    <p className="font-mono text-red-600 text-3xl font-semibold">This is admin dashboard</p>
-                </div>
+                    <p className="font-mono">My Profile</p>
+                </Link>
             </div>
             <hr className="my-3" />
             <div className="flex items-center justify-evenly">

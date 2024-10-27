@@ -65,3 +65,16 @@ html {
 .ql-container {
     height: 370px !important;
 }
+
+
+
+/* modal animation */
+.modalAnimation {
+  animation-name: modal;
+  animation-duration: 0.3s;
+}
+
+@keyframes modal {
+  0%   {scale:80%;}
+  100% {scale:100%;}
+}

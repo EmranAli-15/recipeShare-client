@@ -4,7 +4,7 @@ import { getCurrentUser } from './services/auth/auth';
 
 const authRoutes = ["/login", "/register"];
 const userRoutes = ["/user/addItem", "/user/myProfile"];
-const adminRoutes = ["/admin/addItem"];
+const adminRoutes = ["/admin/addItem", "/admin/adminProfile"];
 
 
 export async function middleware(request: NextRequest) {

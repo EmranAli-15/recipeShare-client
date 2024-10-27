@@ -1,6 +1,6 @@
 import MyProfilePage from "@/components/dashboard/profile/Profile";
 
-const UserProfilePage = () => {
+const AdminProfilePage = () => {
     return (
         <div>
             <MyProfilePage></MyProfilePage>
@@ -8,4 +8,4 @@ const UserProfilePage = () => {
     );
 };
 
-export default UserProfilePage;
+export default AdminProfilePage;
