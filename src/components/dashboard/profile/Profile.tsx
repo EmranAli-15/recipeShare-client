@@ -8,6 +8,7 @@ import CommonLoader from "@/ui/loader/CommonLoader";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css"
+import { uploadImage } from "@/utils/utils";
 
 const PHOTO_NAME = "PHOTO_NAME";
 const EXPERIENCE = "EXPERIENCE";
@@ -23,12 +24,19 @@ const MyProfilePage = () => {
 
 
     const [userPhoto, setUserPhoto] = useState("");
+    const [isUserPhotoChange, setIsUserPhotoChange] = useState(false);
+    const [userPhotoUrl, setUserPhotoUrl] = useState<File | "">("");
     const [userName, setUserName] = useState("");
     const [userExperience, setUserExperience] = useState("");
     const [userBio, setUserBio] = useState("");
 
-    const handleUpdateUserData = (data: any) => {
-        setProfileModal(true);
+    const handlePhoto = (e: File) => {
+        setUserPhoto(URL.createObjectURL(e));
+        setUserPhotoUrl(e);
+        setIsUserPhotoChange(true);
+    }
+
+    const updatingUserData = (data: any) => {
         if (data == PHOTO_NAME) {
             setUserUpdate(PHOTO_NAME)
         } else if (data == EXPERIENCE) {
@@ -36,7 +44,27 @@ const MyProfilePage = () => {
         } else if (data == BIO) {
             setUserUpdate(BIO)
         }
+        setProfileModal(true);
     };
+
+    const handleUpdateUserData = async () => {
+        let userNewPhoto;
+
+        if (isUserPhotoChange) {
+            userNewPhoto = await uploadImage(userPhotoUrl);
+        };
+
+        const data = {
+            photo: userPhoto ? userPhoto : userNewPhoto || "",
+            name: userName || "Bob",
+            experience: userExperience || 0,
+            bio: userBio || ""
+        };
+
+        // below this line will be send data to server for updating the database
+        console.log(data);
+        setIsUserPhotoChange(false);
+    }
 
     useEffect(() => {
         if (isSuccess) {
@@ -84,7 +112,8 @@ const MyProfilePage = () => {
                                                             </div>
                                                 }
                                             </div>
-                                            <input onChange={(e) => setUserPhoto(URL.createObjectURL(e.target.files![0]))} className="hidden" id="#updateUserPhoto" type="file" />
+                                            <input onChange={(e) => handlePhoto(e.target.files![0])} className="hidden" id="#updateUserPhoto" type="file" />
+                                            {/* <input onChange={(e) => setUserPhoto(URL.createObjectURL(e.target.files![0]))} className="hidden" id="#updateUserPhoto" type="file" /> */}
                                             <label htmlFor="#updateUserPhoto" className="cursor-pointer text-blue-600 font-semibold">edit</label>
                                         </div>
                                         <div className="mt-3">
@@ -110,7 +139,7 @@ const MyProfilePage = () => {
                                     </div>
                                 }
                                 <div className="flex justify-center my-3">
-                                    <button className="myBtn h-9">UPDATE</button>
+                                    <button onClick={handleUpdateUserData} className="myBtn h-9">UPDATE</button>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +164,7 @@ const MyProfilePage = () => {
                         <h1 className="">Followers : {myProfile?.followers}</h1>
                     </div>
                 </div>
-                <p onClick={() => handleUpdateUserData(PHOTO_NAME)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
+                <p onClick={() => updatingUserData(PHOTO_NAME)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
             </div>
 
             {/* Start with experience and following section */}
@@ -144,7 +173,7 @@ const MyProfilePage = () => {
                     <div className="mt-1">
                         <div className="flex items-center justify-between">
                             <p className="text-xl font-semibold">Experience</p>
-                            <p onClick={() => handleUpdateUserData(EXPERIENCE)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
+                            <p onClick={() => updatingUserData(EXPERIENCE)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
                         </div>
                         <p className="text-gray-500">More about 36 years : {myProfile?.experience}</p>
                     </div>
@@ -161,7 +190,7 @@ const MyProfilePage = () => {
                     <div className="mt-1">
                         <div className="flex items-start justify-between">
                             <p className="text-xl font-semibold">Bio</p>
-                            <p onClick={() => handleUpdateUserData(BIO)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
+                            <p onClick={() => updatingUserData(BIO)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
                         </div>
                         <p className="text-justify mt-2 text-gray-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus minus minima ipsum velit iure. Quasi nam quaerat consequatur molestias recusandae aperiam quo nostrum magnam corrupti quis explicabo libero, odit unde totam nisi! Fugiat, ad dolor. Neque ratione reiciendis pariatur cum quisquam iusto ad qui nesciunt voluptatibus dolores, nostrum quasi accusantium.</p>
                     </div>
@@ -202,11 +231,9 @@ const MyProfilePage = () => {
 
     return (
         <div className="max-w-5xl mx-auto px-2 md:px-0">
-
             {
                 content
             }
-
         </div>
     );
 };
