@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css"
 import { uploadImage } from "@/utils/utils";
+import { useUpdateUserMutation } from "@/redux/features/user/userApi";
 
 const PHOTO_NAME = "PHOTO_NAME";
 const EXPERIENCE = "EXPERIENCE";
@@ -27,7 +28,7 @@ const MyProfilePage = () => {
     const [isUserPhotoChange, setIsUserPhotoChange] = useState(false);
     const [userPhotoUrl, setUserPhotoUrl] = useState<File | "">("");
     const [userName, setUserName] = useState("");
-    const [userExperience, setUserExperience] = useState("");
+    const [userExperience, setUserExperience] = useState(0);
     const [userBio, setUserBio] = useState("");
 
     const handlePhoto = (e: File) => {
@@ -47,24 +48,44 @@ const MyProfilePage = () => {
         setProfileModal(true);
     };
 
+
+
+    const [updateUser, { isLoading: updateUserLoading, isSuccess: updateUserSuccess, isError: updateUserError }] = useUpdateUserMutation();
+
     const handleUpdateUserData = async () => {
-        let userNewPhoto;
+        let updatedData = null;
+        if (userUpdate == PHOTO_NAME) {
+            let userNewPhoto = null;
 
-        if (isUserPhotoChange) {
-            userNewPhoto = await uploadImage(userPhotoUrl);
-        };
-
-        const data = {
-            photo: userPhoto ? userPhoto : userNewPhoto || "",
-            name: userName || "Bob",
-            experience: userExperience || 0,
-            bio: userBio || ""
-        };
+            if (isUserPhotoChange) {
+                userNewPhoto = await uploadImage(userPhotoUrl);
+            };
+            updatedData = {
+                photo: userNewPhoto ? userNewPhoto : userPhoto || "",
+                name: userName || "Bob"
+            };
+        }
+        else if (userUpdate == EXPERIENCE) {
+            updatedData = {
+                experience: userExperience || 0
+            };
+        }
+        else if (userUpdate == BIO) {
+            updatedData = {
+                bio: userBio
+            };
+        }
 
         // below this line will be send data to server for updating the database
-        console.log(data);
+        const finalUpdatedData = {
+            data: updatedData,
+            id: userId
+        }
+        console.log(finalUpdatedData);
+        updateUser(finalUpdatedData);
+
         setIsUserPhotoChange(false);
-    }
+    };
 
     useEffect(() => {
         if (isSuccess) {
@@ -73,7 +94,7 @@ const MyProfilePage = () => {
             setUserPhoto(myProfile?.photo);
             setUserBio(myProfile?.bio);
         }
-    }, [isError, isLoading, isSuccess])
+    }, [isError, isLoading, isSuccess, profileModal])
 
     let content = null;
 
@@ -126,7 +147,7 @@ const MyProfilePage = () => {
                                     userUpdate == EXPERIENCE && <div>
                                         <div>
                                             <label className="text-gray-500">Your Experience</label>
-                                            <input onChange={(e) => setUserExperience(e.target.value)} value={userExperience} className="myInput" type="number" />
+                                            <input onChange={(e) => setUserExperience(parseInt(e.target.value))} value={userExperience || 0} className="myInput" type="number" />
                                         </div>
                                     </div>
                                 }
@@ -175,7 +196,7 @@ const MyProfilePage = () => {
                             <p className="text-xl font-semibold">Experience</p>
                             <p onClick={() => updatingUserData(EXPERIENCE)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
                         </div>
-                        <p className="text-gray-500">More about 36 years : {myProfile?.experience}</p>
+                        <p className="text-gray-500">I'm working since <span className="font-semibold">{myProfile?.experience || 0}</span> years</p>
                     </div>
 
                     <hr className="mt-5" />

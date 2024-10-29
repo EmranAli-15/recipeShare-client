@@ -1,6 +1,6 @@
 import CommonLoader from "@/ui/loader/CommonLoader";
 
-const Loader = () => {
+const Loading = () => {
     return (
         <div>
             <CommonLoader></CommonLoader>
@@ -8,4 +8,4 @@ const Loader = () => {
     );
 };
 
-export default Loader;
+export default Loading;
