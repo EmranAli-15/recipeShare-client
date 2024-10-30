@@ -16,6 +16,7 @@ export const baseApi = createApi({
         return result
     },
     endpoints: () => ({}),
+    tagTypes: ["userProfile"]
 });
 
 export const { }: any = baseApi

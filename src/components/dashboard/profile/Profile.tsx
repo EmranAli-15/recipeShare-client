@@ -1,7 +1,6 @@
 "use client"
 
 import { useUser } from "@/contextProvider/ContextProvider";
-import { useMyProfileQuery } from "@/redux/features/auth/authApi";
 import Error from "@/ui/Error/Error";
 import { Close, User } from "@/ui/icons/Icons";
 import CommonLoader from "@/ui/loader/CommonLoader";
@@ -9,7 +8,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css"
 import { uploadImage } from "@/utils/utils";
-import { useUpdateUserMutation } from "@/redux/features/user/userApi";
+import { useMyProfileQuery, useUpdateUserMutation } from "@/redux/features/user/userApi";
+import ModalLoader from "@/ui/loader/ModalLoader";
 
 const PHOTO_NAME = "PHOTO_NAME";
 const EXPERIENCE = "EXPERIENCE";
@@ -76,12 +76,10 @@ const MyProfilePage = () => {
             };
         }
 
-        // below this line will be send data to server for updating the database
         const finalUpdatedData = {
             data: updatedData,
             id: userId
         }
-        console.log(finalUpdatedData);
         updateUser(finalUpdatedData);
 
         setIsUserPhotoChange(false);
@@ -94,7 +92,13 @@ const MyProfilePage = () => {
             setUserPhoto(myProfile?.photo);
             setUserBio(myProfile?.bio);
         }
-    }, [isError, isLoading, isSuccess, profileModal])
+    }, [isError, isLoading, isSuccess, profileModal]);
+
+    useEffect(() => {
+        if (updateUserSuccess) {
+            setProfileModal(false);
+        }
+    }, [updateUserLoading, updateUserSuccess, updateUserError]);
 
     let content = null;
 
@@ -115,6 +119,12 @@ const MyProfilePage = () => {
                         ></div>
                         <div className="w-[100vw] lg:w-[600px] space-y-6 absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
                             <div className="modalAnimation bg-white p-4 rounded">
+                                {
+                                    updateUserLoading &&
+                                    <div className="flex justify-center">
+                                        <ModalLoader></ModalLoader>
+                                    </div>
+                                }
                                 <div className="flex justify-end -mt-2 -mr-2">
                                     <span className="cursor-pointer" onClick={() => setProfileModal(false)}>
                                         <Close></Close>
@@ -160,7 +170,7 @@ const MyProfilePage = () => {
                                     </div>
                                 }
                                 <div className="flex justify-center my-3">
-                                    <button onClick={handleUpdateUserData} className="myBtn h-9">UPDATE</button>
+                                    <button disabled={updateUserLoading} onClick={handleUpdateUserData} className="myBtn h-9">UPDATE</button>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +213,7 @@ const MyProfilePage = () => {
 
                     <div className="mt-1">
                         <p className="text-xl font-semibold">Total Recipes</p>
-                        <p className="text-gray-500">58+ {myProfile?.experience}</p>
+                        <p className="text-gray-500">58+</p>
                     </div>
 
                     <hr className="mt-5" />
