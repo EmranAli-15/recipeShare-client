@@ -1,4 +1,4 @@
-const ModalLoader = () => {
+const SectionLoader = () => {
     return (
         <div className="z-10 absolute">
             <div className="flex items-center gap-x-1 border rounded-md px-2 py-1">
@@ -14,4 +14,4 @@ const ModalLoader = () => {
     );
 };
 
-export default ModalLoader;
+export default SectionLoader;

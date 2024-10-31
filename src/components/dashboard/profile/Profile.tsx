@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.css"
 import { uploadImage } from "@/utils/utils";
 import { useMyProfileQuery, useUpdateUserMutation } from "@/redux/features/user/userApi";
-import ModalLoader from "@/ui/loader/ModalLoader";
+import SectionLoader from "@/ui/loader/SectionLoader";
+import MyRecipes from "../myRecipes/MyRecipes";
 
 const PHOTO_NAME = "PHOTO_NAME";
 const EXPERIENCE = "EXPERIENCE";
@@ -122,7 +123,7 @@ const MyProfilePage = () => {
                                 {
                                     updateUserLoading &&
                                     <div className="flex justify-center">
-                                        <ModalLoader></ModalLoader>
+                                        <SectionLoader></SectionLoader>
                                     </div>
                                 }
                                 <div className="flex justify-end -mt-2 -mr-2">
@@ -180,7 +181,7 @@ const MyProfilePage = () => {
 
             {/* This section for user photo and user name */}
             <div className="md:w-[50%] flex justify-between items-start">
-                <div className="flex items-end mb-3 gap-x-3">
+                <div className="flex mb-3 gap-x-3">
                     <div>
                         {
                             myProfile?.photo ?
@@ -197,6 +198,7 @@ const MyProfilePage = () => {
                 </div>
                 <p onClick={() => updatingUserData(PHOTO_NAME)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
             </div>
+            <hr />
 
             {/* Start with experience and following section */}
             <div className="grid md:grid-cols-2">
@@ -223,13 +225,14 @@ const MyProfilePage = () => {
                             <p className="text-xl font-semibold">Bio</p>
                             <p onClick={() => updatingUserData(BIO)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
                         </div>
-                        <p className="text-justify mt-2 text-gray-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus minus minima ipsum velit iure. Quasi nam quaerat consequatur molestias recusandae aperiam quo nostrum magnam corrupti quis explicabo libero, odit unde totam nisi! Fugiat, ad dolor. Neque ratione reiciendis pariatur cum quisquam iusto ad qui nesciunt voluptatibus dolores, nostrum quasi accusantium.</p>
+                        <p className="text-justify mt-2 text-gray-500">{myProfile?.bio}</p>
                     </div>
 
                     <hr className="my-2" />
                 </div>
 
 
+                {/* Following section */}
                 <div className="md:mr-0 md:ml-[15%]">
                     <p className="text-xl font-semibold mb-5">Following</p>
                     <div className={`${styles.scrollBar} shadow-sm rounded-md grid grid-cols-3 md:gap-x-20 gap-y-3 h-[300px] overflow-y-scroll`}>
@@ -257,6 +260,12 @@ const MyProfilePage = () => {
                     </div>
                 </div>
             </div>
+
+
+            {/* My Recipes section*/}
+            <section>
+                <MyRecipes></MyRecipes>
+            </section>
         </div>
     }
 

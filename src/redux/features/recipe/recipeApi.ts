@@ -9,7 +9,17 @@ const recipeApi = baseApi.injectEndpoints({
                 method: 'POST',
             })
         }),
+
+        getMyRecipes: builder.query({
+            query: (id) => ({
+                url: `/api/recipe/getMyRecipe/${id}`,
+                method: 'GET',
+            }),
+            transformResponse(response: any) {
+                return response.data
+            },
+        })
     })
 });
 
-export const { useCreateRecipeMutation } = recipeApi;
+export const { useCreateRecipeMutation, useGetMyRecipesQuery } = recipeApi;

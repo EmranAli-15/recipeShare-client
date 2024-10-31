@@ -26,6 +26,7 @@ const Navbar = () => {
     const handleLogOut = () => {
         dispatch(userLoggedOut());
         setUserLoading(true);
+        setOpenMenu(false);
         router.push("/");
     }
 
