@@ -173,7 +173,7 @@ const LatestRecipes = async () => {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
                 {
                     recipes.map((recipe: recipeType) => (
-                        <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id} className="border rounded-md p-1">
+                        <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id} className="bg-[#fff] border rounded-md p-2">
                             <div>
                                 <div className="w-full h-32">
                                     <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
@@ -181,7 +181,7 @@ const LatestRecipes = async () => {
                                 <div className="md:px-2">
                                     <h1 className="font-semibold my-2">{recipe.title}</h1>
                                     <div className="flex items-start">
-                                        <div className="flex items-center text-[12px] bg-gray-100 px-1">
+                                        <div className="flex items-center text-[12px] bg-[#f1f2f4] px-1">
                                             <span className="text-yellow-500">
                                                 <Star w="17"></Star>
                                             </span>

@@ -111,7 +111,7 @@ const AddItemPage = () => {
             <div className='md:flex md:items-center gap-x-2'>
                 <div className="my-5 md:w-1/2">
                     <label className='text-gray-400'>{!thumbnail && <span className='text-red-600'>*</span>} Select Thumbnail Image</label>
-                    <label className="myInput text-center block cursor-pointer" htmlFor="thumbnailImg">
+                    <label className="myInput bg-[#fff] text-center block cursor-pointer" htmlFor="thumbnailImg">
                         <div className="flex items-center h-[21px] justify-center gap-x-2">
                             {
                                 thumbnailName ? <span>{thumbnailName.slice(0, 20)}</span> :
@@ -145,7 +145,7 @@ const AddItemPage = () => {
             {/* For rich text editor */}
             <div>
                 <label className='text-gray-400'>{!recipeDetails && <span className='text-red-600'>*</span>} Write here recipe details</label>
-                <div className='relative'>
+                <div className='relative bg-[#fff]'>
                     <ReactQuill theme="snow" modules={modules} value={recipeDetails} onChange={setRecipeDetails} />
                     <label className='cursor-pointer absolute top-2 right-4' htmlFor="img">
                         <Gallery></Gallery>

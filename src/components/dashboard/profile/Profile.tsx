@@ -180,30 +180,32 @@ const MyProfilePage = () => {
             </div>
 
             {/* This section for user photo and user name */}
-            <div className="md:w-[50%] flex justify-between items-start">
-                <div className="flex mb-3 gap-x-3">
-                    <div>
-                        {
-                            myProfile?.photo ?
-                                <Image className="border-4 border-gray-200 rounded-full" alt={myProfile.name} height={85} width={85} src={myProfile?.photo}></Image> :
-                                <div className="inline-block border rounded-full p-2">
-                                    <User w={80}></User>
-                                </div>
-                        }
+            <div className="bg-[#fff] rounded-md">
+                <div className=" flex justify-between p-2">
+                    <div className="flex gap-x-3">
+                        <div>
+                            {
+                                myProfile?.photo ?
+                                    <Image className="border-4 border-gray-200 rounded-full" alt={myProfile.name} height={85} width={85} src={myProfile?.photo}></Image> :
+                                    <div className="inline-block border rounded-full p-2">
+                                        <User w={80}></User>
+                                    </div>
+                            }
+                        </div>
+                        <div>
+                            <h1 className="text-2xl font-semibold pb-2">{myProfile?.name}</h1>
+                            <h1 className="">Followers : {myProfile?.followers}</h1>
+                        </div>
                     </div>
-                    <div className="mb-3">
-                        <h1 className="text-2xl font-semibold pb-2">{myProfile?.name}</h1>
-                        <h1 className="">Followers : {myProfile?.followers}</h1>
-                    </div>
+                    <p onClick={() => updatingUserData(PHOTO_NAME)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
                 </div>
-                <p onClick={() => updatingUserData(PHOTO_NAME)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
             </div>
-            <hr />
+            <hr className="my-2" />
 
             {/* Start with experience and following section */}
-            <div className="grid md:grid-cols-2">
+            <div className="grid md:grid-cols-2 md:gap-x-2">
                 <div>
-                    <div className="mt-1">
+                    <div className="bg-[#fff] rounded-md p-2">
                         <div className="flex items-center justify-between">
                             <p className="text-xl font-semibold">Experience</p>
                             <p onClick={() => updatingUserData(EXPERIENCE)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
@@ -211,31 +213,29 @@ const MyProfilePage = () => {
                         <p className="text-gray-500">I'm working since <span className="font-semibold">{myProfile?.experience || 0}</span> years</p>
                     </div>
 
-                    <hr className="mt-5" />
+                    <hr className="my-2" />
 
-                    <div className="mt-1">
+                    <div className="bg-[#fff] rounded-md p-2">
                         <p className="text-xl font-semibold">Total Recipes</p>
                         <p className="text-gray-500">58+</p>
                     </div>
 
-                    <hr className="mt-5" />
+                    <hr className="my-2" />
 
-                    <div className="mt-1">
+                    <div className="bg-[#fff] rounded-md p-2 md:h-[200px] overflow-hidden">
                         <div className="flex items-start justify-between">
                             <p className="text-xl font-semibold">Bio</p>
                             <p onClick={() => updatingUserData(BIO)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
                         </div>
                         <p className="text-justify mt-2 text-gray-500">{myProfile?.bio}</p>
                     </div>
-
-                    <hr className="my-2" />
                 </div>
 
 
                 {/* Following section */}
-                <div className="md:mr-0 md:ml-[15%]">
+                <div className="p-2 bg-[#fff] rounded-md md:h-[370px]">
                     <p className="text-xl font-semibold mb-5">Following</p>
-                    <div className={`${styles.scrollBar} shadow-sm rounded-md grid grid-cols-3 md:gap-x-20 gap-y-3 h-[300px] overflow-y-scroll`}>
+                    <div className={`${styles.scrollBar} grid grid-cols-3 gap-y-3 h-[280px] overflow-y-scroll`}>
                         {
                             Array(14).fill(null).map((da, index) => {
                                 return (
@@ -260,6 +260,7 @@ const MyProfilePage = () => {
                     </div>
                 </div>
             </div>
+            <hr className="my-2" />
 
 
             {/* My Recipes section*/}
@@ -270,7 +271,7 @@ const MyProfilePage = () => {
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-2 md:px-0">
+        <div className="max-w-5xl mx-auto">
             {
                 content
             }

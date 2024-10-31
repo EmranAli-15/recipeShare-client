@@ -18,8 +18,8 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
 
     return (
         <div>
-            <div className="max-w-7xl mx-auto px-2 my-2 md:px-0">
-                <div className="flex items-center gap-x-3">
+            <div className="max-w-7xl mx-auto px-2 mt-2 md:px-0">
+                <div className="bg-[#fff] p-2 rounded-md flex items-center gap-x-3">
                     <div>
                         {
                             user.photo ? <img className="size-12 rounded-full border-2" src={user.photo} alt={user.name} /> :
@@ -35,17 +35,17 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                 </div>
 
 
-                <hr className="my-1" />
+                <hr className="my-2" />
 
 
-                <div className="grid md:grid-cols-2 my-3 md:gap-x-10">
-                    <h1 className="text-xl my-2 font-sans font-semibold md:hidden">{title}</h1>
+                <div className="bg-[#fff] rounded-md p-2 grid md:grid-cols-2 md:gap-x-10">
+                    <h1 className="text-xl font-sans font-semibold md:hidden">{title}</h1>
 
                     <div className="w-full h-48 md:h-96">
                         <img className="w-full h-48 md:h-96 object-cover" src={image} alt="" />
                     </div>
 
-                    <hr className="my-1 md:hidden" />
+                    <hr className="my-2 md:hidden" />
 
                     <div>
                         <h1 className="text-2xl font-semibold font-sans hidden md:block my-5">{title}</h1>
@@ -68,12 +68,14 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                 </div>
 
 
-                <hr className="my-1" />
+                <hr className="my-2" />
 
 
+                {/* This is the recipe or ingredient section */}
                 <div>
                     <h1 className="my-5 md:text-2xl myTextColor border-b-2 border-b-[#74bd2c] border-dashed inline-block">INGREDIENTS</h1>
                     <div
+                        className="bg-[#fff] rounded-md p-2"
                         dangerouslySetInnerHTML={{ __html: recipe }}
                     >
                     </div>

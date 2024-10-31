@@ -43,7 +43,7 @@ const MyRecipes = () => {
         content = <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
             {
                 recipes.map((recipe: recipeType) => (
-                    <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id} className="border rounded-md p-1">
+                    <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id} className="border bg-[#fff] rounded-md p-1 md:p-2">
                         <div>
                             <div className="w-full h-32">
                                 <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
