@@ -166,14 +166,17 @@ const LatestRecipes = async () => {
         return <Error heading="NO RECIPES FOUND!" description="Please refresh the page or wait a moment!"></Error>
     }
 
+    console.log(recipes?.user?.chef);
+    
+
     return (
-        <div>
+        <div className="bg-[#fff] border rounded-md p-2 h-full]">
             <h1 className="font-semibold text-xl mt-3 md:text-3xl mb-2"><span className="text-green-700">Latest</span> Recipes</h1>
 
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
                 {
                     recipes.map((recipe: recipeType) => (
-                        <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id} className="bg-[#fff] border rounded-md p-2">
+                        <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id}>
                             <div>
                                 <div className="w-full h-32">
                                     <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
@@ -189,7 +192,7 @@ const LatestRecipes = async () => {
                                                 {recipe.rating}
                                             </p>
                                         </div>
-                                        <p className="ml-5 text-gray-500 text-sm">{recipe.user.name}</p>
+                                        <p className="ml-5 text-gray-500 text-sm">{recipe?.user?.name}</p>
                                     </div>
                                 </div>
                             </div>

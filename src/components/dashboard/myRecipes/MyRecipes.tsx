@@ -40,10 +40,10 @@ const MyRecipes = () => {
     else if (!isLoading && !isError && isSuccess && recipes.length == 0) {
         content = <h1 className="text-center text-gray-500">No recipe you shared yet !</h1>
     } else if (!isLoading && !isError && isSuccess) {
-        content = <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+        content = <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 bg-[#fff] border rounded-md p-2">
             {
                 recipes.map((recipe: recipeType) => (
-                    <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id} className="border bg-[#fff] rounded-md p-1 md:p-2">
+                    <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id}>
                         <div>
                             <div className="w-full h-32">
                                 <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
