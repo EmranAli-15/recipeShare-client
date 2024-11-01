@@ -1,10 +1,26 @@
 import { getSingleRecipe } from "@/services/recipes/recipes";
 import Error from "@/ui/Error/Error";
 import { Comment, Like, User } from "@/ui/icons/Icons";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: { recipeId: string } }): Promise<Metadata> {
+    const recipeData = await getSingleRecipe(params.recipeId);
+    if (!recipeData?.data) {
+        return {
+            title: "Recipe Not Found",
+            description: "The recipe you're looking for does not exist.",
+        };
+    }
+    const { title } = recipeData.data;
+    return {
+        title: title || "Recipe Details",
+        description: `Detailed information to cooking about the ${title} recipe.`,
+    };
+}
 
 const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) => {
     const recipeData = await getSingleRecipe(params.recipeId);
-    const { title, image, user, recipe, totalComment, comments, like, category, rating } = recipeData.data || {};
+    const { title, image, user, recipe, totalComment, comments, like } = recipeData.data || {};
 
     if (!recipeData?.data) {
         return <div className="max-w-7xl mx-auto px-2 md:px-0">

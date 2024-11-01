@@ -217,7 +217,7 @@ const MyProfilePage = () => {
 
                     <div className="bg-[#fff] rounded-md p-2">
                         <p className="text-xl font-semibold">Total Recipes</p>
-                        <p className="text-gray-500">58+</p>
+                        <p className="text-gray-500">{myProfile?.totalRecipes}</p>
                     </div>
 
                     <hr className="my-2" />
@@ -233,6 +233,7 @@ const MyProfilePage = () => {
 
 
                 {/* Following section */}
+                <hr className="my-2 md:hidden"/>
                 <div className="p-2 bg-[#fff] rounded-md md:h-[370px]">
                     <p className="text-xl font-semibold mb-5">Following</p>
                     <div className={`${styles.scrollBar} grid grid-cols-3 gap-y-3 h-[280px] overflow-y-scroll`}>
