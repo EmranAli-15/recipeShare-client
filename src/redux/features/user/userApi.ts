@@ -19,8 +19,15 @@ const recipeApi = baseApi.injectEndpoints({
             transformResponse(response: any) {
                 return response.data
             }
+        }),
+        updateFollowing: builder.mutation({
+            query: (id) => ({
+                url: `/api/user/updateFollowing`,
+                body: id,
+                method: 'PATCH',
+            }),
         })
     })
 });
 
-export const { useUpdateUserMutation, useMyProfileQuery } = recipeApi;
+export const { useUpdateUserMutation, useMyProfileQuery, useUpdateFollowingMutation } = recipeApi;

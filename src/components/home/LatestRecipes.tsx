@@ -159,16 +159,11 @@ type recipeType = {
 
 const LatestRecipes = async () => {
     const { data: recipes } = await getLatestRecipes();
-    // console.log(recipes);
-
 
     if (!recipes) {
         return <Error heading="NO RECIPES FOUND!" description="Please refresh the page or wait a moment!"></Error>
     }
-
-    console.log(recipes?.user?.chef);
     
-
     return (
         <div className="bg-[#fff] border rounded-md p-2 h-full]">
             <h1 className="font-semibold text-xl mt-3 md:text-3xl mb-2"><span className="text-green-700">Latest</span> Recipes</h1>

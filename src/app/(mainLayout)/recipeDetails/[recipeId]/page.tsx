@@ -1,8 +1,11 @@
+import RecipeDetails from "@/components/recipeDetails/RecipeDetails";
+import { getCurrentUser } from "@/services/auth/auth";
 import { getSingleRecipe } from "@/services/recipes/recipes";
 import Error from "@/ui/Error/Error";
 import { Comment, Like, User } from "@/ui/icons/Icons";
 import { Metadata } from "next";
 
+// For metadata
 export async function generateMetadata({ params }: { params: { recipeId: string } }): Promise<Metadata> {
     const recipeData = await getSingleRecipe(params.recipeId);
     if (!recipeData?.data) {
@@ -20,7 +23,7 @@ export async function generateMetadata({ params }: { params: { recipeId: string 
 
 const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) => {
     const recipeData = await getSingleRecipe(params.recipeId);
-    const { title, image, user, recipe, totalComment, comments, like } = recipeData.data || {};
+    const { _id, title, image, user, recipe, totalComment, comments, like } = recipeData.data || {};
 
     if (!recipeData?.data) {
         return <div className="max-w-7xl mx-auto px-2 md:px-0">
@@ -35,19 +38,9 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
     return (
         <div>
             <div className="max-w-7xl mx-auto px-2 mt-2 md:px-0">
-                <div className="bg-[#fff] p-2 rounded-md flex items-center gap-x-3">
-                    <div>
-                        {
-                            user.photo ? <img className="size-12 rounded-full border-2" src={user.photo} alt={user.name} /> :
-                                <div className="rounded-full border p-1">
-                                    <User w="30"></User>
-                                </div>
-                        }
-                    </div>
-                    <div>
-                        <p className="font-semibold">{user.name}</p>
-                        <p className="text-blue-600 text-sm cursor-pointer">Follow</p>
-                    </div>
+                <div>
+                    {/* This section is rendered in client side that's why used another component instead render in client side whole page */}
+                    <RecipeDetails photo={user.photo} id={user._id} name={user.name} email={user.email}></RecipeDetails>
                 </div>
 
 
