@@ -15,22 +15,8 @@ type userType = {
 }
 
 const RecipeDetails = ({ photo, id, name, email, followers }: userType) => {
-
     const { user: loggedInUser } = useUser() || {};
     const { email: myEmail, userId: myId } = loggedInUser || {};
-
-
-    const [updateFollowing, { isLoading, isSuccess }] = useUpdateFollowingMutation();
-
-    const handleUpdateFollower = () => {
-        updateFollowing({ id });
-    };
-
-    useEffect(() => {
-        if (isSuccess) {
-            reFetchGetSingleRecipe();
-        }
-    }, [isSuccess])
 
     let isFollow = false;
     const isMyIdExist = followers?.find(personId => personId?.toString() == myId);
@@ -38,7 +24,17 @@ const RecipeDetails = ({ photo, id, name, email, followers }: userType) => {
         isFollow = true
     };
 
-    console.log(followers);
+    const [updateFollowing, { isLoading, isSuccess }] = useUpdateFollowingMutation();
+
+    const handleUpdateFollower = () => {
+        updateFollowing({ id, isFollow });
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
+            reFetchGetSingleRecipe();
+        }
+    }, [isSuccess])
 
 
 
@@ -54,7 +50,13 @@ const RecipeDetails = ({ photo, id, name, email, followers }: userType) => {
             </div>
             <div>
                 <p className="font-semibold">{name}</p>
-                <p onClick={handleUpdateFollower} className={`${email == myEmail && 'hidden'} text-blue-600 text-sm cursor-pointer`}>{isFollow ? "Following" : "Follow"}</p>
+                <button
+                    onClick={handleUpdateFollower}
+                    className={`${email == myEmail && 'hidden'} text-blue-600 text-sm`}
+                    disabled={isLoading}
+                >
+                    {isFollow ? "Following" : "Follow"}
+                </button>
             </div>
         </div>
     );

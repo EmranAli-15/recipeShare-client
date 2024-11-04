@@ -21,9 +21,9 @@ const recipeApi = baseApi.injectEndpoints({
             }
         }),
         updateFollowing: builder.mutation({
-            query: (id) => ({
+            query: (data) => ({
                 url: `/api/user/updateFollowing`,
-                body: id,
+                body: data,
                 method: 'PATCH',
             }),
         })
