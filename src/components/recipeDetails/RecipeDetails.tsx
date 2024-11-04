@@ -2,25 +2,44 @@
 
 import { useUser } from "@/contextProvider/ContextProvider";
 import { useUpdateFollowingMutation } from "@/redux/features/user/userApi";
+import { reFetchGetSingleRecipe } from "@/services/recipes/recipes";
 import { User } from "@/ui/icons/Icons";
+import { useEffect } from "react";
 
 type userType = {
     photo: string;
     id: string;
     name: string;
     email: string;
+    followers: unknown[]
 }
 
-const RecipeDetails = ({ photo, id, name, email }: userType) => {
+const RecipeDetails = ({ photo, id, name, email, followers }: userType) => {
 
     const { user: loggedInUser } = useUser() || {};
-    const { email: myEmail } = loggedInUser || {};
+    const { email: myEmail, userId: myId } = loggedInUser || {};
 
-    const [updateFollowing, { }] = useUpdateFollowingMutation();
+
+    const [updateFollowing, { isLoading, isSuccess }] = useUpdateFollowingMutation();
 
     const handleUpdateFollower = () => {
-        updateFollowing({id});
-    }
+        updateFollowing({ id });
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
+            reFetchGetSingleRecipe();
+        }
+    }, [isSuccess])
+
+    let isFollow = false;
+    const isMyIdExist = followers?.find(personId => personId?.toString() == myId);
+    if (isMyIdExist) {
+        isFollow = true
+    };
+
+    console.log(followers);
+
 
 
     return (
@@ -35,7 +54,7 @@ const RecipeDetails = ({ photo, id, name, email }: userType) => {
             </div>
             <div>
                 <p className="font-semibold">{name}</p>
-                <p onClick={handleUpdateFollower} className={`${email == myEmail && 'hidden'} text-blue-600 text-sm cursor-pointer`}>Follow</p>
+                <p onClick={handleUpdateFollower} className={`${email == myEmail && 'hidden'} text-blue-600 text-sm cursor-pointer`}>{isFollow ? "Following" : "Follow"}</p>
             </div>
         </div>
     );

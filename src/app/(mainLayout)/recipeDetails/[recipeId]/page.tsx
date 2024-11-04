@@ -1,8 +1,7 @@
 import RecipeDetails from "@/components/recipeDetails/RecipeDetails";
-import { getCurrentUser } from "@/services/auth/auth";
 import { getSingleRecipe } from "@/services/recipes/recipes";
 import Error from "@/ui/Error/Error";
-import { Comment, Like, User } from "@/ui/icons/Icons";
+import { Comment, Like } from "@/ui/icons/Icons";
 import { Metadata } from "next";
 
 // For metadata
@@ -23,7 +22,7 @@ export async function generateMetadata({ params }: { params: { recipeId: string 
 
 const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) => {
     const recipeData = await getSingleRecipe(params.recipeId);
-    const { _id, title, image, user, recipe, totalComment, comments, like } = recipeData.data || {};
+    const { title, image, user, recipe, totalComment, comments, like } = recipeData.data || {};
 
     if (!recipeData?.data) {
         return <div className="max-w-7xl mx-auto px-2 md:px-0">
@@ -40,7 +39,7 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
             <div className="max-w-7xl mx-auto px-2 mt-2 md:px-0">
                 <div>
                     {/* This section is rendered in client side that's why used another component instead render in client side whole page */}
-                    <RecipeDetails photo={user.photo} id={user._id} name={user.name} email={user.email}></RecipeDetails>
+                    <RecipeDetails photo={user.photo} id={user._id} name={user.name} email={user.email} followers={user.followers}></RecipeDetails>
                 </div>
 
 

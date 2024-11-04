@@ -1,9 +1,14 @@
 "use server"
+
+import { revalidateTag } from "next/cache";
+
 const baseUrl = "http://localhost:5000"
 
 export const getLatestRecipes = async () => {
   const res = await fetch(`${baseUrl}/api/recipe/getRecipes?page=0&limit=20`, {
-    cache: "no-cache"
+    next: {
+      revalidate: 180,
+    }
   })
 
   if (!res.ok) {
@@ -14,10 +19,20 @@ export const getLatestRecipes = async () => {
 };
 
 export const getSingleRecipe = async (id: string) => {
-  const res = await fetch(`${baseUrl}/api/recipe/getSingleRecipe/${id}`);
+  const res = await fetch(`${baseUrl}/api/recipe/getSingleRecipe/${id}`, {
+    next: {
+      tags: ["getSingleRecipe"]
+    }
+  });
+
   if (!res.ok) {
     return null
   }
 
   return res.json();
+};
+
+export const reFetchGetSingleRecipe = async () => {
+  revalidateTag("getSingleRecipe");
 }
+
