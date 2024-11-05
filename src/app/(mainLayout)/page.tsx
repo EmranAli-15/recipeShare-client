@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="px-2 md:px-0">
+      <div className="p-2 md:p-0">
         <LatestRecipes></LatestRecipes>
       </div>
     </div>

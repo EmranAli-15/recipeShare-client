@@ -42,20 +42,14 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                     <RecipeDetails photo={user.photo} id={user._id} name={user.name} email={user.email} followers={user.followers}></RecipeDetails>
                 </div>
 
-
-                <hr className="my-2" />
-
-
-                <div className="bg-[#fff] rounded-md p-2 grid md:grid-cols-2 md:gap-x-10">
+                <div className="bg-[#fff] rounded-md p-2 grid md:grid-cols-2 md:gap-x-10 my-2">
                     <h1 className="text-xl font-sans font-semibold md:hidden">{title}</h1>
 
                     <div className="w-full h-48 md:h-96">
                         <img className="w-full h-48 md:h-96 object-cover" src={image} alt="" />
                     </div>
 
-                    <hr className="my-2 md:hidden" />
-
-                    <div>
+                    <div className="my-2">
                         <h1 className="text-2xl font-semibold font-sans hidden md:block my-5">{title}</h1>
                         <div className="md:mt-10">
                             <div className="grid grid-cols-2 justify-items-center md:justify-items-start">
@@ -74,9 +68,6 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                         </div>
                     </div>
                 </div>
-
-
-                <hr className="my-2" />
 
 
                 {/* This is the recipe or ingredient section */}

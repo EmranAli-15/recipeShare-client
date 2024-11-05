@@ -180,7 +180,7 @@ const MyProfilePage = () => {
             </div>
 
             {/* This section for user photo and user name */}
-            <div className="bg-[#fff] rounded-md">
+            <div className="bg-[#fff] rounded-md my-2">
                 <div className=" flex justify-between p-2">
                     <div className="flex gap-x-3">
                         <div>
@@ -194,13 +194,12 @@ const MyProfilePage = () => {
                         </div>
                         <div>
                             <h1 className="text-2xl font-semibold pb-2">{myProfile?.name}</h1>
-                            <h1 className="">Followers : {myProfile?.followers}</h1>
+                            <h1 className="">Followers : {myProfile?.followers.length}</h1>
                         </div>
                     </div>
                     <p onClick={() => updatingUserData(PHOTO_NAME)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
                 </div>
             </div>
-            <hr className="my-2" />
 
             {/* Start with experience and following section */}
             <div className="grid md:grid-cols-2 md:gap-x-2">
@@ -213,14 +212,10 @@ const MyProfilePage = () => {
                         <p className="text-gray-500">I'm working since <span className="font-semibold">{myProfile?.experience || 0}</span> years</p>
                     </div>
 
-                    <hr className="my-2" />
-
-                    <div className="bg-[#fff] rounded-md p-2">
+                    <div className="bg-[#fff] rounded-md p-2 my-2">
                         <p className="text-xl font-semibold">Total Recipes</p>
                         <p className="text-gray-500">{myProfile?.totalRecipes}</p>
                     </div>
-
-                    <hr className="my-2" />
 
                     <div className="bg-[#fff] rounded-md p-2 md:h-[200px] overflow-hidden">
                         <div className="flex items-start justify-between">
@@ -233,8 +228,7 @@ const MyProfilePage = () => {
 
 
                 {/* Following section */}
-                <hr className="my-2 md:hidden"/>
-                <div className="p-2 bg-[#fff] rounded-md md:h-[370px]">
+                <div className="p-2 bg-[#fff] rounded-md md:h-[352px] my-2 md:my-0">
                     <p className="text-xl font-semibold mb-5">Following</p>
                     <div className={`${styles.scrollBar} grid grid-cols-3 gap-y-3 h-[280px] overflow-y-scroll`}>
                         {
@@ -252,7 +246,7 @@ const MyProfilePage = () => {
                                         </div>
                                         <div className="">
                                             <h1 className="text-center">{myProfile?.name.slice(0, 10)}</h1>
-                                            <h1 className="text-sm text-center text-gray-500">Followers : {myProfile?.followers}</h1>
+                                            <h1 className="text-sm text-center text-gray-500">Followers : {myProfile?.followers.length}</h1>
                                         </div>
                                     </div>
                                 )
@@ -261,7 +255,6 @@ const MyProfilePage = () => {
                     </div>
                 </div>
             </div>
-            <hr className="my-2" />
 
 
             {/* My Recipes section*/}
