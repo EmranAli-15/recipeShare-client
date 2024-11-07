@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
     background-color: #f1f2f4;
 }
 
@@ -19,7 +19,7 @@ html {
 
 /* For input field style */
 .myInput {
-    @apply w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 outline-none rounded-md
+    @apply w-full text-gray-800 text-sm border px-4 py-3 outline-none rounded-md
 }
 
 
@@ -66,18 +66,39 @@ html {
 
 /* Height for the rich text editor */
 .ql-container {
-    height: 370px !important;
+    height: 500px !important;
+}
+
+.ql-toolbar.ql-snow {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #fff;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+    border: 1px solid #e7e5e5 !important;
+}
+
+.ql-container {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #e7e5e5 !important;
 }
 
 
 
 /* modal animation */
 .modalAnimation {
-  animation-name: modal;
-  animation-duration: 0.3s;
+    animation-name: modal;
+    animation-duration: 0.3s;
 }
 
 @keyframes modal {
-  0%   {scale:80%;}
-  100% {scale:100%;}
+    0% {
+        scale: 80%;
+    }
+
+    100% {
+        scale: 100%;
+    }
 }

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: { recipeId: string 
 
 const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) => {
     const recipeData = await getSingleRecipe(params.recipeId);
-    const { title, image, user, recipe, totalComment, comments, like } = recipeData.data || {};
+    const { _id, title, image, user, recipe, totalComment, comments, like } = recipeData.data || {};
 
     if (!recipeData?.data) {
         return <div className="max-w-7xl mx-auto px-2 md:px-0">
@@ -39,7 +39,7 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
             <div className="max-w-7xl mx-auto px-2 mt-2 md:px-0">
                 <div>
                     {/* This section is rendered in client side that's why used another component instead render in client side whole page */}
-                    <RecipeDetails photo={user.photo} id={user._id} name={user.name} email={user.email} followers={user.followers}></RecipeDetails>
+                    <RecipeDetails recipeId={_id} photo={user.photo} id={user._id} name={user.name} email={user.email} followers={user.followers}></RecipeDetails>
                 </div>
 
                 <div className="bg-[#fff] rounded-md p-2 grid md:grid-cols-2 md:gap-x-10 my-2">

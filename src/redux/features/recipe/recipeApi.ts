@@ -18,8 +18,18 @@ const recipeApi = baseApi.injectEndpoints({
             transformResponse(response: any) {
                 return response.data
             },
-        })
+        }),
+
+        getSingleRecipeForUpdate: builder.query({
+            query: (id) => ({
+                url: `/api/recipe/getSingleRecipe/${id}`,
+                method: 'GET',
+            }),
+            transformResponse(response: any) {
+                return response.data
+            },
+        }),
     })
 });
 
-export const { useCreateRecipeMutation, useGetMyRecipesQuery } = recipeApi;
+export const { useCreateRecipeMutation, useGetMyRecipesQuery, useGetSingleRecipeForUpdateQuery } = recipeApi;

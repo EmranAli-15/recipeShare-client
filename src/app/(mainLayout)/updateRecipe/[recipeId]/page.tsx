@@ -1,27 +1,39 @@
 "use client"
 
-import { uploadImage } from '@/utils/utils';
-import React, { useEffect, useState } from 'react';
-import 'react-quill/dist/quill.snow.css';
+import { useCreateRecipeMutation, useGetSingleRecipeForUpdateQuery } from "@/redux/features/recipe/recipeApi";
+import { useEffect, useState } from "react";
+import { uploadImage } from "@/utils/utils";
+import { useUser } from "@/contextProvider/ContextProvider";
 import { Gallery } from "@/ui/icons/Icons";
-import ReactQuill from 'react-quill';
-import { useCreateRecipeMutation } from '@/redux/features/recipe/recipeApi';
-import { useUser } from '@/contextProvider/ContextProvider';
-import CommonLoader from '@/ui/loader/CommonLoader';
-import Error from '@/ui/Error/Error';
-import Success from '@/ui/success/Success';
+import CommonLoader from "@/ui/loader/CommonLoader";
+import ReactQuill from "react-quill";
+import Success from "@/ui/success/Success";
+import Error from "@/ui/Error/Error";
+import 'react-quill/dist/quill.snow.css';
 
-
-const AddItemPage = () => {
+const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
+    const { data: queryData, isLoading: queryLoading, isError: queryError, isSuccess: querySuccess } = useGetSingleRecipeForUpdateQuery(params?.recipeId);
     const { user } = useUser();
 
-    const [recipeDetails, setRecipeDetails] = useState("");
-    const [thumbnail, setThumbnail] = useState("");
-    const [thumbnailName, setThumbnailName] = useState("");
     const [title, setTitle] = useState("");
-    const [category, setCategory] = useState("");
     const [error, setError] = useState("");
+    const [category, setCategory] = useState("");
+    const [thumbnail, setThumbnail] = useState("");
+    const [recipeDetails, setRecipeDetails] = useState("");
+    const [thumbnailName, setThumbnailName] = useState("");
     const [errorDescription, setErrorDescription] = useState("");
+
+    useEffect(() => {
+        if (queryData) {
+            setTitle(queryData.title);
+            setCategory(queryData.category);
+            setRecipeDetails(queryData.recipe);
+            const image = queryData.image.split("/");
+            setThumbnailName(image[image.length - 1]);
+        }
+    }, [queryData])
+
+
 
 
     const modules = {
@@ -69,7 +81,7 @@ const AddItemPage = () => {
     const handleUploadRecipe = () => {
         setError("");
 
-        if (!title || !recipeDetails || !thumbnail || !category) {
+        if (!title || !recipeDetails || !category) {
             setError("Please fill-up all fields!");
             setErrorDescription("You have to fill-up all of the fields for uploading an recipe!");
         } else {
@@ -94,10 +106,20 @@ const AddItemPage = () => {
         }
     }, [isError, isSuccess])
 
-    return (
-        <div>
-            {isLoading && <CommonLoader></CommonLoader>}
 
+
+
+    let content = null;
+
+    if (queryLoading) {
+        content = <CommonLoader></CommonLoader>
+    } else if (!queryLoading && queryError) {
+        content = <Error
+            heading="Recipe Not Found!"
+            description="Recipe not found. Please try again."
+        ></Error>
+    } else if (!queryLoading && !queryError && querySuccess) {
+        content = <div>
             <div className="my-2">
                 <label className='text-gray-400'>{!title && <span className='text-red-600'>*</span>} Title</label>
                 <input
@@ -109,7 +131,7 @@ const AddItemPage = () => {
 
             <div className='md:flex md:items-center gap-x-2'>
                 <div className="mb-2 md:w-1/2">
-                    <label className='text-gray-400'>{!thumbnail && <span className='text-red-600'>*</span>} Select Thumbnail Image</label>
+                    <label className='text-gray-400'>Select Thumbnail Image</label>
                     <label className="myInput bg-[#fff] text-center block cursor-pointer" htmlFor="thumbnailImg">
                         <div className="flex items-center h-[21px] justify-center gap-x-2">
                             {
@@ -161,10 +183,21 @@ const AddItemPage = () => {
                 isSuccess && <Success heading="Recipe uploaded successfully!" description='Wow 😍, Congratulations! Your recipe uploaded successfully!'></Success>
             }
 
-            <button onClick={handleUploadRecipe} className='myBtn w-full my-5'>submit</button>
+            <button onClick={handleUploadRecipe} className='myBtn w-full my-5'>Update</button>
 
+        </div>
+    }
+
+
+
+    return (
+        <div className="max-w-7xl mx-auto px-2 md:px-0">
+            <button>DELETE</button>
+            {
+                content
+            }
         </div>
     );
 };
 
-export default AddItemPage;
+export default UpdateRecipePage;
