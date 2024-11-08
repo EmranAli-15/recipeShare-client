@@ -10,6 +10,15 @@ const recipeApi = baseApi.injectEndpoints({
             })
         }),
 
+        updateRecipe: builder.mutation({
+            query: ({ data, recipeID }) => ({
+                url: `/api/recipe/updateRecipe/${recipeID}`,
+                body: data,
+                method: 'PATCH',
+            }),
+            invalidatesTags: ["myRecipe"]
+        }),
+
         getMyRecipes: builder.query({
             query: (id) => ({
                 url: `/api/recipe/getMyRecipe/${id}`,
@@ -18,6 +27,7 @@ const recipeApi = baseApi.injectEndpoints({
             transformResponse(response: any) {
                 return response.data
             },
+            providesTags: ["myRecipe"]
         }),
 
         getSingleRecipeForUpdate: builder.query({
@@ -32,4 +42,4 @@ const recipeApi = baseApi.injectEndpoints({
     })
 });
 
-export const { useCreateRecipeMutation, useGetMyRecipesQuery, useGetSingleRecipeForUpdateQuery } = recipeApi;
+export const { useCreateRecipeMutation, useGetMyRecipesQuery, useGetSingleRecipeForUpdateQuery, useUpdateRecipeMutation } = recipeApi;

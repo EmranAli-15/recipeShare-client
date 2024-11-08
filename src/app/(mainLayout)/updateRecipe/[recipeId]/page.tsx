@@ -1,6 +1,6 @@
 "use client"
 
-import { useCreateRecipeMutation, useGetSingleRecipeForUpdateQuery } from "@/redux/features/recipe/recipeApi";
+import { useGetSingleRecipeForUpdateQuery, useUpdateRecipeMutation } from "@/redux/features/recipe/recipeApi";
 import { useEffect, useState } from "react";
 import { uploadImage } from "@/utils/utils";
 import { useUser } from "@/contextProvider/ContextProvider";
@@ -12,8 +12,8 @@ import Error from "@/ui/Error/Error";
 import 'react-quill/dist/quill.snow.css';
 
 const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
-    const { data: queryData, isLoading: queryLoading, isError: queryError, isSuccess: querySuccess } = useGetSingleRecipeForUpdateQuery(params?.recipeId);
-    const { user } = useUser();
+    const recipeID = params?.recipeId;
+    const { data: queryData, isLoading: queryLoading, isError: queryError, isSuccess: querySuccess } = useGetSingleRecipeForUpdateQuery(recipeID);
 
     const [title, setTitle] = useState("");
     const [error, setError] = useState("");
@@ -28,14 +28,14 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
             setTitle(queryData.title);
             setCategory(queryData.category);
             setRecipeDetails(queryData.recipe);
+            setThumbnail(queryData.image);
             const image = queryData.image.split("/");
             setThumbnailName(image[image.length - 1]);
         }
     }, [queryData])
 
 
-
-
+    // Modules for rich text editor
     const modules = {
         toolbar: [
             [{ 'header': [1, 2, 3, 4, false] }],
@@ -47,6 +47,7 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
         ]
     }
 
+    // Insert live image in text editor
     async function uploadImg(e: any) {
         const file = e.target.files[0];
         const url = await uploadImage(file);
@@ -66,22 +67,12 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
         }
     }
 
-    const resetForm = () => {
-        setRecipeDetails("")
-        setThumbnail("")
-        setThumbnailName("")
-        setTitle("")
-        setCategory("")
-        setError("")
-        setErrorDescription("")
-    }
-
-    const [createRecipe, { isError, isLoading, isSuccess }] = useCreateRecipeMutation();
+    const [updateRecipe, { isError: updateError, isLoading: updateLoading, isSuccess: updateSuccess }] = useUpdateRecipeMutation();
 
     const handleUploadRecipe = () => {
         setError("");
 
-        if (!title || !recipeDetails || !category) {
+        if (!title || !recipeDetails || !thumbnail || !category) {
             setError("Please fill-up all fields!");
             setErrorDescription("You have to fill-up all of the fields for uploading an recipe!");
         } else {
@@ -90,21 +81,17 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
                 image: thumbnail,
                 recipe: recipeDetails,
                 category: category,
-                user: user.userId,
             }
-            createRecipe(data);
+            updateRecipe({ data, recipeID })
         }
-    }
+    };
 
     useEffect(() => {
-        if (isSuccess) {
-            resetForm();
-        }
-        if (isError) {
+        if (updateError) {
             setError("Something went wrong!");
             setErrorDescription("There was happened an unknown error, please try again!");
         }
-    }, [isError, isSuccess])
+    }, [updateError, updateSuccess]);
 
 
 
@@ -120,6 +107,8 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
         ></Error>
     } else if (!queryLoading && !queryError && querySuccess) {
         content = <div>
+            {updateLoading && <CommonLoader></CommonLoader>}
+
             <div className="my-2">
                 <label className='text-gray-400'>{!title && <span className='text-red-600'>*</span>} Title</label>
                 <input
@@ -154,7 +143,7 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
                         onChange={(e) => setCategory(e.target.value)}
                         className="myInput text-center block cursor-pointer text-gray-400"
                     >
-                        <option hidden value="">Select One</option>
+                        <option hidden value={category}>{category}</option>
                         <option value="Breakfast">Breakfast</option>
                         <option value="Lunch">Lunch</option>
                         <option value="Dinner">Dinner</option>
@@ -180,7 +169,7 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
             }
 
             {
-                isSuccess && <Success heading="Recipe uploaded successfully!" description='Wow 😍, Congratulations! Your recipe uploaded successfully!'></Success>
+                updateSuccess && <Success heading="Recipe uploaded successfully!" description='Wow 😍, Congratulations! Your recipe uploaded successfully!'></Success>
             }
 
             <button onClick={handleUploadRecipe} className='myBtn w-full my-5'>Update</button>

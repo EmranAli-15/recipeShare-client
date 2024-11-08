@@ -1,15 +1,15 @@
 "use client"
 
-import { uploadImage } from '@/utils/utils';
-import React, { useEffect, useState } from 'react';
+import Error from '@/ui/Error/Error';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Gallery } from "@/ui/icons/Icons";
-import ReactQuill from 'react-quill';
-import { useCreateRecipeMutation } from '@/redux/features/recipe/recipeApi';
-import { useUser } from '@/contextProvider/ContextProvider';
-import CommonLoader from '@/ui/loader/CommonLoader';
-import Error from '@/ui/Error/Error';
 import Success from '@/ui/success/Success';
+import { uploadImage } from '@/utils/utils';
+import React, { useEffect, useState } from 'react';
+import CommonLoader from '@/ui/loader/CommonLoader';
+import { useUser } from '@/contextProvider/ContextProvider';
+import { useCreateRecipeMutation } from '@/redux/features/recipe/recipeApi';
 
 
 const AddItemPage = () => {
@@ -24,6 +24,7 @@ const AddItemPage = () => {
     const [errorDescription, setErrorDescription] = useState("");
 
 
+    // Modules for rich text editor
     const modules = {
         toolbar: [
             [{ 'header': [1, 2, 3, 4, false] }],
@@ -35,6 +36,7 @@ const AddItemPage = () => {
         ]
     }
 
+    // Insert live image in text editor
     async function uploadImg(e: any) {
         const file = e.target.files[0];
         const url = await uploadImage(file);
@@ -161,7 +163,7 @@ const AddItemPage = () => {
                 isSuccess && <Success heading="Recipe uploaded successfully!" description='Wow 😍, Congratulations! Your recipe uploaded successfully!'></Success>
             }
 
-            <button onClick={handleUploadRecipe} className='myBtn w-full my-5'>submit</button>
+            <button disabled={isLoading} onClick={handleUploadRecipe} className='myBtn w-full my-5'>Submit</button>
 
         </div>
     );

@@ -16,7 +16,7 @@ export const baseApi = createApi({
         return result
     },
     endpoints: () => ({}),
-    tagTypes: ["userProfile"]
+    tagTypes: ["userProfile", "myRecipe"]
 });
 
 export const { }: any = baseApi

@@ -21,6 +21,7 @@ export const getLatestRecipes = async () => {
 export const getSingleRecipe = async (id: string) => {
   const res = await fetch(`${baseUrl}/api/recipe/getSingleRecipe/${id}`, {
     next: {
+      revalidate: 180,
       tags: ["getSingleRecipe"]
     }
   });
