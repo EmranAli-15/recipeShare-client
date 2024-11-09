@@ -1,3 +1,4 @@
+import Comments from "@/components/recipeDetails/Comments";
 import RecipeDetails from "@/components/recipeDetails/RecipeDetails";
 import { getSingleRecipe } from "@/services/recipes/recipes";
 import Error from "@/ui/Error/Error";
@@ -81,27 +82,13 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                 </div>
 
                 <div className="mt-10">
-                    <p className="font-semibold md:text-xl">Comments :</p>
-
-                    <div className="mb-3 py-1">
-                        Paste a comment
-                        <div>
-                            <textarea className="border w-full myInput" rows={3} id=""></textarea>
-                            <button className="myBtn w-full h-10">submit</button>
-                        </div>
-                    </div>
-
                     <div id="comments">
+                        {/* All comments */}
                         {
-                            comments.map((comment: string, index: number) => (
-                                <div key={index} className="border rounded-md p-2">
-                                    <div className="flex items-center gap-x-1">
-                                        {/* <img className="size-8 rounded-full" src={user?.photo} alt="" />
-                                        <p className="text-gray-500">{user.name}</p> */}
-                                    </div>
-                                    {/* <p>{comment}</p> */}
-                                </div>
-                            ))
+                            <Comments
+                                id={_id}
+                                comments={comments}
+                            ></Comments>
                         }
                     </div>
                 </div>

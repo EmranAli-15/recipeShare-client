@@ -39,7 +39,21 @@ const recipeApi = baseApi.injectEndpoints({
                 return response.data
             },
         }),
+
+        createAComment: builder.mutation({
+            query: ({ comment, recipeId }) => ({
+                url: `/api/recipe/pasteComment/${recipeId}`,
+                body: comment,
+                method: 'PATCH',
+            })
+        }),
     })
 });
 
-export const { useCreateRecipeMutation, useGetMyRecipesQuery, useGetSingleRecipeForUpdateQuery, useUpdateRecipeMutation } = recipeApi;
+export const {
+    useCreateRecipeMutation,
+    useGetMyRecipesQuery,
+    useGetSingleRecipeForUpdateQuery,
+    useUpdateRecipeMutation,
+    useCreateACommentMutation
+} = recipeApi;
