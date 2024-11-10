@@ -20,7 +20,7 @@ const Navbar = () => {
     const [openDashboardModal, setOpenDashboardModal] = useState(false);
 
     const { user: userFromContext, setUserLoading } = useUser();
-
+    
     const photo = userFromContext?.photo;
 
     const handleLogOut = () => {
@@ -98,14 +98,14 @@ const Navbar = () => {
                                         photo ? <span onClick={() => setOpenDashboardModal(!openDashboardModal)}>
                                             <span className="cursor-pointer flex items-center gap-x-2" onClick={() => setOpenDashboardModal(!openDashboardModal)}>
                                                 <Image width={30} height={30} className="rounded-full" src={photo} alt="" />
-                                                <p>My Profile</p>
+                                                <p>{userFromContext.name}</p>
                                             </span>
                                         </span> :
                                             <span className="cursor-pointer flex items-center gap-x-2" onClick={() => setOpenDashboardModal(!openDashboardModal)}>
                                                 <span className="rounded-full border">
                                                     <User w="30"></User>
                                                 </span>
-                                                <p>My Profile</p>
+                                                <p>{userFromContext.name}</p>
                                             </span>
                                         :
                                         <Link href="/login">

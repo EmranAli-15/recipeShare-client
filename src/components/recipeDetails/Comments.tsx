@@ -1,7 +1,7 @@
 "use client"
 
 type comment = {
-    user: {
+    userId: {
         name: string;
         photo: string;
     },
@@ -14,31 +14,8 @@ import Image from "next/image";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-const commentss = [
-    {
-        name: "Emran",
-        photo: "https://images.pexels.com/photos/2913125/pexels-photo-2913125.jpeg?auto=compress&cs=tinysrgb&w=600",
-        comment: "Very Nice Recipe"
-    },
-    {
-        name: "Opu Mehrab",
-        photo: "https://images.pexels.com/photos/2913125/pexels-photo-2913125.jpeg?auto=compress&cs=tinysrgb&w=600",
-        comment: "Awesome Recipe"
-    },
-    {
-        name: "Ridoy Khan",
-        photo: "https://images.pexels.com/photos/2913125/pexels-photo-2913125.jpeg?auto=compress&cs=tinysrgb&w=600",
-        comment: "Wow recipe"
-    },
-    {
-        name: "Maruf Ali",
-        photo: "https://images.pexels.com/photos/2913125/pexels-photo-2913125.jpeg?auto=compress&cs=tinysrgb&w=600",
-        comment: "Very Nice Recipe"
-    },
-]
 
 const Comments = ({ id, comments }: { id: string, comments: [] }) => {
-    console.log(comments);
     
     const { user } = useUser();
     const { userId } = user || {};
@@ -63,9 +40,6 @@ const Comments = ({ id, comments }: { id: string, comments: [] }) => {
         };
 
         createAComment(data)
-
-        // console.log(data);
-
     }
 
 
@@ -87,12 +61,12 @@ const Comments = ({ id, comments }: { id: string, comments: [] }) => {
                         <div className="flex items-center gap-x-1">
                             <Image
                                 className="rounded-full object-cover h-8 w-8"
-                                src={comment.user.photo}
+                                src={comment.userId.photo}
                                 width={20}
                                 height={20}
                                 alt={comment.comment}
                             ></Image>
-                            <p className="text-gray-500 text-sm">{comment.user.name}</p>
+                            <p className="text-gray-500 text-sm">{comment.userId.name}</p>
                         </div>
                         <p>{comment.comment}</p>
                     </div>

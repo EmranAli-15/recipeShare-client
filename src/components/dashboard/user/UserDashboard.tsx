@@ -1,7 +1,12 @@
 import Link from "next/link";
-import { AddRecipe, Followers, User } from "@/ui/icons/Icons";
+import { AddRecipe, Followers } from "@/ui/icons/Icons";
+import { useUser } from "@/contextProvider/ContextProvider";
 
 const UserDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg: boolean) => void }) => {
+
+    const { user } = useUser();
+    const { name, photo } = user || {};
+
     return (
         <div>
             <div className="flex justify-center -mt-6">
@@ -10,8 +15,10 @@ const UserDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg:
                     className="flex flex-col items-center"
                     onClick={() => setOpenDashboardModal(false)}
                 >
-                    <User w="70"></User>
-                    <p className="font-mono">My Profile</p>
+                    <div className="w-[70px]">
+                        <img className="w-[70px] rounded-full" src={photo} alt={name} />
+                    </div>
+                    <p className="font-mono">{name}</p>
                 </Link>
             </div>
             <hr className="my-3" />
