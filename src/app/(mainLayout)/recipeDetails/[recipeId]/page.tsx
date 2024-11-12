@@ -61,7 +61,7 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                                 </div>
                                 <div>
                                     <a href="#comments"><Comment w="20"></Comment></a>
-                                    <p>{comments.length}</p>
+                                    <p>{comments?.length}</p>
                                 </div>
                                 <div>
                                     {/* <button className="bg-slate-50 shadow-md h-7 px-3 rounded-md transition active:translate-y-1 text-gray-600">Follow</button> */}

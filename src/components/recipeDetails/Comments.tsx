@@ -70,7 +70,7 @@ const Comments = ({ id, comments }: { id: string, comments: [] }) => {
             </div>
 
             {
-                comments.map((comment: comment, index) => {
+                comments?.map((comment: comment, index) => {
                     return <div key={index} className="rounded-md border bg-[#fff] p-2">
                         <div className="flex items-center gap-x-1">
                             <Image

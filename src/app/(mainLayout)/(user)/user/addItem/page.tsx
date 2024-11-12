@@ -83,7 +83,9 @@ const AddItemPage = () => {
                 user: user.userId,
             }
             createRecipe(data);
+            console.log(data);
         }
+        
     }
 
     useEffect(() => {
