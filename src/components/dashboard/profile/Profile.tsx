@@ -183,10 +183,10 @@ const MyProfilePage = () => {
             <div className="bg-[#fff] rounded-md my-2">
                 <div className=" flex justify-between p-2">
                     <div className="flex gap-x-3">
-                        <div>
+                        <div className="h-[80px] w-[80px]">
                             {
                                 myProfile?.photo ?
-                                    <Image className="border-4 border-gray-200 rounded-full" alt={myProfile.name} height={85} width={85} src={myProfile?.photo}></Image> :
+                                    <Image className="border-4 h-full w-full object-cover border-gray-200 rounded-full" alt={myProfile.name} height={85} width={85} src={myProfile?.photo}></Image> :
                                     <div className="inline-block border rounded-full p-2">
                                         <User w={80}></User>
                                     </div>
@@ -238,7 +238,9 @@ const MyProfilePage = () => {
                                         <div className="flex justify-center">
                                             {
                                                 myProfile?.photo ?
-                                                    <Image className="border-4 border-gray-200 rounded-full" alt={myProfile.name} height={50} width={50} src={myProfile?.photo}></Image> :
+                                                    <div className="h-[50px] w-[50px]">
+                                                        <Image className="border-4 h-full w-full object-cover border-gray-200 rounded-full" alt={myProfile.name} height={50} width={50} src={myProfile?.photo}></Image>
+                                                    </div> :
                                                     <div className="border-4 border-gray-200 rounded-full p-2">
                                                         <User w={30}></User>
                                                     </div>

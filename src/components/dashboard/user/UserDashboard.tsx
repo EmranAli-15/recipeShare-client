@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AddRecipe, Followers } from "@/ui/icons/Icons";
+import { AddRecipe, Followers, User } from "@/ui/icons/Icons";
 import { useUser } from "@/contextProvider/ContextProvider";
 
 const UserDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg: boolean) => void }) => {
@@ -15,8 +15,11 @@ const UserDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg:
                     className="flex flex-col items-center"
                     onClick={() => setOpenDashboardModal(false)}
                 >
-                    <div className="w-[70px]">
-                        <img className="w-[70px] rounded-full" src={photo} alt={name} />
+                    <div className="w-[70px] h-[70px]">
+                        {
+                            photo ? <img className="w-full h-full object-cover rounded-full" src={photo} alt={name} /> :
+                                <User w={70}></User>
+                        }
                     </div>
                     <p className="font-mono">{name}</p>
                 </Link>

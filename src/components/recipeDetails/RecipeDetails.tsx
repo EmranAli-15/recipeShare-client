@@ -42,6 +42,7 @@ const RecipeDetails = ({ recipeId, photo, id, name, email, followers }: userType
         }
     }, [isSuccess])
 
+console.log(isFollow);
 
 
     return (

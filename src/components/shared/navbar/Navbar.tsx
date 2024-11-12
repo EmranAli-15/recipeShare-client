@@ -20,7 +20,7 @@ const Navbar = () => {
     const [openDashboardModal, setOpenDashboardModal] = useState(false);
 
     const { user: userFromContext, setUserLoading } = useUser();
-    
+
     const photo = userFromContext?.photo;
 
     const handleLogOut = () => {
@@ -63,9 +63,9 @@ const Navbar = () => {
                             <div className="hidden md:block">
                                 {
                                     userFromContext ?
-                                        photo ? <span onClick={() => setOpenDashboardModal(!openDashboardModal)}>
-                                            <Image width={35} height={35} className="rounded-full cursor-pointer" src={photo} alt="" />
-                                        </span> :
+                                        photo ? <div className="h-[35px] w-[35px]" onClick={() => setOpenDashboardModal(!openDashboardModal)}>
+                                            <Image width={35} height={35} className="rounded-full h-full w-full object-cover cursor-pointer" src={photo} alt="" />
+                                        </div> :
                                             <span className="cursor-pointer" onClick={() => setOpenDashboardModal(!openDashboardModal)}>
                                                 <User w="30"></User>
                                             </span>
@@ -97,7 +97,9 @@ const Navbar = () => {
                                     userFromContext ?
                                         photo ? <span onClick={() => setOpenDashboardModal(!openDashboardModal)}>
                                             <span className="cursor-pointer flex items-center gap-x-2" onClick={() => setOpenDashboardModal(!openDashboardModal)}>
-                                                <Image width={30} height={30} className="rounded-full" src={photo} alt="" />
+                                                <div className="w-[30px] h-[30px]">
+                                                    <Image width={30} height={30} className="h-full w-full object-cover rounded-full" src={photo} alt="" />
+                                                </div>
                                                 <p>{userFromContext.name}</p>
                                             </span>
                                         </span> :

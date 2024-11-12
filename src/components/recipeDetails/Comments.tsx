@@ -10,13 +10,15 @@ type comment = {
 
 import { useUser } from "@/contextProvider/ContextProvider";
 import { useCreateACommentMutation } from "@/redux/features/recipe/recipeApi";
+import { reFetchGetSingleRecipe } from "@/services/recipes/recipes";
+import SectionLoader from "@/ui/loader/SectionLoader";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 
 const Comments = ({ id, comments }: { id: string, comments: [] }) => {
-    
+
     const { user } = useUser();
     const { userId } = user || {};
 
@@ -42,6 +44,13 @@ const Comments = ({ id, comments }: { id: string, comments: [] }) => {
         createAComment(data)
     }
 
+    useEffect(() => {
+        if (isSuccess) {
+            setComment("");
+            reFetchGetSingleRecipe();
+        }
+    }, [isSuccess])
+
 
     return (
         <div>
@@ -50,8 +59,13 @@ const Comments = ({ id, comments }: { id: string, comments: [] }) => {
             <div className="mb-3 py-1">
                 Paste a comment
                 <div>
-                    <textarea onChange={(e) => setComment(e.target.value)} className="border w-full myInput" rows={3} id=""></textarea>
-                    <button disabled={isLoading} onClick={handleSubmitComment} className="myBtn w-full h-10">Submit</button>
+                    <textarea value={comment} onChange={(e) => setComment(e.target.value)} className="border w-full myInput" rows={3} id=""></textarea>
+                    <button disabled={isLoading} onClick={handleSubmitComment} className="myBtn w-full h-10">
+                        {
+                            isLoading ? <SectionLoader></SectionLoader> :
+                                "Submit"
+                        }
+                    </button>
                 </div>
             </div>
 
