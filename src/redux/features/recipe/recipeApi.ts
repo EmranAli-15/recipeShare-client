@@ -47,6 +47,14 @@ const recipeApi = baseApi.injectEndpoints({
                 method: 'PATCH',
             })
         }),
+
+        updateLike: builder.mutation({
+            query: ({ like, recipeId }) => ({
+                url: `/api/recipe/updateLike/${recipeId}`,
+                body: like,
+                method: 'PATCH',
+            })
+        }),
     })
 });
 
@@ -55,5 +63,6 @@ export const {
     useGetMyRecipesQuery,
     useGetSingleRecipeForUpdateQuery,
     useUpdateRecipeMutation,
-    useCreateACommentMutation
+    useCreateACommentMutation,
+    useUpdateLikeMutation
 } = recipeApi;

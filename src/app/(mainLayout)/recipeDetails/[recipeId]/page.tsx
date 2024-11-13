@@ -1,4 +1,5 @@
 import Comments from "@/components/recipeDetails/Comments";
+import Likes from "@/components/recipeDetails/Likes";
 import RecipeDetails from "@/components/recipeDetails/RecipeDetails";
 import { getSingleRecipe } from "@/services/recipes/recipes";
 import Error from "@/ui/Error/Error";
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: { recipeId: string 
 const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) => {
     const recipeData = await getSingleRecipe(params.recipeId);
 
-    const { _id, title, image, user, recipe, comments, like } = recipeData.data || {};
+    const { _id, title, image, user, recipe, comments, likes } = recipeData.data || {};
 
     if (!recipeData?.data) {
         return <div className="max-w-7xl mx-auto px-2 md:px-0">
@@ -56,10 +57,9 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                         <div className="md:mt-10">
                             <div className="grid grid-cols-2 justify-items-center md:justify-items-start">
                                 <div>
-                                    <p><Like w="21"></Like></p>
-                                    <p>{like}</p>
+                                    <Likes likes={likes} recipeId={_id}></Likes>
                                 </div>
-                                <div>
+                                <div className="flex flex-col items-center">
                                     <a href="#comments"><Comment w="20"></Comment></a>
                                     <p>{comments?.length}</p>
                                 </div>

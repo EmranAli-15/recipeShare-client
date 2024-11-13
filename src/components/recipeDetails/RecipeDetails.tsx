@@ -42,9 +42,6 @@ const RecipeDetails = ({ recipeId, photo, id, name, email, followers }: userType
         }
     }, [isSuccess])
 
-console.log(isFollow);
-
-
     return (
         <div className="bg-[#fff] p-2 rounded-md flex items-center gap-x-3">
             <Toaster toastOptions={{ duration: 1000 }}></Toaster>
