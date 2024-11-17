@@ -11,19 +11,21 @@ import { uploadImage } from "@/utils/utils";
 import { useMyProfileQuery, useUpdateUserMutation } from "@/redux/features/user/userApi";
 import SectionLoader from "@/ui/loader/SectionLoader";
 import MyRecipes from "../myRecipes/MyRecipes";
+import { useAppSelector } from "@/redux/hooks";
 
 const PHOTO_NAME = "PHOTO_NAME";
 const EXPERIENCE = "EXPERIENCE";
 const BIO = "BIO";
 
 const MyProfilePage = () => {
+    const myTotalRecipes = useAppSelector((state) => state.recipeFromRedux.myTotalRecipe);
+
     const { user } = useUser();
     const { userId } = user || {};
     const [profileModal, setProfileModal] = useState(false);
     const [userUpdate, setUserUpdate] = useState("");
 
     const { data: myProfile, isError, isLoading, isSuccess } = useMyProfileQuery(userId);
-
 
     const [userPhoto, setUserPhoto] = useState("");
     const [isUserPhotoChange, setIsUserPhotoChange] = useState(false);
@@ -214,7 +216,7 @@ const MyProfilePage = () => {
 
                     <div className="bg-[#fff] rounded-md p-2 my-2">
                         <p className="text-xl font-semibold">Total Recipes</p>
-                        <p className="text-gray-500">{myProfile?.totalRecipes}</p>
+                        <p className="text-gray-500">{myTotalRecipes}</p>
                     </div>
 
                     <div className="bg-[#fff] rounded-md p-2 md:h-[200px] overflow-hidden">

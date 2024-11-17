@@ -2,10 +2,12 @@
 
 import { useUser } from "@/contextProvider/ContextProvider";
 import { useGetMyRecipesQuery } from "@/redux/features/recipe/recipeApi";
+import { myTotalRecipe } from "@/redux/features/recipe/recipeSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import Error from "@/ui/Error/Error";
 import SectionLoader from "@/ui/loader/SectionLoader";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect } from "react";
 
 type recipeType = {
     _id: string;
@@ -16,20 +18,15 @@ type recipeType = {
 
 
 const MyRecipes = () => {
+    const dispatch = useAppDispatch();
     const { user } = useUser();
     const { userId } = user || {};
-
-    const [load, setLoad] = useState(true);
-
-    setTimeout(() => {
-        setLoad(false);
-    }, 3000);
 
     const { data: recipes, isLoading, isError, isSuccess } = useGetMyRecipesQuery(userId);
 
     let content = null;
 
-    if (isLoading || load) {
+    if (isLoading) {
         content = <div className="flex justify-center"><SectionLoader></SectionLoader></div>
     } else if (!isLoading && isError) {
         content = <Error
@@ -57,6 +54,14 @@ const MyRecipes = () => {
             }
         </div>
     }
+
+    useEffect(() => {
+        if (recipes) {
+            dispatch(myTotalRecipe({
+                totalRecipes: recipes.length
+            }));
+        }
+    }, [recipes])
 
     return (
         <div className="mt-10">

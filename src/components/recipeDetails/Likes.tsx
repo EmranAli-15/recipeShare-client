@@ -43,7 +43,7 @@ const Likes = ({ likes, recipeId }: { likes: any[], recipeId: string }) => {
             <span
                 onClick={handleLike}
                 className="cursor-pointer">
-                <Like fill={isLiked ? "blue" : "#1f2937"} w="25"></Like>
+                <Like fill={isLiked ? "#2563eb" : "#374151"} w="25"></Like>
             </span>
             <p>{totalLikes.length}</p>
         </div>
