@@ -17,6 +17,13 @@ const PHOTO_NAME = "PHOTO_NAME";
 const EXPERIENCE = "EXPERIENCE";
 const BIO = "BIO";
 
+type TPerson = {
+    name: string;
+    _id: string;
+    photo: string;
+    followers: []
+}
+
 const MyProfilePage = () => {
     const myTotalRecipes = useAppSelector((state) => state.recipeFromRedux.myTotalRecipe);
 
@@ -50,7 +57,6 @@ const MyProfilePage = () => {
         }
         setProfileModal(true);
     };
-
 
 
     const [updateUser, { isLoading: updateUserLoading, isSuccess: updateUserSuccess, isError: updateUserError }] = useUpdateUserMutation();
@@ -231,17 +237,17 @@ const MyProfilePage = () => {
 
                 {/* Following section */}
                 <div className="p-2 bg-[#fff] rounded-md md:h-[352px] my-2 md:my-0">
-                    <p className="text-xl font-semibold mb-5">Following</p>
+                    <p className="text-xl font-semibold mb-5">Following<sub className="text-gray-500">({myProfile.following.length})</sub></p>
                     <div className={`${styles.scrollBar} grid grid-cols-3 gap-y-3 h-[280px] overflow-y-scroll`}>
                         {
-                            Array(14).fill(null).map((da, index) => {
+                            myProfile?.following.map((person: TPerson) => {
                                 return (
-                                    <div key={index}>
+                                    <div key={person._id}>
                                         <div className="flex justify-center">
                                             {
                                                 myProfile?.photo ?
                                                     <div className="h-[50px] w-[50px]">
-                                                        <Image className="border-4 h-full w-full object-cover border-gray-200 rounded-full" alt={myProfile.name} height={50} width={50} src={myProfile?.photo}></Image>
+                                                        <Image className="border-4 h-full w-full object-cover border-gray-200 rounded-full" alt={person.name} height={50} width={50} src={person?.photo}></Image>
                                                     </div> :
                                                     <div className="border-4 border-gray-200 rounded-full p-2">
                                                         <User w={30}></User>
@@ -249,8 +255,8 @@ const MyProfilePage = () => {
                                             }
                                         </div>
                                         <div className="">
-                                            <h1 className="text-center">{myProfile?.name.slice(0, 10)}</h1>
-                                            <h1 className="text-sm text-center text-gray-500">Followers : {myProfile?.followers.length}</h1>
+                                            <h1 className="text-center">{person?.name.slice(0, 10)}</h1>
+                                            <h1 className="text-sm text-center text-gray-500">Followers : {person?.followers.length}</h1>
                                         </div>
                                     </div>
                                 )
