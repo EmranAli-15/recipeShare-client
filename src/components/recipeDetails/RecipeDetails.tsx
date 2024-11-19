@@ -2,45 +2,52 @@
 
 import { useUser } from "@/contextProvider/ContextProvider";
 import { useUpdateFollowingMutation } from "@/redux/features/user/userApi";
-import { reFetchGetSingleRecipe } from "@/services/recipes/recipes";
-import { Edit, Menu, User } from "@/ui/icons/Icons";
+import { User } from "@/ui/icons/Icons";
+import { debounce } from "@/utils/debounce";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 type userType = {
     recipeId: string;
-    photo: string;
-    id: string;
-    name: string;
-    email: string;
-    followers: unknown[]
+    user: {
+        photo: string;
+        _id: string;
+        name: string;
+        email: string;
+        followers: unknown[]
+    };
 }
 
-const RecipeDetails = ({ recipeId, photo, id, name, email, followers }: userType) => {
+const RecipeDetails = ({ recipeId, user }: userType) => {
+    const { photo, _id, name, email, followers } = user || {};
+
     const { user: loggedInUser } = useUser() || {};
     const { email: myEmail, userId: myId } = loggedInUser || {};
 
-    let isFollow = false;
-    const isMyIdExist = followers?.find(personId => personId?.toString() == myId);
-    if (isMyIdExist) {
-        isFollow = true
-    };
+    const [isFollow, setIsFollow] = useState(false);
 
-    const [updateFollowing, { isLoading, isSuccess }] = useUpdateFollowingMutation();
+
+    useEffect(() => {
+        const isMyIdExist = followers?.find(personId => personId?.toString() == myId);
+        if (isMyIdExist) {
+            setIsFollow(true);
+        };
+    }, [myId]);
+
+    const [updateFollowing, { isLoading }] = useUpdateFollowingMutation();
 
     const handleUpdateFollower = () => {
         if (!myEmail) {
             return toast.error("Please Login");
+        } else {
+            const callTheDebounce = () => {
+                updateFollowing({ id: _id, isFollow });
+            }
+            setIsFollow(!isFollow);
+            debounce(callTheDebounce, 1000);
         }
-        updateFollowing({ id, isFollow });
     };
-
-    useEffect(() => {
-        if (isSuccess) {
-            reFetchGetSingleRecipe();
-        }
-    }, [isSuccess])
 
     return (
         <div className="bg-[#fff] p-2 rounded-md flex items-center gap-x-3">

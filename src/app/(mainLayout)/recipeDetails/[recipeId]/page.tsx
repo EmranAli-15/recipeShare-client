@@ -42,7 +42,7 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
             <div className="max-w-7xl mx-auto px-2 mt-2 md:px-0">
                 <div>
                     {/* This section is rendered in client side that's why used another component instead render in client side whole page */}
-                    <RecipeDetails recipeId={_id} photo={user.photo} id={user._id} name={user.name} email={user.email} followers={user.followers}></RecipeDetails>
+                    <RecipeDetails recipeId={_id} user={user}></RecipeDetails>
                 </div>
 
                 <div className="bg-[#fff] rounded-md p-2 grid md:grid-cols-2 md:gap-x-10 my-2">
