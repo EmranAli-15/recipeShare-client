@@ -2,7 +2,7 @@
 
 import { useUser } from "@/contextProvider/ContextProvider";
 import { useUpdateLikeMutation } from "@/redux/features/recipe/recipeApi";
-import { Like } from "@/ui/icons/Icons";
+import { Like, OutlineLike } from "@/ui/icons/Icons";
 import { debounce } from "@/utils/debounce";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -50,7 +50,9 @@ const Likes = ({ likes: totalLikes, recipeId }: { likes: any[], recipeId: string
             <span
                 onClick={handleLike}
                 className="cursor-pointer">
-                <Like fill={isLiked ? "#2563eb" : "#374151"} w="25"></Like>
+                {
+                    isLiked ? <Like w={25}></Like> : <OutlineLike w={25}></OutlineLike>
+                }
             </span>
             <p>{numberOfTotalLikes}</p>
         </div>
