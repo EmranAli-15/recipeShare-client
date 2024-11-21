@@ -23,10 +23,18 @@ const RecipeDetails = ({ recipeId, user }: userType) => {
     const { photo, _id, name, email, followers } = user || {};
 
     const { user: loggedInUser } = useUser() || {};
-    const { email: myEmail, userId: myId } = loggedInUser || {};
+    const { email: myEmail, userId: myId, role } = loggedInUser || {};
 
     const [isFollow, setIsFollow] = useState(false);
 
+    let isThisMe = false;
+    let amIUser = false;
+    if (myEmail == email) {
+        isThisMe = true;
+        if (role == "user") {
+            amIUser = true;
+        }
+    }
 
     useEffect(() => {
         const isMyIdExist = followers?.find(personId => personId?.toString() == myId);
@@ -50,15 +58,20 @@ const RecipeDetails = ({ recipeId, user }: userType) => {
     };
 
     return (
+        // This component is for showing user information and some event
         <div className="bg-[#fff] p-2 rounded-md flex items-center gap-x-3">
             <Toaster toastOptions={{ duration: 1000 }}></Toaster>
             <div>
-                {
-                    photo ? <img className="size-12 rounded-full border-2" src={photo} alt={name} /> :
-                        <div className="rounded-full border p-1">
-                            <User w="30"></User>
-                        </div>
-                }
+                <Link
+                    href={isThisMe && amIUser ? "/user/myProfile" : isThisMe && !amIUser ? "/admin/adminProfile" : `/userProfile/${_id}`}
+                >
+                    {
+                        photo ? <img className="size-12 rounded-full border-2" src={photo} alt={name} /> :
+                            <div className="rounded-full border p-1">
+                                <User w="30"></User>
+                            </div>
+                    }
+                </Link>
             </div>
             <div>
                 <p className="font-semibold">{name}</p>

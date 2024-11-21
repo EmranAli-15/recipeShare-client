@@ -26,8 +26,23 @@ const recipeApi = baseApi.injectEndpoints({
                 body: data,
                 method: 'PATCH',
             }),
-        })
+        }),
+        anyUserProfile: builder.query({
+            query: (id) => ({
+                url: `/api/auth/myProfile/${id}`,
+                method: 'GET',
+            }),
+            providesTags: ["userProfile"],
+            transformResponse(response: any) {
+                return response.data
+            }
+        }),
     })
 });
 
-export const { useUpdateUserMutation, useMyProfileQuery, useUpdateFollowingMutation } = recipeApi;
+export const {
+    useUpdateUserMutation,
+    useMyProfileQuery,
+    useUpdateFollowingMutation,
+    useAnyUserProfileQuery
+} = recipeApi;

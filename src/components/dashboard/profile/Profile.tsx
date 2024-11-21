@@ -118,7 +118,7 @@ const MyProfilePage = () => {
     } else if (!isLoading && !isError && isSuccess) {
         content = <div>
             {/* This is a modal for updating user data */}
-            <div>
+            <section>
                 {
                     profileModal &&
                     <div>
@@ -185,10 +185,10 @@ const MyProfilePage = () => {
                         </div>
                     </div>
                 }
-            </div>
+            </section>
 
             {/* This section for user photo and user name */}
-            <div className="bg-[#fff] rounded-md my-2">
+            <section className="bg-[#fff] rounded-md my-2">
                 <div className=" flex justify-between p-2">
                     <div className="flex gap-x-3">
                         <div className="h-[85px] w-[85px]">
@@ -207,11 +207,11 @@ const MyProfilePage = () => {
                     </div>
                     <p onClick={() => updatingUserData(PHOTO_NAME)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
                 </div>
-            </div>
+            </section>
 
             {/* Start with experience and following section */}
-            <div className="grid md:grid-cols-2 md:gap-x-2">
-                <div>
+            <section className="grid md:grid-cols-2 md:gap-x-2">
+                <section>
                     <div className="bg-[#fff] rounded-md p-2">
                         <div className="flex items-center justify-between">
                             <p className="text-xl font-semibold">Experience</p>
@@ -232,13 +232,13 @@ const MyProfilePage = () => {
                         </div>
                         <p className="text-justify mt-2 text-gray-500">{myProfile?.bio}</p>
                     </div>
-                </div>
+                </section>
 
 
                 {/* Following section */}
-                <div className="p-2 bg-[#fff] rounded-md md:h-[352px] my-2 md:my-0">
+                <section className="p-2 bg-[#fff] rounded-md md:h-[352px] my-2 md:my-0">
                     <p className="text-xl font-semibold mb-5">Following<sub className="text-gray-500">({myProfile.following.length})</sub></p>
-                    <div className={`${styles.scrollBar} grid grid-cols-3 gap-y-3 h-[280px] overflow-y-scroll`}>
+                    <div className={`${styles.scrollBar} grid grid-cols-3 gap-y-3 max-h-[280px] md:h-[280px] overflow-y-scroll`}>
                         {
                             myProfile?.following.map((person: TPerson) => {
                                 return (
@@ -263,8 +263,8 @@ const MyProfilePage = () => {
                             })
                         }
                     </div>
-                </div>
-            </div>
+                </section>
+            </section>
 
 
             {/* My Recipes section*/}

@@ -20,7 +20,10 @@ export const getLatestRecipes = async () => {
 
 export const getSingleRecipe = async (id: string) => {
   const res = await fetch(`${baseUrl}/api/recipe/getSingleRecipe/${id}`, {
-    cache: "no-cache"
+    cache: "no-cache",
+    next: {
+      tags: ["refetchSingleRecipe"]
+    }
   });
 
   if (!res.ok) {
@@ -30,3 +33,6 @@ export const getSingleRecipe = async (id: string) => {
   return res.json();
 };
 
+export const reFetchGetSingleRecipe = async () => {
+  revalidateTag("refetchSingleRecipe");
+}

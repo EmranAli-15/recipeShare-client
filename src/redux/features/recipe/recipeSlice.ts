@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const recipeSlice = createSlice({
-    name: "auth",
+    name: "recipe",
     initialState: initialState,
     reducers: {
         myTotalRecipe: (state, action) => {
