@@ -29,10 +29,9 @@ const recipeApi = baseApi.injectEndpoints({
         }),
         anyUserProfile: builder.query({
             query: (id) => ({
-                url: `/api/auth/myProfile/${id}`,
+                url: `/api/user/anyUserProfile/${id}`,
                 method: 'GET',
             }),
-            providesTags: ["userProfile"],
             transformResponse(response: any) {
                 return response.data
             }

@@ -168,7 +168,7 @@ const LatestRecipes = async () => {
         <section>
             <h1 className="font-semibold text-xl my-2 md:text-3xl"><span className="text-green-700">Latest</span> Recipes</h1>
 
-            <div className="bg-[#fff] border rounded-md p-2 h-full]">
+            <div className="bg-[#fff] border rounded-md p-2 h-full">
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
                     {
                         recipes.map((recipe: recipeType) => (
