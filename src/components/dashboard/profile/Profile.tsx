@@ -12,6 +12,7 @@ import { useMyProfileQuery, useUpdateUserMutation } from "@/redux/features/user/
 import SectionLoader from "@/ui/loader/SectionLoader";
 import MyRecipes from "../myRecipes/MyRecipes";
 import { useAppSelector } from "@/redux/hooks";
+import Link from "next/link";
 
 const PHOTO_NAME = "PHOTO_NAME";
 const EXPERIENCE = "EXPERIENCE";
@@ -211,7 +212,7 @@ const MyProfilePage = () => {
 
             {/* Start with experience and following section */}
             <section className="grid md:grid-cols-2 md:gap-x-2">
-                <section>
+                <div>
                     <div className="bg-[#fff] rounded-md p-2">
                         <div className="flex items-center justify-between">
                             <p className="text-xl font-semibold">Experience</p>
@@ -232,18 +233,18 @@ const MyProfilePage = () => {
                         </div>
                         <p className="text-justify mt-2 text-gray-500">{myProfile?.bio}</p>
                     </div>
-                </section>
+                </div>
 
 
                 {/* Following section */}
-                <section className="p-2 bg-[#fff] rounded-md md:h-[352px] my-2 md:my-0">
+                <div className="p-2 bg-[#fff] rounded-md md:h-[352px] my-2 md:my-0">
                     <p className="text-xl font-semibold mb-5">Following<sub className="text-gray-500">({myProfile.following.length})</sub></p>
                     <div className={`${styles.scrollBar} grid grid-cols-3 gap-y-3 max-h-[280px] md:h-[280px] overflow-y-scroll`}>
                         {
                             myProfile?.following.map((person: TPerson) => {
                                 return (
                                     <div key={person._id}>
-                                        <div className="flex justify-center">
+                                        <Link href={`/userProfile/${person._id}`} className="flex justify-center">
                                             {
                                                 myProfile?.photo ?
                                                     <div className="h-[50px] w-[50px]">
@@ -253,7 +254,7 @@ const MyProfilePage = () => {
                                                         <User w={30}></User>
                                                     </div>
                                             }
-                                        </div>
+                                        </Link>
                                         <div className="">
                                             <h1 className="text-center">{person?.name.slice(0, 10)}</h1>
                                             <h1 className="text-sm text-center text-gray-500">Followers : {person?.followers.length}</h1>
@@ -263,7 +264,7 @@ const MyProfilePage = () => {
                             })
                         }
                     </div>
-                </section>
+                </div>
             </section>
 
 

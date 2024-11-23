@@ -8,6 +8,15 @@ import CommonLoader from "@/ui/loader/CommonLoader";
 import { debounce } from "@/utils/debounce";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import styles from './styles.module.css';
+import SectionLoader from "@/ui/loader/SectionLoader";
+import Link from "next/link";
+
+type recipeType = {
+    _id: string;
+    title: string;
+    image: string
+}
 
 const Page = ({ params }: { params: { userId: string } }) => {
     const [isFollow, setIsFollow] = useState(false);
@@ -16,14 +25,10 @@ const Page = ({ params }: { params: { userId: string } }) => {
     const { user: loggedInUser } = useUser() || {};
     const { email: myEmail, userId: myId } = loggedInUser || {};
 
-    const { data: userData, isLoading, isError, isSuccess } = useAnyUserProfileQuery(params?.userId);
+    const { data: userData, isLoading, isError } = useAnyUserProfileQuery(params?.userId);
     const { photo, _id, name, email, followers } = userData || {}
 
-
-
-    const { data: recipes, isLoading: isRecipesLoading, isError: isRecipesError, isSuccess: isRecipesSuccess } = useGetMyRecipesQuery(params?.userId);
-
-
+    const { data: recipes, isLoading: isRecipesLoading, isError: isRecipesError } = useGetMyRecipesQuery(params?.userId);
 
     useEffect(() => {
         const isMyIdExist = followers?.find((personId: any) => personId?.toString() == myId);
@@ -47,7 +52,6 @@ const Page = ({ params }: { params: { userId: string } }) => {
     };
 
 
-
     let profileContent = null;
     if (isLoading) { profileContent = <CommonLoader></CommonLoader> }
     else if (!isLoading && isError) { profileContent = <Error heading="User Not Found" description="Please Try Again!"></Error> }
@@ -63,7 +67,7 @@ const Page = ({ params }: { params: { userId: string } }) => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between mt-2">
+            <div className="flex items-center justify-between md:gap-x-5 mt-2">
                 <div className="shadow-md px-2 py-1 rounded-md">
                     <button
                         onClick={handleUpdateFollower}
@@ -75,28 +79,79 @@ const Page = ({ params }: { params: { userId: string } }) => {
                 </div>
                 <div
                     onClick={() => serMoreInfo(!moreInfo)}
-                    className="shadow-md px-2 py-1 rounded-md active:scale-95 transition">
-                    More info
+                    className="shadow-md px-2 py-1 rounded-md active:scale-95 transition cursor-pointer">
+                    {moreInfo ? "Less info" : "More info"}
                 </div>
             </div>
         </>
+    }
+
+    let recipesContent = null;
+    if (isRecipesLoading) { recipesContent = <div className="flex justify-center items-center"><SectionLoader></SectionLoader></div> }
+    else if (!isRecipesLoading && isRecipesError) { recipesContent = <Error heading="Recipes Not Founded" description="Please Try Again!"></Error> }
+    else if (!isRecipesLoading && !isRecipesError && recipes) {
+        recipesContent = <div>
+            <h1 className="font-semibold text-gray-500 text-xl my-2 md:text-3xl">All Recipes</h1>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 bg-[#fff] border rounded-md p-2">
+                {
+                    recipes.map((recipe: recipeType) => (
+                        <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id}>
+                            <div>
+                                <div className="w-full h-32">
+                                    <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
+                                </div>
+                                <div className="md:px-2">
+                                    <h1 className="font-semibold my-2">{recipe.title}</h1>
+                                </div>
+                            </div>
+                        </Link>
+                    ))
+                }
+            </div>
+        </div>
     }
 
     return (
         <div className="max-w-7xl mx-auto p-2">
             <Toaster toastOptions={{ duration: 1000 }}></Toaster>
 
-            <div className="">
-                <section className="md:flex items-center bg-[#fff] border rounded-md p-2">
+            <div>
+                {/* User sample data */}
+                <section className={`${userData && "md:flex md:justify-between md:items-end bg-[#fff] border rounded-md p-2"}`}>
                     {
                         profileContent
                     }
                 </section>
 
                 {/* More info */}
-                <section className={`${moreInfo ? 'block' : 'hidden'} bg-[#fff] border rounded-md p-2 my-2`}>
-
+                <section className={`${moreInfo ? 'block md:flex md:gap-x-2' : 'hidden'} my-2`}>
+                    <div className="md:w-1/2">
+                        <div className="bg-[#fff] rounded-md p-2">
+                            <div className="flex items-center justify-between">
+                                <p className="text-xl font-semibold">Experience</p>
+                            </div>
+                            <p className="text-gray-500">I'm working since <span className="font-semibold">{userData?.experience || 0}</span> years</p>
+                        </div>
+                        <div className="bg-[#fff] rounded-md p-2 my-2">
+                            <p className="text-xl font-semibold">Total Recipes</p>
+                            <p className="text-gray-500">{recipes && recipes.length || 0}</p>
+                        </div>
+                    </div>
+                    <div className="md:w-1/2">
+                        <div className={`bg-[#fff] rounded-md p-2 h-[145px] overflow-auto ${styles.scrollBar}`}>
+                            <div className="flex items-start justify-between">
+                                <p className="text-xl font-semibold">Bio</p>
+                            </div>
+                            <p className="text-justify mt-2 text-gray-500">{userData?.bio}</p>
+                        </div>
+                    </div>
                 </section>
+            </div>
+
+            <div>
+                {
+                    recipesContent
+                }
             </div>
         </div>
     );
