@@ -4,13 +4,13 @@ import { useUser } from "@/contextProvider/ContextProvider";
 import { useGetMyRecipesQuery } from "@/redux/features/recipe/recipeApi";
 import { useAnyUserProfileQuery, useUpdateFollowingMutation } from "@/redux/features/user/userApi";
 import Error from "@/ui/Error/Error";
-import CommonLoader from "@/ui/loader/CommonLoader";
 import { debounce } from "@/utils/debounce";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import styles from './styles.module.css';
-import SectionLoader from "@/ui/loader/SectionLoader";
 import Link from "next/link";
+import AnyUserProfileLoader from "@/ui/loader/AnyUserProfileLoader";
+import RecipeCardLoader from "@/ui/loader/RecipeCardLoader";
 
 type recipeType = {
     _id: string;
@@ -53,7 +53,7 @@ const Page = ({ params }: { params: { userId: string } }) => {
 
 
     let profileContent = null;
-    if (isLoading) { profileContent = <CommonLoader></CommonLoader> }
+    if (isLoading) { profileContent = <AnyUserProfileLoader></AnyUserProfileLoader> }
     else if (!isLoading && isError) { profileContent = <Error heading="User Not Found" description="Please Try Again!"></Error> }
     else if (!isLoading && !isError && userData) {
         profileContent = <>
@@ -87,7 +87,7 @@ const Page = ({ params }: { params: { userId: string } }) => {
     }
 
     let recipesContent = null;
-    if (isRecipesLoading) { recipesContent = <div className="flex justify-center items-center"><SectionLoader></SectionLoader></div> }
+    if (isRecipesLoading) { recipesContent = <div className="flex justify-center items-center"><RecipeCardLoader></RecipeCardLoader></div> }
     else if (!isRecipesLoading && isRecipesError) { recipesContent = <Error heading="Recipes Not Founded" description="Please Try Again!"></Error> }
     else if (!isRecipesLoading && !isRecipesError && recipes) {
         recipesContent = <div>

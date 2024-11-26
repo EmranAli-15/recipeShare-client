@@ -1,12 +1,22 @@
 const promise1 = new Promise((resolve, reject) => {
     setTimeout(() => {
-        resolve('foo1');
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(res => res.json())
+            .then(data => resolve(data))
     }, 300);
 });
 
 const promise2 = new Promise((resolve, reject) => {
     setTimeout(() => {
-        resolve('foo2');
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(res => res.json())
+            .then(data => resolve(data))
+    }, 3000);
+});
+
+const promise3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Hello");
     }, 3000);
 });
 
@@ -16,4 +26,22 @@ const callMe = async () => {
     console.log(dataOne, dataTwo);
 };
 
-callMe()
+// callMe()
+
+
+const fn = async () => {
+    console.log(await promise3);
+
+    console.log("One");
+};
+// fn()
+
+console.log(
+    new Date().getTime()
+);
+
+
+
+
+// promise2.then(res => console.log(res)).catch(err => console.log(err));
+// promise1.then(res => console.log(res)).catch(err => console.log(err));
