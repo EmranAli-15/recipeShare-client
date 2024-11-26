@@ -4,8 +4,8 @@ import { revalidateTag } from "next/cache";
 
 const baseUrl = "http://localhost:5000"
 
-export const getLatestRecipes = async () => {
-  const res = await fetch(`${baseUrl}/api/recipe/getRecipes?page=0&limit=20`, {
+export const getLatestRecipes = async (category: any) => {
+  const res = await fetch(`${baseUrl}/api/recipe/getRecipes?page=0&limit=20&category=${category}`, {
     next: {
       revalidate: 180,
     }

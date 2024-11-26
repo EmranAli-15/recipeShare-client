@@ -3,7 +3,7 @@ import Likes from "@/components/recipeDetails/Likes";
 import RecipeDetails from "@/components/recipeDetails/RecipeDetails";
 import { getSingleRecipe } from "@/services/recipes/recipes";
 import Error from "@/ui/Error/Error";
-import { Comment, Like } from "@/ui/icons/Icons";
+import { Comment } from "@/ui/icons/Icons";
 import { Metadata } from "next";
 
 // For metadata

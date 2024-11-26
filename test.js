@@ -36,9 +36,9 @@ const fn = async () => {
 };
 // fn()
 
-console.log(
-    new Date().getTime()
-);
+const date = new Date().getHours();
+console.log(date);
+
 
 
 
