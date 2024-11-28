@@ -46,7 +46,7 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                 </div>
 
                 <div className="bg-[#fff] rounded-md p-2 grid md:grid-cols-2 md:gap-x-10 my-2">
-                    <h1 className="text-xl font-sans font-semibold md:hidden">{title}</h1>
+                    <h1 className="text-xl font-sans font-semibold md:hidden pb-4">{title}</h1>
 
                     <div className="w-full h-48 md:h-96">
                         <img className="w-full h-48 md:h-96 object-cover" src={image} alt="" />
@@ -61,7 +61,7 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                                 </div>
                                 <div className="flex flex-col items-center">
                                     <a href="#comments"><Comment w="20"></Comment></a>
-                                    <p>{comments?.length}</p>
+                                    <p>{!comments ? "0" : comments?.length}</p>
                                 </div>
                                 <div>
                                     {/* <button className="bg-slate-50 shadow-md h-7 px-3 rounded-md transition active:translate-y-1 text-gray-600">Follow</button> */}
@@ -74,7 +74,7 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
 
                 {/* This is the recipe or ingredient section */}
                 <div>
-                    <h1 className="my-5 md:text-2xl myTextColor border-b-2 border-b-[#74bd2c] border-dashed inline-block">INGREDIENTS</h1>
+                    <h1 className="mt-4 mb-2 md:text-2xl myTextColor border-b-2 border-b-[#74bd2c] border-dashed inline-block">INGREDIENTS</h1>
                     <div
                         className="bg-[#fff] rounded-md p-2"
                         dangerouslySetInnerHTML={{ __html: recipe }}
@@ -82,7 +82,7 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                     </div>
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-4">
                     <div id="comments">
                         {/* All comments */}
                         {

@@ -64,7 +64,7 @@ const MyRecipes = () => {
     }, [recipes])
 
     return (
-        <div className="mt-10">
+        <div className="mt-4">
             <h1 className="font-semibold text-xl mt-3 md:text-3xl mb-2"><span className="text-green-700">My</span> Recipes</h1>
             {
                 content

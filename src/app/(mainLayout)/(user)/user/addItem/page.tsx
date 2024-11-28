@@ -66,7 +66,7 @@ const AddItemPage = () => {
         setErrorDescription("")
     }
 
-    const [createRecipe, { isError, isLoading, isSuccess }] = useCreateRecipeMutation();
+    const [createRecipe, { isError, isLoading, isSuccess, error: mutationError }] = useCreateRecipeMutation();
 
     const handleUploadRecipe = () => {
         setError("");
@@ -84,7 +84,6 @@ const AddItemPage = () => {
             }
             createRecipe(data);
         }
-        
     }
 
     useEffect(() => {
@@ -92,7 +91,11 @@ const AddItemPage = () => {
             resetForm();
         }
         if (isError) {
-            setError("Something went wrong!");
+            if ('data' in mutationError) {
+                setError((mutationError.data as any)?.message);
+            } else {
+                setError('An unknown error occurred.');
+            }
             setErrorDescription("There was happened an unknown error, please try again!");
         }
     }, [isError, isSuccess])

@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const Likes = ({ likes: totalLikes, recipeId }: { likes: any[], recipeId: string }) => {
-    const [numberOfTotalLikes, setNumberOfTotalLikes] = useState(totalLikes.length);
+    
+    const [numberOfTotalLikes, setNumberOfTotalLikes] = useState(totalLikes?.length || 0);
 
     const { user } = useUser();
     const { userId: myId, email: myEmail, } = user || {};
@@ -16,7 +17,7 @@ const Likes = ({ likes: totalLikes, recipeId }: { likes: any[], recipeId: string
     const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
-        const isMyIdExist = totalLikes.find(id => id?.toString() == myId)
+        const isMyIdExist = totalLikes?.find(id => id?.toString() == myId)
         if (isMyIdExist) {
             setIsLiked(true);
         };

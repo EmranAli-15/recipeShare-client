@@ -66,7 +66,7 @@ const RecipeDetails = ({ recipeId, user }: userType) => {
                     href={isThisMe && amIUser ? "/user/myProfile" : isThisMe && !amIUser ? "/admin/adminProfile" : `/userProfile/${_id}`}
                 >
                     {
-                        photo ? <img className="size-12 rounded-full border-2" src={photo} alt={name} /> :
+                        photo ? <img className="size-12 rounded-full border-2 object-cover" src={photo} alt={name} /> :
                             <div className="rounded-full border p-1">
                                 <User w="30"></User>
                             </div>

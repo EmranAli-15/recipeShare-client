@@ -1,6 +1,6 @@
 import { getLatestRecipes } from "@/services/recipes/recipes";
 import Error from "@/ui/Error/Error";
-import { Star } from "@/ui/icons/Icons";
+import { Cursor, Star } from "@/ui/icons/Icons";
 import Link from "next/link";
 
 type recipeType = {
@@ -33,7 +33,7 @@ const dayTime = [
     },
     {
         time: NIGHT,
-        heading: "Night!",
+        heading: "Tonight!",
         about: "Tonight is very special for you, finish your day with healthy foods."
     }
 ]
@@ -60,15 +60,17 @@ const LatestRecipes = async () => {
         recipesForCurrentTime = dayTime[2].time;
         recipesForNextTime = dayTime[0].time;
         currentState = dayTime[2];
-        nextState = dayTime[1];
+        nextState = dayTime[0];
     } else {
         recipesForCurrentTime = EVERYTHING;
+        recipesForNextTime = dayTime[0].time;
+        currentState = dayTime[2];
+        nextState = dayTime[0];
     }
 
     const { data: currentRecipes } = await getLatestRecipes(recipesForCurrentTime);
     const { data: nextRecipes } = await getLatestRecipes(recipesForNextTime);
-    console.log(currentRecipes);
-    
+
 
     if (!currentRecipes) {
         return <Error heading="NO RECIPES FOUND!" description="Please refresh the page or wait a moment!"></Error>
@@ -77,21 +79,20 @@ const LatestRecipes = async () => {
     return (
         <div>
             <section>
-                <h1 className="font-semibold text-xl mt-2 md:text-3xl">Good <span className="text-green-700 font-bold">{currentState?.heading}</span></h1>
-                <h1 className="text-gray-600 mb-2">{currentState?.about}</h1>
-
                 <div className="bg-[#fff] border rounded-md p-2 h-full">
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
+                    <h1 className="font-semibold text-2xl md:text-3xl">Good <span className="text-green-700 font-bold">{currentState?.heading}</span></h1>
+                    <h1 className="text-gray-500 mb-4 -mt-1 text-sm md:text-lg md:-mt-0">{currentState?.about}</h1>
+                    <div className="flex overflow-auto md:grid grid-cols-5 gap-2 md:gap-4">
                         {
                             currentRecipes.map((recipe: recipeType) => (
                                 <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id}>
                                     <div>
-                                        <div className="w-full h-32">
+                                        <div className="w-44 md:w-full h-32">
                                             <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
                                         </div>
                                         <div className="md:px-2">
-                                            <h1 className="font-semibold my-2">{recipe.title}</h1>
-                                            <div className="flex items-start">
+                                            <h1 className="font-semibold my-2 line-clamp-2">{recipe.title}</h1>
+                                            <div className="flex items-start pb-1">
                                                 <div className="flex items-center text-[12px] bg-[#f1f2f4] px-1">
                                                     <span className="text-yellow-500">
                                                         <Star w="17"></Star>
@@ -107,24 +108,27 @@ const LatestRecipes = async () => {
                                 </Link>
                             ))
                         }
+                        <div className="bg-[#f1f2f4] px-16 h-32 flex flex-col items-center justify-center rounded border-4 cursor-pointer">
+                            <p className="text-center font-semibold">Browse More</p>
+                            <Cursor w={30}></Cursor>
+                        </div>
                     </div>
                 </div>
             </section>
-            <section className="my-7">
-                <h1 className="font-semibold text-xl my-2 md:text-3xl">Be Ready for <span className="text-green-700 font-bold">{nextState?.heading}</span></h1>
-                
+            <section className="mt-4">
                 <div className="bg-[#fff] border rounded-md p-2 h-full">
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
+                    <h1 className="font-semibold text-2xl mb-4 md:text-3xl">Be Ready for <span className="text-green-700 font-bold">{nextState?.heading}</span></h1>
+                    <div className="flex overflow-auto md:grid grid-cols-5 gap-2 md:gap-4">
                         {
                             nextRecipes.map((recipe: recipeType) => (
                                 <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id}>
                                     <div>
-                                        <div className="w-full h-32">
+                                        <div className="w-44 md:w-full h-32">
                                             <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
                                         </div>
                                         <div className="md:px-2">
-                                            <h1 className="font-semibold my-2">{recipe.title}</h1>
-                                            <div className="flex items-start">
+                                            <h1 className="font-semibold my-2 line-clamp-2">{recipe.title}</h1>
+                                            <div className="flex items-start pb-1">
                                                 <div className="flex items-center text-[12px] bg-[#f1f2f4] px-1">
                                                     <span className="text-yellow-500">
                                                         <Star w="17"></Star>
@@ -140,6 +144,10 @@ const LatestRecipes = async () => {
                                 </Link>
                             ))
                         }
+                        <div className="bg-[#f1f2f4] px-16 h-32 flex flex-col items-center justify-center rounded border-4 cursor-pointer">
+                            <p className="text-center font-semibold">Browse More</p>
+                            <Cursor w={30}></Cursor>
+                        </div>
                     </div>
                 </div>
             </section>
