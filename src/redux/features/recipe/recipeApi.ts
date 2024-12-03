@@ -1,4 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
+import { moreRecipes } from "./recipeSlice";
 
 const recipeApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -8,6 +9,21 @@ const recipeApi = baseApi.injectEndpoints({
                 body: data,
                 method: 'POST',
             })
+        }),
+
+        getMoreRecipes: builder.mutation({
+            query: ({ category, page, limit }) => ({
+                url: `/api/recipe/getRecipes?page=${page}&limit=${limit}&category=${category}`,
+                method: 'GET'
+            }),
+            async onQueryStarted(arg, {dispatch, queryFulfilled}) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(moreRecipes(result.data));
+                } catch (error) {
+                    dispatch(moreRecipes([]));
+                }
+            },
         }),
 
         updateRecipe: builder.mutation({
@@ -64,5 +80,6 @@ export const {
     useGetSingleRecipeForUpdateQuery,
     useUpdateRecipeMutation,
     useCreateACommentMutation,
-    useUpdateLikeMutation
+    useUpdateLikeMutation,
+    useGetMoreRecipesMutation
 } = recipeApi;

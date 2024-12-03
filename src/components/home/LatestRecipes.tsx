@@ -18,8 +18,6 @@ const DAY = "Lunch";
 const NIGHT = "Dinner";
 const EVERYTHING = "";
 
-const dayTimes = [MORNING, DAY, NIGHT, MORNING];
-
 const dayTime = [
     {
         time: MORNING,
@@ -108,10 +106,10 @@ const LatestRecipes = async () => {
                                 </Link>
                             ))
                         }
-                        <div className="bg-[#f1f2f4] px-16 h-32 flex flex-col items-center justify-center rounded border-4 cursor-pointer">
+                        <Link href={`/moreRecipes/${currentState.time}`} className="bg-[#f1f2f4] px-16 h-32 flex flex-col items-center justify-center rounded border-4 cursor-pointer">
                             <p className="text-center font-semibold">Browse More</p>
                             <Cursor w={30}></Cursor>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </section>
@@ -144,10 +142,10 @@ const LatestRecipes = async () => {
                                 </Link>
                             ))
                         }
-                        <div className="bg-[#f1f2f4] px-16 h-32 flex flex-col items-center justify-center rounded border-4 cursor-pointer">
+                        <Link href={`/moreRecipes/${nextState.time}`} className="bg-[#f1f2f4] px-16 h-32 flex flex-col items-center justify-center rounded border-4 cursor-pointer">
                             <p className="text-center font-semibold">Browse More</p>
                             <Cursor w={30}></Cursor>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </section>
