@@ -11,15 +11,16 @@ const recipeApi = baseApi.injectEndpoints({
             })
         }),
 
-        getMoreRecipes: builder.mutation({
-            query: ({ category, page, limit }) => ({
-                url: `/api/recipe/getRecipes?page=${page}&limit=${limit}&category=${category}`,
+        getMoreCategoryRecipes: builder.mutation({
+            query: ({ category, lastFetchedId, limit }) => ({
+                url: `/api/recipe/getCategoryRecipes?lastFetchedId=${lastFetchedId}&limit=${limit}&category=${category}`,
                 method: 'GET'
             }),
             async onQueryStarted(arg, {dispatch, queryFulfilled}) {
                 try {
                     const result = await queryFulfilled;
                     dispatch(moreRecipes(result.data));
+                    
                 } catch (error) {
                     dispatch(moreRecipes([]));
                 }
@@ -81,5 +82,5 @@ export const {
     useUpdateRecipeMutation,
     useCreateACommentMutation,
     useUpdateLikeMutation,
-    useGetMoreRecipesMutation
+    useGetMoreCategoryRecipesMutation
 } = recipeApi;
