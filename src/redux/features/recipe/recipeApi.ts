@@ -1,7 +1,7 @@
 import { baseApi } from "@/redux/api/baseApi";
-import { moreRecipes } from "./recipeSlice";
+import { loadMoreRecipes, moreScheduleRecipes } from "./recipeSlice";
 
-const recipeApi = baseApi.injectEndpoints({
+export const recipeApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         createRecipe: builder.mutation({
             query: (data) => ({
@@ -11,20 +11,34 @@ const recipeApi = baseApi.injectEndpoints({
             })
         }),
 
-        getMoreCategoryRecipes: builder.mutation({
+        getRecipes: builder.query({
+            query: ({ lastFetchedId, limit }) => ({
+                url: `/api/recipe/getCategoryRecipes?lastFetchedId=${lastFetchedId}&limit=${limit}}`,
+                method: 'GET'
+            }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(loadMoreRecipes(result.data));
+                } catch (error) {
+                    dispatch(loadMoreRecipes([]));
+                }
+            }
+        }),
+
+        getMoreCategoryRecipes: builder.query({
             query: ({ category, lastFetchedId, limit }) => ({
                 url: `/api/recipe/getCategoryRecipes?lastFetchedId=${lastFetchedId}&limit=${limit}&category=${category}`,
                 method: 'GET'
             }),
-            async onQueryStarted(arg, {dispatch, queryFulfilled}) {
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
-                    dispatch(moreRecipes(result.data));
-                    
+                    dispatch(moreScheduleRecipes(result.data));
                 } catch (error) {
-                    dispatch(moreRecipes([]));
+                    dispatch(moreScheduleRecipes([]));
                 }
-            },
+            }
         }),
 
         updateRecipe: builder.mutation({
@@ -76,11 +90,12 @@ const recipeApi = baseApi.injectEndpoints({
 });
 
 export const {
+    useGetRecipesQuery,
     useCreateRecipeMutation,
     useGetMyRecipesQuery,
     useGetSingleRecipeForUpdateQuery,
     useUpdateRecipeMutation,
     useCreateACommentMutation,
     useUpdateLikeMutation,
-    useGetMoreCategoryRecipesMutation
+    useGetMoreCategoryRecipesQuery
 } = recipeApi;
