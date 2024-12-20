@@ -12,18 +12,18 @@ export const recipeApi = baseApi.injectEndpoints({
         }),
 
         getRecipes: builder.query({
-            query: ({ lastFetchedId, limit }) => ({
-                url: `/api/recipe/getCategoryRecipes?lastFetchedId=${lastFetchedId}&limit=${limit}}`,
+            query: ({ page, limit }) => ({
+                url: `/api/recipe/getRecipes?page=${page}&limit=${limit}`,
                 method: 'GET'
             }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-                try {
-                    const result = await queryFulfilled;
-                    dispatch(loadMoreRecipes(result.data));
-                } catch (error) {
-                    dispatch(loadMoreRecipes([]));
-                }
-            }
+            // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+            //     try {
+            //         const result = await queryFulfilled;
+            //         dispatch(loadMoreRecipes(result.data));
+            //     } catch (error) {
+            //         dispatch(loadMoreRecipes([]));
+            //     }
+            // }
         }),
 
         getMoreCategoryRecipes: builder.query({

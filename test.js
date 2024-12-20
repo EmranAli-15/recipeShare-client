@@ -1,1 +1,0 @@
-Array(100).fill(null).map((id, index) => console.log(`"Hello Emran ${index+1}",`));
