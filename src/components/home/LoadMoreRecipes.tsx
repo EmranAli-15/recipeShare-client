@@ -19,7 +19,7 @@ export default function LoadMoreRecipes() {
         if (loading) {
             const fetchRecipes = async () => {
                 const { data } = await dispatch(
-                    recipeApi.endpoints.getRecipes.initiate({ page, limit: 5 })
+                    recipeApi.endpoints.getRecipes.initiate({ page, limit: 4 })
                 ).unwrap();
 
                 if (data && data.length > 0) {
@@ -36,11 +36,17 @@ export default function LoadMoreRecipes() {
 
     return (
         <div>
+            <h1 className="font-semibold text-2xl md:text-3xl mb-4">Browse <span className="text-green-700 font-bold">all recipes</span></h1>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
                 {
                     recipes.map((data: any) => {
                         return <Link href={`/recipeDetails/${data._id}`} key={data._id}>
-                            <RecipeCard image={data.image} title={data.title} rating={data.rating} name={data.name}></RecipeCard>
+                            <RecipeCard
+                                image={data.image}
+                                title={data.title}
+                                rating={data.rating}
+                                name={data?.user?.name}
+                            ></RecipeCard>
                         </Link>
                     })
                 }

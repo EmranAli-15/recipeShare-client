@@ -3,6 +3,7 @@ import Error from "@/ui/Error/Error";
 import { Cursor, Star } from "@/ui/icons/Icons";
 import Link from "next/link";
 import LoadMoreRecipes from "./LoadMoreRecipes";
+import RecipeCard from "@/ui/recipeCard/RecipeCard";
 
 type recipeType = {
     title: string;
@@ -59,7 +60,6 @@ const LatestRecipes = async () => {
 
     const { data: currentRecipes } = await getRecipes(recipesForCurrentTime);
 
-
     if (!currentRecipes) {
         return <Error heading="NO RECIPES FOUND!" description="Please refresh the page or wait a moment!"></Error>
     }
@@ -74,25 +74,13 @@ const LatestRecipes = async () => {
                         {
                             currentRecipes.map((recipe: recipeType) => (
                                 <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id}>
-                                    <div>
-                                        <div className="w-36 h-28 md:w-full md:h-32">
-                                            <img className="w-full h-full object-cover rounded-sm" src={recipe.image} alt={recipe.title} />
-                                        </div>
-                                        <div className="md:px-2">
-                                            <h1 className="font-semibold my-2 line-clamp-2">{recipe.title}</h1>
-                                            <div className="flex items-start pb-1">
-                                                <div className="flex items-center text-[12px] bg-[#f1f2f4] px-1">
-                                                    <span className="text-yellow-500">
-                                                        <Star w="17"></Star>
-                                                    </span>
-                                                    <p>
-                                                        {recipe.rating}
-                                                    </p>
-                                                </div>
-                                                <p className="ml-5 text-gray-500 text-sm">{recipe?.user?.name}</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <RecipeCard
+                                        image={recipe.image}
+                                        title={recipe.title}
+                                        rating={recipe.rating}
+                                        name={recipe?.user?.name}
+                                        width="w-36"
+                                    ></RecipeCard>
                                 </Link>
                             ))
                         }

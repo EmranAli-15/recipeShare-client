@@ -11,11 +11,13 @@ import styles from './styles.module.css';
 import Link from "next/link";
 import AnyUserProfileLoader from "@/ui/loader/AnyUserProfileLoader";
 import RecipeCardLoader from "@/ui/loader/RecipeCardLoader";
+import RecipeCard from "@/ui/recipeCard/RecipeCard";
 
 type recipeType = {
     _id: string;
     title: string;
-    image: string
+    image: string;
+    rating: number;
 }
 
 const Page = ({ params }: { params: { userId: string } }) => {
@@ -90,20 +92,17 @@ const Page = ({ params }: { params: { userId: string } }) => {
     if (isRecipesLoading) { recipesContent = <div className="flex justify-center items-center"><RecipeCardLoader></RecipeCardLoader></div> }
     else if (!isRecipesLoading && isRecipesError) { recipesContent = <Error heading="Recipes Not Founded" description="Please Try Again!"></Error> }
     else if (!isRecipesLoading && !isRecipesError && recipes) {
-        recipesContent = <div>
-            <h1 className="font-semibold text-gray-500 text-xl my-2 md:text-3xl">All Recipes</h1>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 bg-[#fff] border rounded-md p-2">
+        recipesContent = <div className="bg-[#fff] border rounded-md p-2 mt-2">
+            <h1 className="font-semibold text-2xl md:text-3xl my-2">All <span className="text-green-700 font-bold">recipes</span></h1>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
                 {
                     recipes.map((recipe: recipeType) => (
                         <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id}>
-                            <div>
-                                <div className="w-full h-32">
-                                    <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
-                                </div>
-                                <div className="md:px-2">
-                                    <h1 className="font-semibold my-2">{recipe.title}</h1>
-                                </div>
-                            </div>
+                            <RecipeCard
+                                image={recipe.image}
+                                title={recipe.title}
+                                rating={recipe.rating}
+                            ></RecipeCard>
                         </Link>
                     ))
                 }

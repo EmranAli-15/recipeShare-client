@@ -2,7 +2,8 @@
 
 import { recipeApi } from "@/redux/features/recipe/recipeApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { Cursor, Star } from "@/ui/icons/Icons";
+import RecipeCard from "@/ui/recipeCard/RecipeCard";
+import InfinityScrolling from "@/utils/InfinityScrolling";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -20,58 +21,49 @@ type TRecipe = {
 const Page = ({ params }: { params: { categoryId: string } }) => {
     const dispatch = useAppDispatch();
     const category = params.categoryId;
+    const [loading, setLoading] = useState(false);
+    const [noMore, setNoMore] = useState(false);
     const [lastFetchedId, setLastFetchedId] = useState("0");
+    const [recipes, setRecipes] = useState<any>([]);
 
     useEffect(() => {
-        dispatch(recipeApi.endpoints.getMoreCategoryRecipes.initiate({ category, lastFetchedId, limit: 2 }))
-    }, [lastFetchedId])
+        if (loading) {
+            const fetchRecipes = async () => {
+                const { data } = await dispatch(recipeApi.endpoints.getMoreCategoryRecipes.initiate({ category, lastFetchedId, limit: 4 })).unwrap();
+                if (data && data.length > 0) {
+                    setRecipes([...recipes, ...data]);
+                    const length = data.length;
+                    const lastRecipe = data[length - 1];
+                    if (lastRecipe._id != lastFetchedId) {
+                        setLastFetchedId(lastRecipe._id);
+                    }
+                } else {
+                    setNoMore(true);
+                }
+            };
 
-    const data: TRecipe[] = useAppSelector(state => state.recipeFromRedux.moreScheduleRecipes);
-
-    const findLastId = () => {
-        if (data.length > 0) {
-            const length = data.length;
-            const lastRecipe = data[length - 1];
-            if (lastRecipe._id != lastFetchedId) {
-                setLastFetchedId(lastRecipe._id);
-            }
+            fetchRecipes();
         }
-    };
-
+    }, [loading, lastFetchedId]);
 
     return (
-        <div className="max-w-7xl mx-auto p-2">
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 bg-[#fff] border rounded-md p-2 h-full">
+        <div className="max-w-7xl md:mx-auto m-2 p-2 bg-[#fff] border rounded-md h-full">
+            <h1 className="font-semibold text-2xl md:text-3xl mb-4">Browse <span className="text-green-700 font-bold">{category} recipes</span></h1>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 ">
                 {
-                    data.map((recipe: TRecipe, index) => (
-                        <Link href={`/recipeDetails/${recipe._id}`} key={index}>
-                            <div>
-                                <div className="w-full h-32">
-                                    <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
-                                </div>
-                                <div className="md:px-2">
-                                    <h1 className="font-semibold my-2 line-clamp-2">{recipe.title}</h1>
-                                    <div className="flex items-start pb-1">
-                                        <div className="flex items-center text-[12px] bg-[#f1f2f4] px-1">
-                                            <span className="text-yellow-500">
-                                                <Star w="17"></Star>
-                                            </span>
-                                            <p>
-                                                {recipe.rating}
-                                            </p>
-                                        </div>
-                                        <p className="ml-5 text-gray-500 text-sm">{recipe?.user?.name}</p>
-                                    </div>
-                                </div>
-                            </div>
+                    recipes.map((recipe: TRecipe) => (
+                        <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id}>
+                            <RecipeCard
+                                image={recipe.image}
+                                title={recipe.title}
+                                rating={recipe.rating}
+                                name={recipe?.user?.name}
+                            ></RecipeCard>
                         </Link>
                     ))
                 }
-                <div onClick={findLastId} className="bg-[#f1f2f4] px-16 h-32 flex flex-col items-center justify-center rounded border-4 cursor-pointer">
-                    <p className="text-center font-semibold">Browse More</p>
-                    <Cursor w={30}></Cursor>
-                </div>
             </div>
+            <InfinityScrolling setLoading={setLoading} noMore={noMore}></InfinityScrolling>
         </div>
     );
 };
