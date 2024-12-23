@@ -1,18 +1,18 @@
 "use client"
 
 import { useUser } from "@/contextProvider/ContextProvider";
-import Error from "@/ui/Error/Error";
 import { Close, User } from "@/ui/icons/Icons";
-import CommonLoader from "@/ui/loader/CommonLoader";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import styles from "./styles.module.css"
 import { uploadImage } from "@/utils/utils";
 import { useMyProfileQuery, useUpdateUserMutation } from "@/redux/features/user/userApi";
-import SectionLoader from "@/ui/loader/SectionLoader";
 import { useAppSelector } from "@/redux/hooks";
+import Error from "@/ui/Error/Error";
+import Image from "next/image";
+import styles from "./styles.module.css"
+import SectionLoader from "@/ui/loader/SectionLoader";
 import Link from "next/link";
 import MyRecipes from "@/components/myRecipes/MyRecipes";
+import MyProfileLoader from "@/ui/loader/MyProfileLoader";
 
 const PHOTO_NAME = "PHOTO_NAME";
 const EXPERIENCE = "EXPERIENCE";
@@ -113,7 +113,7 @@ const MyProfilePage = () => {
     let content = null;
 
     if (isLoading) {
-        content = <CommonLoader></CommonLoader>
+        content = <MyProfileLoader></MyProfileLoader>
     } else if (!isLoading && isError) {
         content = <Error heading="Something went wrong!" description="There wan an unknown error. Please try agin!"></Error>
     } else if (!isLoading && !isError && isSuccess) {
@@ -187,7 +187,6 @@ const MyProfilePage = () => {
                     </div>
                 }
             </section>
-
             {/* This section for user photo and user name */}
             <section className="bg-[#fff] rounded-md my-2">
                 <div className=" flex justify-between p-2">

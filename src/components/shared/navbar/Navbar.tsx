@@ -109,10 +109,11 @@ const Navbar = () => {
                 </div>
             </div>
 
-            <div className="px-2 md:px-0">
+            {/* This section for search result */}
+            <section className="px-2 md:px-0">
                 <div className="relative">
                     {
-                        searchResult.length > 0 && <div className="w-full bg-[#fff] shadow-2xl p-3 rounded-md absolute">
+                        searchResult.length > 0 && <div className="w-full bg-[#fff] shadow-2xl shadow-black p-3 rounded-md absolute">
                             {
                                 searchResult.map((item: any, index: any) => {
                                     return <div className="border-b py-1 flex items-center gap-x-2" key={index}>
@@ -135,7 +136,7 @@ const Navbar = () => {
                         </div>
                     }
                 </div>
-            </div>
+            </section>
 
             {/* This is for navbar menus */}
             <div className="relative">
