@@ -6,13 +6,15 @@ import { myTotalRecipe } from "@/redux/features/recipe/recipeSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import Error from "@/ui/Error/Error";
 import SectionLoader from "@/ui/loader/SectionLoader";
+import RecipeCard from "@/ui/recipeCard/RecipeCard";
 import Link from "next/link";
 import { useEffect } from "react";
 
 type recipeType = {
     _id: string;
     title: string;
-    image: string
+    image: string;
+    rating: number
 }
 
 
@@ -41,14 +43,11 @@ const MyRecipes = () => {
             {
                 recipes.map((recipe: recipeType) => (
                     <Link href={`/recipeDetails/${recipe._id}`} key={recipe._id}>
-                        <div>
-                            <div className="w-full h-32">
-                                <img className="w-full h-full object-cover" src={recipe.image} alt={recipe.title} />
-                            </div>
-                            <div className="md:px-2">
-                                <h1 className="font-semibold my-2">{recipe.title}</h1>
-                            </div>
-                        </div>
+                        <RecipeCard
+                            title={recipe.title}
+                            image={recipe.image}
+                            rating={recipe.rating}
+                        ></RecipeCard>
                     </Link>
                 ))
             }

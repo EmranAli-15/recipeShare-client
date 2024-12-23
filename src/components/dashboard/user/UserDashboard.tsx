@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AddRecipe, Followers, User } from "@/ui/icons/Icons";
 import { useUser } from "@/contextProvider/ContextProvider";
+import Image from "next/image";
 
 const UserDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg: boolean) => void }) => {
 
@@ -17,7 +18,15 @@ const UserDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg:
                 >
                     <div className="w-[70px] h-[70px]">
                         {
-                            photo ? <img className="w-full h-full object-cover rounded-full" src={photo} alt={name} /> :
+                            photo ?
+                                <Image
+                                    className="w-full h-full object-cover rounded-full"
+                                    src={photo}
+                                    width={70}
+                                    height={70}
+                                    alt={name}
+                                ></Image>
+                                :
                                 <User w={70}></User>
                         }
                     </div>

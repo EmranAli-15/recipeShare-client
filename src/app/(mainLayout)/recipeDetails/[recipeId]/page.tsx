@@ -5,6 +5,7 @@ import { getSingleRecipe } from "@/services/recipes/recipes";
 import Error from "@/ui/Error/Error";
 import { Comment } from "@/ui/icons/Icons";
 import { Metadata } from "next";
+import Image from "next/image";
 
 // For metadata
 export async function generateMetadata({ params }: { params: { recipeId: string } }): Promise<Metadata> {
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: { params: { recipeId: string 
     };
 }
 
-const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) => {
+const RecipeDetailsPage = async ({ params }: { params: { recipeId: string } }) => {
     const recipeData = await getSingleRecipe(params.recipeId);
 
     const { _id, title, image, user, recipe, comments, likes } = recipeData.data || {};
@@ -49,7 +50,13 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                     <h1 className="text-xl font-sans font-semibold md:hidden pb-4">{title}</h1>
 
                     <div className="w-full h-48 md:h-96">
-                        <img className="w-full h-48 md:h-96 object-cover" src={image} alt="" />
+                        <Image
+                            className="w-full h-48 md:h-96 object-cover"
+                            src={image}
+                            height={192}
+                            width={500}
+                            alt=""
+                        ></Image>
                     </div>
 
                     <div className="my-2">
@@ -62,9 +69,6 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                                 <div className="flex flex-col items-center">
                                     <a href="#comments"><Comment w="20"></Comment></a>
                                     <p>{!comments ? "0" : comments?.length}</p>
-                                </div>
-                                <div>
-                                    {/* <button className="bg-slate-50 shadow-md h-7 px-3 rounded-md transition active:translate-y-1 text-gray-600">Follow</button> */}
                                 </div>
                             </div>
                         </div>
@@ -99,4 +103,4 @@ const recipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
     );
 };
 
-export default recipeDetailsPage;
+export default RecipeDetailsPage;

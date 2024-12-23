@@ -1,7 +1,7 @@
 "use client"
 
 import { recipeApi } from "@/redux/features/recipe/recipeApi";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import RecipeCard from "@/ui/recipeCard/RecipeCard";
 import InfinityScrolling from "@/utils/InfinityScrolling";
 import Link from "next/link";

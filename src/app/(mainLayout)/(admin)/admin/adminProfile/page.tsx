@@ -1,4 +1,4 @@
-import MyProfilePage from "@/components/dashboard/profile/Profile";
+import MyProfilePage from "@/app/(mainLayout)/(user)/user/myProfile/page";
 
 const AdminProfilePage = () => {
     return (

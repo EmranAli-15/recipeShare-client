@@ -61,10 +61,9 @@ const Page = ({ params }: { params: { userId: string } }) => {
     else if (!isLoading && !isError && userData) {
         profileContent = <>
             <div className="flex gap-x-4 items-start md:items-end">
-                <div className="w-[80px] h-[80px]">
-                    <img className="w-full h-full rounded-full object-cover" src={photo} alt="" />
+                <div>
                     <Image
-                        className="w-full h-full rounded-full object-cover"
+                        className="w-[80px] h-[80px] rounded-full object-cover"
                         width={80}
                         height={80}
                         src={photo}

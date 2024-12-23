@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { AddRecipe, RecipeList } from "@/ui/icons/Icons";
+import { AddRecipe, RecipeList, User } from "@/ui/icons/Icons";
 import { useUser } from "@/contextProvider/ContextProvider";
+import Image from "next/image";
 
 const AdminDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg: boolean) => void }) => {
 
@@ -15,8 +16,19 @@ const AdminDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg
                     className="flex flex-col items-center"
                     onClick={() => setOpenDashboardModal(false)}
                 >
-                    <div className="w-[70px]">
-                        <img className="w-[70px] rounded-full" src={photo} alt={name} />
+                    <div className="w-[70px] h-[70px]">
+                        {
+                            photo ?
+                                <Image
+                                    className="w-full h-full object-cover rounded-full"
+                                    src={photo}
+                                    width={70}
+                                    height={70}
+                                    alt={name}
+                                ></Image>
+                                :
+                                <User w={70}></User>
+                        }
                     </div>
                     <p className="font-mono">{name}</p>
                 </Link>
