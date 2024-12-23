@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Star } from "../icons/Icons";
 
 type TCardInfo = {
@@ -9,11 +10,17 @@ type TCardInfo = {
 }
 
 const RecipeCard = ({ image, title, rating, name, width }: TCardInfo) => {
-    
+
     return (
         <div>
             <div className={`${width ? `${width}` : "w-full"} h-28 md:w-full md:h-32`}>
-                <img className="w-full h-full object-cover rounded-sm" src={image} alt={title} />
+                <Image
+                    className="w-full h-full object-cover rounded-sm"
+                    width={414}
+                    height={112}
+                    src={image}
+                    alt={title}
+                ></Image>
             </div>
             <div className="md:px-2">
                 <h1 className="font-semibold my-2 line-clamp-1">{title}</h1>

@@ -3,7 +3,7 @@
 import logo from "@/assets/logo.png"
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useUser } from "@/contextProvider/ContextProvider";
 import { useAppDispatch } from "@/redux/hooks";
@@ -11,10 +11,15 @@ import { userLoggedOut } from "@/redux/features/auth/authSlice";
 import Dashboard from "@/components/dashboard/Dashboard";
 import { Breakfast, Close, Dinner, Lunch, Login, Logout, Menu, Occasion, User } from "@/ui/icons/Icons";
 import { useRouter } from "next/navigation";
+import { recipeApi } from "@/redux/features/recipe/recipeApi";
+import { debounce } from "@/utils/debounce";
 
 const Navbar = () => {
+
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const [searchResult, setSearchResult] = useState<any>([]);
+    const [searchItem, setSearchItem] = useState<string>("");
 
     const [openMenu, setOpenMenu] = useState(false);
     const [openDashboardModal, setOpenDashboardModal] = useState(false);
@@ -28,10 +33,28 @@ const Navbar = () => {
         setUserLoading(true);
         setOpenMenu(false);
         router.push("/");
-    }
+    };
+
+    const handleSearch = () => {
+        const fetchRecipes = async () => {
+            if (searchItem) {
+                const { data } = await dispatch(recipeApi.endpoints.searchRecipes.initiate(searchItem)).unwrap();
+                setSearchResult(data);
+            } else {
+                setSearchResult([]);
+            }
+        };
+
+        fetchRecipes();
+    };
+
+    useEffect(() => {
+        debounce(handleSearch, 1000);
+    }, [searchItem])
+
 
     return (
-        <div>
+        <div className="max-w-7xl mx-auto">
 
             {
                 openDashboardModal &&
@@ -43,8 +66,8 @@ const Navbar = () => {
 
 
             {/* This is for navbar with responsive */}
-            <div className="w-full h-[60px] border-b">
-                <div className="max-w-7xl mx-auto">
+            <div className="w-full h-[60px] border-b px-2">
+                <div>
                     <div className="h-[60px] flex items-center justify-around md:justify-between">
                         <div onClick={() => setOpenMenu(!openMenu)} className={`${openMenu ? 'rotate-90' : 'rotate-0'} transition duration-300 cursor-pointer`}>
                             {
@@ -52,9 +75,11 @@ const Navbar = () => {
                             }
                         </div>
 
-                        <div className="flex items-center gap-x-3">
-                            <div className="md:w-[350px]">
+                        <div className="w-full md:w-auto flex items-center gap-x-3">
+                            <div className="w-full px-3 md:w-[350px]">
                                 <input
+                                    onChange={(e) => setSearchItem(e.target.value)}
+                                    value={searchItem}
                                     className="myInput h-10"
                                     type="text"
                                     placeholder="search"
@@ -84,9 +109,36 @@ const Navbar = () => {
                 </div>
             </div>
 
+            <div className="px-2 md:px-0">
+                <div className="relative">
+                    {
+                        searchResult.length > 0 && <div className="w-full bg-[#fff] shadow-2xl p-3 rounded-md absolute">
+                            {
+                                searchResult.map((item: any, index: any) => {
+                                    return <div className="border-b py-1 flex items-center gap-x-2" key={index}>
+                                        <div>
+                                            <Image
+                                                className="h-8 w-14 rounded-sm object-cover"
+                                                width={56}
+                                                height={32}
+                                                src={item.image}
+                                                alt=""
+                                            ></Image>
+                                        </div>
+                                        <div>
+                                            <p className="line-clamp-1">{item.title}</p>
+                                            <p className="text-gray-500 text-sm">{item.user.name}</p>
+                                        </div>
+                                    </div>
+                                })
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
 
             {/* This is for navbar menus */}
-            <div className="max-w-7xl mx-auto relative">
+            <div className="relative">
                 <div className={`${openMenu ? 'block z-10' : 'hidden'} absolute`}>
                     <div className="w-[100vw] md:max-w-7xl md:mx-auto bg-slate-50 border-l-[1px] border-r-[1px] border-b-[1px] rounded-b-md px-3 font-semibold shadow-2xl">
                         <div className="flex flex-col">

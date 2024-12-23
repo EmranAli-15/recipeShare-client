@@ -15,15 +15,7 @@ export const recipeApi = baseApi.injectEndpoints({
             query: ({ page, limit }) => ({
                 url: `/api/recipe/getRecipes?page=${page}&limit=${limit}`,
                 method: 'GET'
-            }),
-            // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-            //     try {
-            //         const result = await queryFulfilled;
-            //         dispatch(loadMoreRecipes(result.data));
-            //     } catch (error) {
-            //         dispatch(loadMoreRecipes([]));
-            //     }
-            // }
+            })
         }),
 
         getMoreCategoryRecipes: builder.query({
@@ -39,6 +31,13 @@ export const recipeApi = baseApi.injectEndpoints({
                     dispatch(moreScheduleRecipes([]));
                 }
             }
+        }),
+
+        searchRecipes: builder.query({
+            query: (searchParams) => ({
+                url: `/api/recipe/searchRecipes?search=${searchParams}`,
+                method: 'GET'
+            })
         }),
 
         updateRecipe: builder.mutation({
@@ -97,5 +96,6 @@ export const {
     useUpdateRecipeMutation,
     useCreateACommentMutation,
     useUpdateLikeMutation,
-    useGetMoreCategoryRecipesQuery
+    useGetMoreCategoryRecipesQuery,
+    useSearchRecipesQuery
 } = recipeApi;
