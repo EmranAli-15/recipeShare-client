@@ -1,15 +1,30 @@
+
 import Link from "next/link";
 import { AddRecipe, Followers, User } from "@/ui/icons/Icons";
 import { useUser } from "@/contextProvider/ContextProvider";
 import Image from "next/image";
 
-const UserDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg: boolean) => void }) => {
+type TState = {
+    setOpenDashboardModal: (arg: boolean) => void;
+    setBookmarkModal: (arg: boolean) => void;
+    bookmarkModal: boolean;
+}
+
+const UserDashboard = ({ setOpenDashboardModal, setBookmarkModal, bookmarkModal }: TState) => {
 
     const { user } = useUser();
     const { name, photo } = user || {};
 
+    const handleModalAction = () => {
+        setBookmarkModal(true);
+        // setOpenDashboardModal(false);
+    }
+
     return (
-        <div>
+        <div className={`${bookmarkModal && "hidden"}`}>
+
+
+
             <div className="flex justify-center -mt-6">
                 <Link
                     href="/user/myProfile"
@@ -43,10 +58,13 @@ const UserDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg:
                     <AddRecipe></AddRecipe>
                     <p className="font-mono">Add Recipe</p>
                 </Link>
-                <div className="flex flex-col items-center">
+                <button
+                    className="flex flex-col items-center"
+                    onClick={handleModalAction}
+                >
                     <Followers w={65}></Followers>
                     <p className="font-mono">Following</p>
-                </div>
+                </button>
             </div>
         </div>
     );

@@ -64,6 +64,9 @@ const SearchRecipesPage = ({ params }: { params: { searchTitle: string } }) => {
                     ))
                 }
             </div>
+            {
+                recipes.length <= 0 && <h1 className="text-center text-gray-500">No recipes found!</h1>
+            }
             <InfinityScrolling setLoading={setLoading} noMore={noMore}></InfinityScrolling>
         </div>
     );

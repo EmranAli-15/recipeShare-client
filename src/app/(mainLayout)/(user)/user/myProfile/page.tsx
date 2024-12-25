@@ -225,7 +225,7 @@ const MyProfilePage = () => {
                         <p className="text-gray-500">{myTotalRecipes}</p>
                     </div>
 
-                    <div className="bg-[#fff] rounded-md p-2 md:h-[200px] overflow-hidden">
+                    <div className={`bg-[#fff] rounded-md p-2 md:h-[200px] overflow-auto ${styles.scrollBar}`}>
                         <div className="flex items-start justify-between">
                             <p className="text-xl font-semibold">Bio</p>
                             <p onClick={() => updatingUserData(BIO)} className="cursor-pointer text-blue-600 font-semibold">edit</p>

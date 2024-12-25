@@ -188,7 +188,7 @@ const Navbar = () => {
                                 }
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
-                                <Link href="#">
+                                <Link href={`/moreRecipes/Breakfast`}>
                                     <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
                                         <div>
                                             <Breakfast></Breakfast>
@@ -198,7 +198,7 @@ const Navbar = () => {
                                 </Link>
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
-                                <Link href="#">
+                                <Link href={`/moreRecipes/Lunch`}>
                                     <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
                                         <div>
                                             <Lunch></Lunch>
@@ -208,7 +208,7 @@ const Navbar = () => {
                                 </Link>
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
-                                <Link href="#">
+                                <Link href={`/moreRecipes/Dinner`}>
                                     <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
                                         <div>
                                             <Dinner></Dinner>
@@ -218,7 +218,7 @@ const Navbar = () => {
                                 </Link>
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
-                                <Link href="#">
+                                <Link href={`/moreRecipes/Occasion`}>
                                     <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
                                         <div>
                                             <Occasion></Occasion>

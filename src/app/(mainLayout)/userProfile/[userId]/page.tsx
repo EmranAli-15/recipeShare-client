@@ -100,7 +100,7 @@ const Page = ({ params }: { params: { userId: string } }) => {
     else if (!isRecipesLoading && isRecipesError) { recipesContent = <Error heading="Recipes Not Founded" description="Please Try Again!"></Error> }
     else if (!isRecipesLoading && !isRecipesError && recipes) {
         recipesContent = <div className="bg-[#fff] border rounded-md p-2 mt-2">
-            <h1 className="font-semibold text-2xl md:text-3xl my-2">All <span className="text-green-700 font-bold">recipes</span></h1>
+            <h1 className="font-semibold text-2xl md:text-3xl my-2">{name}'s <span className="text-green-700 font-bold">recipes</span></h1>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
                 {
                     recipes.map((recipe: recipeType) => (
