@@ -34,8 +34,8 @@ export const recipeApi = baseApi.injectEndpoints({
         }),
 
         searchRecipes: builder.query({
-            query: (searchParams) => ({
-                url: `/api/recipe/searchRecipes?search=${searchParams}`,
+            query: ({ searchItem: searchParams, limit, lastFetchedId }) => ({
+                url: `/api/recipe/searchRecipes?search=${searchParams}&limit=${limit}&lastFetchedId=${lastFetchedId}`,
                 method: 'GET'
             })
         }),

@@ -3,30 +3,27 @@
 import logo from "@/assets/logo.png"
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import Dashboard from "@/components/dashboard/Dashboard";
 
-import { useUser } from "@/contextProvider/ContextProvider";
+import { Breakfast, Close, Dinner, Lunch, Login, Logout, Menu, Occasion, User, Search } from "@/ui/icons/Icons";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/redux/hooks";
 import { userLoggedOut } from "@/redux/features/auth/authSlice";
-import Dashboard from "@/components/dashboard/Dashboard";
-import { Breakfast, Close, Dinner, Lunch, Login, Logout, Menu, Occasion, User } from "@/ui/icons/Icons";
 import { useRouter } from "next/navigation";
 import { recipeApi } from "@/redux/features/recipe/recipeApi";
 import { debounce } from "@/utils/debounce";
+import { useUser } from "@/contextProvider/ContextProvider";
 
 const Navbar = () => {
-
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const { user: userFromContext, setUserLoading } = useUser();
+    const photo = userFromContext?.photo;
+
     const [searchResult, setSearchResult] = useState<any>([]);
     const [searchItem, setSearchItem] = useState<string>("");
-
     const [openMenu, setOpenMenu] = useState(false);
     const [openDashboardModal, setOpenDashboardModal] = useState(false);
-
-    const { user: userFromContext, setUserLoading } = useUser();
-
-    const photo = userFromContext?.photo;
 
     const handleLogOut = () => {
         dispatch(userLoggedOut());
@@ -38,19 +35,25 @@ const Navbar = () => {
     const handleSearch = () => {
         const fetchRecipes = async () => {
             if (searchItem) {
-                const { data } = await dispatch(recipeApi.endpoints.searchRecipes.initiate(searchItem)).unwrap();
+                const { data } = await dispatch(recipeApi.endpoints.searchRecipes.initiate({ searchItem, limit: 3, lastFetchedId: "" })).unwrap();
                 setSearchResult(data);
             } else {
                 setSearchResult([]);
             }
         };
-
         fetchRecipes();
+    };
+
+    const handleSearchEnter = () => {
+        if (searchItem) {
+            router.push(`/searchRecipes/${searchItem}`);
+            setSearchResult([]);
+        };
     };
 
     useEffect(() => {
         debounce(handleSearch, 1000);
-    }, [searchItem])
+    }, [searchItem]);
 
 
     return (
@@ -66,7 +69,7 @@ const Navbar = () => {
 
 
             {/* This is for navbar with responsive */}
-            <div className="w-full h-[60px] border-b px-2">
+            <section className="w-full h-[60px] border-b px-2">
                 <div>
                     <div className="h-[60px] flex items-center justify-around md:justify-between">
                         <div onClick={() => setOpenMenu(!openMenu)} className={`${openMenu ? 'rotate-90' : 'rotate-0'} transition duration-300 cursor-pointer`}>
@@ -75,15 +78,21 @@ const Navbar = () => {
                             }
                         </div>
 
-                        <div className="w-full md:w-auto flex items-center gap-x-3">
-                            <div className="w-full px-3 md:w-[350px]">
+                        <div className="w-full md:w-auto flex items-center md:gap-x-3">
+                            <div className="w-full flex gap-x-1 items-center px-3 md:w-[350px]">
                                 <input
                                     onChange={(e) => setSearchItem(e.target.value)}
                                     value={searchItem}
                                     className="myInput h-10"
                                     type="text"
                                     placeholder="search"
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") handleSearchEnter();
+                                    }}
                                 />
+                                <button onClick={handleSearchEnter}>
+                                    <Search></Search>
+                                </button>
                             </div>
                             <div className="hidden md:block">
                                 {
@@ -100,14 +109,15 @@ const Navbar = () => {
                                         </Link>
                                 }
                             </div>
+
+                            {/* Website Logo */}
                             <Link href="/">
-                                {/* Website Logo */}
                                 <Image height={4} width={43} alt="logo" src={logo} />
                             </Link>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* This section for search result */}
             <section className="px-2 md:px-0">
@@ -115,8 +125,12 @@ const Navbar = () => {
                     {
                         searchResult.length > 0 && <div className="w-full bg-[#fff] shadow-2xl shadow-black p-3 rounded-md absolute">
                             {
-                                searchResult.map((item: any, index: any) => {
-                                    return <div className="border-b py-1 flex items-center gap-x-2" key={index}>
+                                searchResult.map((item: any) => {
+                                    return <Link
+                                        href={`/recipeDetails/${item._id}`}
+                                        className="hover:bg-[#f1f2f4] border-b py-1 flex items-center gap-x-2" key={item._id}
+                                        onClick={() => setSearchResult([])}
+                                    >
                                         <div>
                                             <Image
                                                 className="h-8 w-14 rounded-sm object-cover"
@@ -130,7 +144,7 @@ const Navbar = () => {
                                             <p className="line-clamp-1">{item.title}</p>
                                             <p className="text-gray-500 text-sm">{item.user.name}</p>
                                         </div>
-                                    </div>
+                                    </Link>
                                 })
                             }
                         </div>
