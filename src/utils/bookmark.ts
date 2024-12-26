@@ -19,3 +19,16 @@ export const setBookmark = ({ id, image, title, name }: { id: string, image: str
         localStorage.setItem("bookmark", JSON.stringify(updatedBookmark));
     }
 };
+
+export const deleteBookmark = (id: string) => {
+    let savedBookmark;
+    let updatedBookmark: any = [];
+
+    const getBookmark = localStorage.getItem("bookmark");
+    if (getBookmark) {
+        savedBookmark = JSON.parse(getBookmark);
+    };
+
+    updatedBookmark = savedBookmark?.filter((item: any) => item.id !== id);
+    localStorage.setItem("bookmark", JSON.stringify(updatedBookmark));
+}

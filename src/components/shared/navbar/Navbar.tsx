@@ -67,7 +67,12 @@ const Navbar = () => {
                 </Dashboard>
             }
 
-
+            {
+                openMenu && <div
+                onClick={() => setOpenMenu(false)}
+                className="h-full w-full inset-0 fixed z-10 backdrop-blur-[1px] cursor-pointer"
+            ></div>
+            }
             {/* This is for navbar with responsive */}
             <section className="w-full h-[60px] border-b px-2 md:px-0">
                 <div>

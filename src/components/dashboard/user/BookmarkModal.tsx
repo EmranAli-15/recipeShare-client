@@ -1,16 +1,46 @@
 "use-client"
 
 import { Delete } from "@/ui/icons/Icons";
+import { deleteBookmark } from "@/utils/bookmark";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const BookmarkModal = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg: boolean) => void; }) => {
     const getBookmark = localStorage.getItem("bookmark");
+    const [isBookmarkDeleted, setIsBookmarkDeleted] = useState(false);
 
     let bookmark;
     if (getBookmark) {
         bookmark = JSON.parse(getBookmark);
     };
+
+    const handleDeleteBookmark = (id: string) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteBookmark(id);
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+                setIsBookmarkDeleted(true);
+            }
+        });
+    };
+
+    useEffect(() => {
+        setIsBookmarkDeleted(false);
+    }, [isBookmarkDeleted])
 
     return (
         <div>
@@ -37,7 +67,10 @@ const BookmarkModal = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg:
                                 <h1 className="font-semibold mt-2 mb-1 line-clamp-1">{recipe.title}</h1>
                                 <p className=" text-gray-500 text-sm line-clamp-1">{recipe.name}</p>
                             </div>
-                            <div className="flex justify-end">
+                            <div
+                                className="flex justify-end cursor-pointer"
+                                onClick={() => handleDeleteBookmark(recipe.id)}
+                            >
                                 <Delete w={20}></Delete>
                             </div>
                         </div>
