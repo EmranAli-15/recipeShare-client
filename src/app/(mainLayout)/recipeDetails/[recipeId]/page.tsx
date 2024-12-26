@@ -1,11 +1,11 @@
 import Comments from "@/components/recipeDetails/Comments";
 import Likes from "@/components/recipeDetails/Likes";
+import Image from "next/image";
+import Error from "@/ui/Error/Error";
 import RecipeDetails from "@/components/recipeDetails/RecipeDetails";
 import { getSingleRecipe } from "@/services/recipes/recipes";
-import Error from "@/ui/Error/Error";
-import { Comment } from "@/ui/icons/Icons";
 import { Metadata } from "next";
-import Image from "next/image";
+import { Comment } from "@/ui/icons/Icons";
 
 // For metadata
 export async function generateMetadata({ params }: { params: { recipeId: string } }): Promise<Metadata> {
@@ -43,7 +43,7 @@ const RecipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
             <div className="max-w-7xl mx-auto px-2 mt-2 md:px-0">
                 <div>
                     {/* This section is rendered in client side that's why used another component instead render in client side whole page */}
-                    <RecipeDetails recipeId={_id} user={user}></RecipeDetails>
+                    <RecipeDetails title={title} image={image} recipeId={_id} user={user}></RecipeDetails>
                 </div>
 
                 <div className="bg-[#fff] rounded-md p-2 grid md:grid-cols-2 md:gap-x-10 my-2">

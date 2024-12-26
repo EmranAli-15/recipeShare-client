@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { AddRecipe, Followers, User } from "@/ui/icons/Icons";
+import { AddRecipe, Bookmarked, Followers, User } from "@/ui/icons/Icons";
 import { useUser } from "@/contextProvider/ContextProvider";
 import Image from "next/image";
 
@@ -62,8 +62,8 @@ const UserDashboard = ({ setOpenDashboardModal, setBookmarkModal, bookmarkModal 
                     className="flex flex-col items-center"
                     onClick={handleModalAction}
                 >
-                    <Followers w={65}></Followers>
-                    <p className="font-mono">Following</p>
+                    <Bookmarked></Bookmarked>
+                    <p className="font-mono">Bookmarked</p>
                 </button>
             </div>
         </div>

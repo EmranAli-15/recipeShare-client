@@ -38,7 +38,7 @@ const Dashboard = ({ openDashboardModal, setOpenDashboardModal }: { openDashboar
                             ></UserDashboard>
                     }
                     {
-                        bookmarkModal && <BookmarkModal></BookmarkModal>
+                        bookmarkModal && <BookmarkModal setOpenDashboardModal={setOpenDashboardModal}></BookmarkModal>
                     }
                 </div>
             </div>

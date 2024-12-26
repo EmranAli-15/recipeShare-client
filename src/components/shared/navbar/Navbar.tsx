@@ -69,7 +69,7 @@ const Navbar = () => {
 
 
             {/* This is for navbar with responsive */}
-            <section className="w-full h-[60px] border-b px-2">
+            <section className="w-full h-[60px] border-b px-2 md:px-0">
                 <div>
                     <div className="h-[60px] flex items-center justify-around md:justify-between">
                         <div onClick={() => setOpenMenu(!openMenu)} className={`${openMenu ? 'rotate-90' : 'rotate-0'} transition duration-300 cursor-pointer`}>
