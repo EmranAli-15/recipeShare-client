@@ -70,7 +70,7 @@ const Navbar = () => {
             {
                 openMenu && <div
                 onClick={() => setOpenMenu(false)}
-                className="h-full w-full inset-0 fixed z-10 backdrop-blur-[1px] cursor-pointer"
+                className="h-full w-full inset-0 fixed z-10 cursor-pointer"
             ></div>
             }
             {/* This is for navbar with responsive */}

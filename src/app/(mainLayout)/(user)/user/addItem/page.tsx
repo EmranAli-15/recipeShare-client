@@ -1,15 +1,16 @@
 "use client"
 
-import Error from '@/ui/Error/Error';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import { Gallery } from "@/ui/icons/Icons";
-import Success from '@/ui/success/Success';
-import { uploadImage } from '@/utils/utils';
+import dynamic from "next/dynamic";
 import React, { useEffect, useState } from 'react';
-import CommonLoader from '@/ui/loader/CommonLoader';
-import { useUser } from '@/contextProvider/ContextProvider';
+import Error from '@/ui/Error/Error';
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import 'react-quill/dist/quill.snow.css';
 import { useCreateRecipeMutation } from '@/redux/features/recipe/recipeApi';
+import { uploadImage } from '@/utils/utils';
+import { Gallery } from "@/ui/icons/Icons";
+import { useUser } from '@/contextProvider/ContextProvider';
+import Success from '@/ui/success/Success';
+import CommonLoader from '@/ui/loader/CommonLoader';
 
 
 const AddItemPage = () => {

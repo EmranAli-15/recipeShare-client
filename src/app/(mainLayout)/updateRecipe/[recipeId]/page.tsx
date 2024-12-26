@@ -3,7 +3,6 @@
 import { useGetSingleRecipeForUpdateQuery, useUpdateRecipeMutation } from "@/redux/features/recipe/recipeApi";
 import { useEffect, useState } from "react";
 import { uploadImage } from "@/utils/utils";
-import { useUser } from "@/contextProvider/ContextProvider";
 import { Gallery } from "@/ui/icons/Icons";
 import CommonLoader from "@/ui/loader/CommonLoader";
 import ReactQuill from "react-quill";

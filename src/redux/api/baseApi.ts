@@ -1,11 +1,11 @@
 import { BaseQueryApi, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:5000',
+    baseUrl: 'https://foodrecipe-psi.vercel.app',
     credentials: "include",
     prepareHeaders: (headers, { }) => {
         return headers;
-    },
+    }
 })
 
 export const baseApi = createApi({
