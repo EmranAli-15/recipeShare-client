@@ -1,11 +1,11 @@
 import { BaseQueryApi, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://foodrecipe-psi.vercel.app',
-    credentials: "include",
+    baseUrl: 'https://foodrecipe-server.vercel.app',
     prepareHeaders: (headers, { }) => {
         return headers;
-    }
+    },
+    credentials: "include"
 })
 
 export const baseApi = createApi({
@@ -16,7 +16,7 @@ export const baseApi = createApi({
         return result
     },
     endpoints: () => ({}),
-    tagTypes: ["userProfile", "myRecipe"]
+    tagTypes: ["userProfile", "myRecipe"],
 });
 
 export const { }: any = baseApi

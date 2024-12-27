@@ -5,6 +5,7 @@ import Error from "@/ui/Error/Error";
 import Link from "next/link";
 import RecipeCard from "@/ui/recipeCard/RecipeCard";
 import LoadMoreRecipes from "@/components/home/LoadMoreRecipes";
+import { getCurrentTime } from "@/utils/utils";
 
 type recipeType = {
   title: string;
@@ -47,7 +48,7 @@ const dayTime = [
 
 const Page = async () => {
 
-  const time = new Date().getHours();
+  const time = getCurrentTime
   let recipesForCurrentTime = "";
 
   let currentState;

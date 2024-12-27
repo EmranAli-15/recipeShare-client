@@ -15,7 +15,11 @@ export const setBookmark = ({ id, image, title, name }: { id: string, image: str
         return;
     } else {
         const item = { id, image, title, name };
-        updatedBookmark = [...savedBookmark, item];
+        if(savedBookmark){
+            updatedBookmark = [...savedBookmark, item];
+        }else{
+            updatedBookmark.push(item);
+        }
         localStorage.setItem("bookmark", JSON.stringify(updatedBookmark));
     }
 };

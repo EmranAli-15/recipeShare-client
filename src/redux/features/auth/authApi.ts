@@ -28,6 +28,7 @@ const authApi = baseApi.injectEndpoints({
                 url: '/api/auth/login',
                 body: data,
                 method: 'POST',
+                
             }),
             async onQueryStarted(arg, { queryFulfilled }) {
                 try {
