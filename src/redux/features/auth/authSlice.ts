@@ -10,6 +10,7 @@ const authSlice = createSlice({
         userLoggedOut: () => {
             logOutUser();
             localStorage.removeItem("auth");
+            localStorage.removeItem("accessToken");
         },
     }
 });

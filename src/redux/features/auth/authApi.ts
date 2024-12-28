@@ -11,15 +11,11 @@ const authApi = baseApi.injectEndpoints({
             async onQueryStarted(arg, { queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
-                    localStorage.setItem("auth", JSON.stringify(
-                        {
-                            name: result.data.data.name,
-                            email: result.data.data.email,
-                            photo: result.data.data?.photo,
-                            role: result.data.data.role,
-                            userId: result.data.data._id,
-                        }
-                    ));
+                    const { name, email, photo, role, _id } = result.data.data.createUser || {};
+                    const accessToken = result.data.data.accessToken;
+
+                    localStorage.setItem("auth", JSON.stringify({ name: name, email: email, photo: photo, role: role, userId: _id, }));
+                    localStorage.setItem("accessToken", accessToken);
                 } catch (error) { }
             }
         }),
@@ -28,20 +24,16 @@ const authApi = baseApi.injectEndpoints({
                 url: '/api/auth/login',
                 body: data,
                 method: 'POST',
-                
+
             }),
             async onQueryStarted(arg, { queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
-                    localStorage.setItem("auth", JSON.stringify(
-                        {
-                            name: result.data.data.name,
-                            email: result.data.data.email,
-                            photo: result.data.data?.photo,
-                            role: result.data.data.role,
-                            userId: result.data.data._id,
-                        }
-                    ));
+                    const { name, email, photo, role, _id } = result.data.data.isUserExist || {};
+                    const accessToken = result.data.data.accessToken;
+
+                    localStorage.setItem("auth", JSON.stringify({ name: name, email: email, photo: photo, role: role, userId: _id, }));
+                    localStorage.setItem("accessToken", accessToken);
                 } catch (error) { }
             }
         })

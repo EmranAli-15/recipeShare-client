@@ -27,7 +27,6 @@ export async function uploadImage(image: any) {
 
 export const getUser = () => {
     const { user } = useUser();
-
     return user
 };
 

@@ -19,6 +19,10 @@ export const getCurrentUser = async () => {
     }
 };
 
+export const setCookieToBrowser = (data: any) => {
+    cookies().set("accessToken", data);
+}
+
 export const logOutUser = async () => {
     cookies().delete("accessToken");
 }

@@ -3,9 +3,13 @@ import { BaseQueryApi, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/
 const baseQuery = fetchBaseQuery({
     baseUrl: 'https://foodrecipe-server.vercel.app',
     prepareHeaders: (headers, { }) => {
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+            headers.set("accessToken", accessToken);
+        };
+
         return headers;
-    },
-    credentials: "include"
+    }
 })
 
 export const baseApi = createApi({

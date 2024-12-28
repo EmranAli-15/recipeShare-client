@@ -2,7 +2,10 @@
 
 import { useUser } from "@/contextProvider/ContextProvider";
 import { useLoginUserMutation } from "@/redux/features/auth/authApi";
+import { setCookieToBrowser } from "@/services/auth/auth";
 import CommonLoader from "@/ui/loader/CommonLoader";
+import { jwtDecode } from "jwt-decode";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
@@ -12,23 +15,23 @@ const LoginPage = () => {
     const [password, setPassword] = useState("opu");
     const [error, setError] = useState("");
 
-    const {setUserLoading} = useUser()
+    const { setUserLoading } = useUser()
 
     const router = useRouter();
 
-    const [loginUser, { isLoading, error: resError, isSuccess }] = useLoginUserMutation();
+    const [loginUser, { data, isLoading, error: resError, isSuccess }] = useLoginUserMutation();
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         setError("");
         const data = { email, password };
-
         loginUser(data);
     };
 
     useEffect(() => {
         if (isSuccess) {
             setUserLoading(true);
+            setCookieToBrowser(data.data.accessToken);
             router.push("/");
         }
         if (resError) {
