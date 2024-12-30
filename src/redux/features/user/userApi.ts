@@ -36,6 +36,16 @@ const recipeApi = baseApi.injectEndpoints({
                 return response.data
             }
         }),
+        updateUserPassword: builder.mutation({
+            query: (data) => ({
+                url: `/api/user/updatePassword`,
+                method: 'POST',
+                body: data
+            }),
+            transformResponse(response: any) {
+                return response.data
+            }
+        }),
     })
 });
 
@@ -43,5 +53,6 @@ export const {
     useUpdateUserMutation,
     useMyProfileQuery,
     useUpdateFollowingMutation,
-    useAnyUserProfileQuery
+    useAnyUserProfileQuery,
+    useUpdateUserPasswordMutation
 } = recipeApi;

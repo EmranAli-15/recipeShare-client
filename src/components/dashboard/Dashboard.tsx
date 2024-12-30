@@ -8,8 +8,13 @@ import AdminDashboard from "./admin/AdminDashboard";
 import BookmarkModal from "./user/BookmarkModal";
 import styles from "../../app/(mainLayout)/userProfile/[userId]/styles.module.css";
 
+type TParams = {
+    openDashboardModal: boolean
+    setOpenDashboardModal: (arg: boolean) => void;
+}
 
-const Dashboard = ({ openDashboardModal, setOpenDashboardModal }: { openDashboardModal: boolean, setOpenDashboardModal: (arg: boolean) => void }) => {
+
+const Dashboard = ({ openDashboardModal, setOpenDashboardModal }: TParams) => {
 
     const { user } = useUser();
     const [bookmarkModal, setBookmarkModal] = useState(false);

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AddRecipe, RecipeList, User } from "@/ui/icons/Icons";
+import { AddRecipe, User } from "@/ui/icons/Icons";
 import { useUser } from "@/contextProvider/ContextProvider";
 import Image from "next/image";
 
@@ -40,7 +40,7 @@ const AdminDashboard = ({ setOpenDashboardModal }: { setOpenDashboardModal: (arg
                     <p className="font-mono">Add Recipe</p>
                 </Link>
                 <div className="flex flex-col items-center">
-                    <RecipeList></RecipeList>
+                    Recipe List Icon
                     <p className="font-mono">Edit Recipe</p>
                 </div>
             </div>

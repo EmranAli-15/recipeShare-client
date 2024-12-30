@@ -1,7 +1,7 @@
 "use client"
 
 import { useUser } from "@/contextProvider/ContextProvider";
-import { Close, User } from "@/ui/icons/Icons";
+import { Close, Settings, User } from "@/ui/icons/Icons";
 import { useEffect, useState } from "react";
 import { uploadImage } from "@/utils/utils";
 import { useMyProfileQuery, useUpdateUserMutation } from "@/redux/features/user/userApi";
@@ -205,7 +205,12 @@ const MyProfilePage = () => {
                             <h1 className="">Followers : {myProfile?.followers.length}</h1>
                         </div>
                     </div>
-                    <p onClick={() => updatingUserData(PHOTO_NAME)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
+                    <div className="flex flex-col justify-between">
+                        <p onClick={() => updatingUserData(PHOTO_NAME)} className="cursor-pointer text-blue-600 font-semibold">edit</p>
+                        <Link href="/settings">
+                            <Settings></Settings>
+                        </Link>
+                    </div>
                 </div>
             </section>
 

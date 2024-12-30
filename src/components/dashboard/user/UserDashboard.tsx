@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { AddRecipe, Bookmarked, Followers, User } from "@/ui/icons/Icons";
+import { AddRecipe, Bookmarked, User } from "@/ui/icons/Icons";
 import { useUser } from "@/contextProvider/ContextProvider";
 import Image from "next/image";
 
@@ -15,16 +15,8 @@ const UserDashboard = ({ setOpenDashboardModal, setBookmarkModal, bookmarkModal 
     const { user } = useUser();
     const { name, photo } = user || {};
 
-    const handleModalAction = () => {
-        setBookmarkModal(true);
-        // setOpenDashboardModal(false);
-    }
-
     return (
         <div className={`${bookmarkModal && "hidden"}`}>
-
-
-
             <div className="flex justify-center -mt-6">
                 <Link
                     href="/user/myProfile"
@@ -60,7 +52,7 @@ const UserDashboard = ({ setOpenDashboardModal, setBookmarkModal, bookmarkModal 
                 </Link>
                 <button
                     className="flex flex-col items-center"
-                    onClick={handleModalAction}
+                    onClick={() => setBookmarkModal(true)}
                 >
                     <Bookmarked></Bookmarked>
                     <p className="font-mono">Bookmarked</p>
