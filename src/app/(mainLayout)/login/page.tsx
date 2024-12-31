@@ -85,17 +85,9 @@ const LoginPage = () => {
                             </div>
 
                             <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
-                                <div className="flex items-center">
-                                    <input type="checkbox" className="h-4 w-4 border-gray-300 rounded" />
-                                    <label className="ml-3 block text-sm text-gray-800">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <div>
-                                    <Link href="#" className="text-blue-600 font-semibold text-sm hover:underline">
-
-                                    </Link>
-                                </div>
+                                <Link href="/forgotPassword" className="flex items-center text-blue-600">
+                                    Forgot password?
+                                </Link>
                             </div>
 
                             <div className="mt-12">

@@ -1,7 +1,5 @@
 "use client"
 
-import { useUser } from "@/contextProvider/ContextProvider";
-
 const api_key = 'https://api.imgbb.com/1/upload?key=7c5149d68aa7c8554ec08575ce91bdaa'
 
 export async function uploadImage(image: any) {
@@ -24,10 +22,3 @@ export async function uploadImage(image: any) {
         });
     return liveUrl
 };
-
-export const getUser = () => {
-    const { user } = useUser();
-    return user
-};
-
-export const getCurrentTime = new Date().getHours();

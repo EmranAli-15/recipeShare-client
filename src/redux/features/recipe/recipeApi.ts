@@ -33,6 +33,16 @@ export const recipeApi = baseApi.injectEndpoints({
             }
         }),
 
+        currentRecipes: builder.query({
+            query: (category) => ({
+                url: `/api/recipe/getRecipes?page=0&limit=9&category=${category}`,
+                method: 'GET'
+            }),
+            transformResponse(response: any) {
+                return response.data
+            },
+        }),
+
         searchRecipes: builder.query({
             query: ({ searchItem: searchParams, limit, lastFetchedId }) => ({
                 url: `/api/recipe/searchRecipes?search=${searchParams}&limit=${limit}&lastFetchedId=${lastFetchedId}`,
@@ -97,5 +107,6 @@ export const {
     useCreateACommentMutation,
     useUpdateLikeMutation,
     useGetMoreCategoryRecipesQuery,
-    useSearchRecipesQuery
+    useSearchRecipesQuery,
+    useCurrentRecipesQuery
 } = recipeApi;
