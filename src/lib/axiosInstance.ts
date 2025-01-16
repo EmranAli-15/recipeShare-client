@@ -4,7 +4,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://foodrecipe-server.vercel.app',
 });
 
 // Add a request interceptor

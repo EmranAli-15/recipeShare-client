@@ -59,6 +59,13 @@ export const recipeApi = baseApi.injectEndpoints({
             invalidatesTags: ["myRecipe"]
         }),
 
+        deleteRecipe: builder.mutation({
+            query: (recipeId) => ({
+                url: `api/recipe/deleteRecipe/${recipeId}`,
+                method: 'DELETE',
+            })
+        }),
+
         getMyRecipes: builder.query({
             query: (id) => ({
                 url: `/api/recipe/getMyRecipe/${id}`,
@@ -104,6 +111,7 @@ export const {
     useGetMyRecipesQuery,
     useGetSingleRecipeForUpdateQuery,
     useUpdateRecipeMutation,
+    useDeleteRecipeMutation,
     useCreateACommentMutation,
     useUpdateLikeMutation,
     useGetMoreCategoryRecipesQuery,

@@ -1,6 +1,6 @@
 "use client"
 
-import { useGetSingleRecipeForUpdateQuery, useUpdateRecipeMutation } from "@/redux/features/recipe/recipeApi";
+import { useDeleteRecipeMutation, useGetSingleRecipeForUpdateQuery, useUpdateRecipeMutation } from "@/redux/features/recipe/recipeApi";
 import { useEffect, useState } from "react";
 import { uploadImage } from "@/utils/utils";
 import { Gallery } from "@/ui/icons/Icons";
@@ -9,8 +9,12 @@ import ReactQuill from "react-quill";
 import Success from "@/ui/success/Success";
 import Error from "@/ui/Error/Error";
 import 'react-quill/dist/quill.snow.css';
+import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
+    const router = useRouter();
     const recipeID = params?.recipeId;
     const { data: queryData, isLoading: queryLoading, isError: queryError, isSuccess: querySuccess } = useGetSingleRecipeForUpdateQuery(recipeID);
 
@@ -93,6 +97,37 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
     }, [updateError, updateSuccess]);
 
 
+    // Recipe delete functionality
+    const [deleteRecipe, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeleteRecipeMutation();
+    const handleDeleteRecipe = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirm!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteRecipe(recipeID);
+            }
+        });
+    };
+
+    useEffect(() => {
+        if (deleteError) {
+            toast.error("Delete canceled!");
+        }
+        if(deleteLoading){
+            toast.loading("Loading...");
+        }
+        if (deleteSuccess) {
+            toast.success("Deleted");
+            router.push("/");
+        }
+    }, [deleteError, deleteSuccess]);
+
 
 
     let content = null;
@@ -108,7 +143,7 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
         content = <div>
             {updateLoading && <CommonLoader></CommonLoader>}
 
-            <div className="my-2">
+            <div className="mb-2">
                 <label className='text-gray-400'>{!title && <span className='text-red-600'>*</span>} Title</label>
                 <input
                     value={title}
@@ -180,7 +215,15 @@ const UpdateRecipePage = ({ params }: { params: { recipeId: string } }) => {
 
     return (
         <div className="max-w-7xl mx-auto px-2 md:px-0">
-            <button>DELETE</button>
+            <Toaster toastOptions={{ duration: 1000 }}></Toaster>
+            <div className="text-end">
+                <button
+                    onClick={handleDeleteRecipe}
+                    disabled={deleteLoading}
+                    className="h-7 active:scale-90 mt-1 -mb-1 hover:bg-red-500 hover:text-white px-2 rounded-md bg-gray-200">
+                    Delete
+                </button>
+            </div>
             {
                 content
             }

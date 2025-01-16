@@ -19,6 +19,7 @@ const authApi = baseApi.injectEndpoints({
                 } catch (error) { }
             }
         }),
+
         loginUser: builder.mutation({
             query: (data) => ({
                 url: '/api/auth/login',
@@ -36,8 +37,31 @@ const authApi = baseApi.injectEndpoints({
                     localStorage.setItem("accessToken", accessToken);
                 } catch (error) { }
             }
+        }),
+
+        getOTP: builder.mutation({
+            query: (email) => (
+                {
+                    url: '/api/auth/getOTP',
+                    body: email,
+                    method: 'POST',
+                }
+            )
+        }),
+
+        setForgotPassword: builder.mutation({
+            query: (data) => ({
+                url: '/api/auth/setForgotPassword',
+                body: data,
+                method: 'POST',
+            })
         })
     })
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation } = authApi;
+export const {
+    useRegisterUserMutation,
+    useLoginUserMutation,
+    useGetOTPMutation,
+    useSetForgotPasswordMutation
+} = authApi;

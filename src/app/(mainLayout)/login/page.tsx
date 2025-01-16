@@ -4,8 +4,6 @@ import { useUser } from "@/contextProvider/ContextProvider";
 import { useLoginUserMutation } from "@/redux/features/auth/authApi";
 import { setCookieToBrowser } from "@/services/auth/auth";
 import CommonLoader from "@/ui/loader/CommonLoader";
-import { jwtDecode } from "jwt-decode";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
