@@ -13,6 +13,7 @@ import AnyUserProfileLoader from "@/ui/loader/AnyUserProfileLoader";
 import RecipeCardLoader from "@/ui/loader/RecipeCardLoader";
 import RecipeCard from "@/ui/recipeCard/RecipeCard";
 import Image from "next/image";
+import { User } from "@/ui/icons/Icons";
 
 type recipeType = {
     _id: string;
@@ -62,13 +63,19 @@ const Page = ({ params }: { params: { userId: string } }) => {
         profileContent = <>
             <div className="flex gap-x-4 items-start md:items-end">
                 <div>
-                    <Image
-                        className="w-[80px] h-[80px] rounded-full object-cover"
-                        width={80}
-                        height={80}
-                        src={photo}
-                        alt=""
-                    ></Image>
+                    {
+                        photo ?
+                            <Image
+                                className="w-[80px] h-[80px] rounded-full object-cover"
+                                width={80}
+                                height={80}
+                                src={photo}
+                                alt=""
+                            ></Image> :
+                            <div className="border rounded-full p-1">
+                                <User w={75}></User>
+                            </div>
+                    }
                 </div>
                 <div>
                     <h1 className="text-2xl font-semibold">{name}</h1>
