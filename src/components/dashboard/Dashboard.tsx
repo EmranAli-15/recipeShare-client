@@ -17,7 +17,6 @@ type TParams = {
 const Dashboard = ({ openDashboardModal, setOpenDashboardModal }: TParams) => {
 
     const { user } = useUser();
-    const [bookmarkModal, setBookmarkModal] = useState(false);
 
     return (
         <div>
@@ -38,12 +37,7 @@ const Dashboard = ({ openDashboardModal, setOpenDashboardModal }: TParams) => {
                             <AdminDashboard setOpenDashboardModal={setOpenDashboardModal}></AdminDashboard> :
                             <UserDashboard
                                 setOpenDashboardModal={setOpenDashboardModal}
-                                setBookmarkModal={setBookmarkModal}
-                                bookmarkModal={bookmarkModal}
                             ></UserDashboard>
-                    }
-                    {
-                        bookmarkModal && <BookmarkModal setOpenDashboardModal={setOpenDashboardModal}></BookmarkModal>
                     }
                 </div>
             </div>

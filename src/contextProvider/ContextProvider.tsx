@@ -1,3 +1,5 @@
+import { getCurrentUser } from "@/services/auth/auth";
+import { jwtDecode } from "jwt-decode";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 type TAuthContext = {
@@ -19,11 +21,24 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
         setUserLoading(false)
     }
 
+    const getUserFromCookie = async () => {
+        const token = await getCurrentUser();
+        if (token) {
+            localStorage.setItem("accessToken", token.token);
+            setUserLoading(true);
+        }
+    }
+
     useEffect(() => {
+        if (!user) {
+            getUserFromCookie();
+        }
+
         let userData = null;
-        const auth = localStorage.getItem("auth");
-        if (auth) {
-            userData = JSON.parse(auth);
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+            const decoded = jwtDecode(token);
+            userData = decoded;
         }
         handleUser(userData);
     }, [userLoading])

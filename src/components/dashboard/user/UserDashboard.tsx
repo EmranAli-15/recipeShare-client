@@ -1,22 +1,35 @@
-
 import Link from "next/link";
-import { AddRecipe, Bookmarked, User } from "@/ui/icons/Icons";
+import { AddRecipe, Logout, User } from "@/ui/icons/Icons";
 import { useUser } from "@/contextProvider/ContextProvider";
 import Image from "next/image";
+import { userLoggedOut } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { logOutUser } from "@/services/auth/auth";
+import { useRouter } from "next/navigation";
+
 
 type TState = {
     setOpenDashboardModal: (arg: boolean) => void;
-    setBookmarkModal: (arg: boolean) => void;
-    bookmarkModal: boolean;
 }
 
-const UserDashboard = ({ setOpenDashboardModal, setBookmarkModal, bookmarkModal }: TState) => {
+const UserDashboard = ({ setOpenDashboardModal }: TState) => {
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+    const { setUserLoading } = useUser();
 
     const { user } = useUser();
     const { name, photo } = user || {};
 
+    const handleLogOut = () => {
+        dispatch(userLoggedOut());
+        setUserLoading(true);
+        logOutUser();
+        router.push("/");
+        setOpenDashboardModal(false);
+    };
+
     return (
-        <div className={`${bookmarkModal && "hidden"}`}>
+        <div>
             <div className="flex justify-center -mt-6">
                 <Link
                     href="/user/myProfile"
@@ -52,10 +65,10 @@ const UserDashboard = ({ setOpenDashboardModal, setBookmarkModal, bookmarkModal 
                 </Link>
                 <button
                     className="flex flex-col items-center"
-                    onClick={() => setBookmarkModal(true)}
+                    onClick={handleLogOut}
                 >
-                    <Bookmarked></Bookmarked>
-                    <p className="font-mono">Bookmarked</p>
+                    <Logout w={70}></Logout>
+                    <p className="font-mono">LogOut</p>
                 </button>
             </div>
         </div>

@@ -13,7 +13,6 @@ import { useRouter } from "next/navigation";
 import { recipeApi } from "@/redux/features/recipe/recipeApi";
 import { debounce } from "@/utils/debounce";
 import { useUser } from "@/contextProvider/ContextProvider";
-import BookmarkModal from "@/components/dashboard/user/BookmarkModal";
 
 const Navbar = () => {
     const dispatch = useAppDispatch();
@@ -25,7 +24,6 @@ const Navbar = () => {
     const [searchItem, setSearchItem] = useState<string>("");
     const [openMenu, setOpenMenu] = useState(false);
     const [openDashboardModal, setOpenDashboardModal] = useState(false);
-    const [bookmarkModal, setBookmarkModal] = useState(false);
 
     const handleLogOut = () => {
         dispatch(userLoggedOut());
@@ -239,7 +237,7 @@ const Navbar = () => {
                                     userFromContext && <div className="px-2 py-2 hover:bg-white">
                                         <button onClick={handleLogOut} className="w-full flex items-center gap-x-2">
                                             <div>
-                                                <Logout></Logout>
+                                                <Logout w={30}></Logout>
                                             </div>
                                             LogOut
                                         </button>

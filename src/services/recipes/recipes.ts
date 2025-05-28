@@ -2,7 +2,7 @@
 
 import { revalidateTag } from "next/cache";
 
-const baseUrl = "https://foodrecipe-server.vercel.app"
+const baseUrl = "http://localhost:5000"
 
 export const getRecipes = async (category: any) => {
   const res = await fetch(`${baseUrl}/api/recipe/getRecipes?page=0&limit=9&category=${category}`, {

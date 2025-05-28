@@ -1,14 +1,19 @@
 "use client"
 
-import { useUser } from "@/contextProvider/ContextProvider";
+import { FormEvent, useEffect, useState } from "react";
 import { useLoginUserMutation } from "@/redux/features/auth/authApi";
-import { setCookieToBrowser } from "@/services/auth/auth";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/contextProvider/ContextProvider";
+import { signIn } from 'next-auth/react';
+
 import CommonLoader from "@/ui/loader/CommonLoader";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
 
 const LoginPage = () => {
+
+    const handleSignIn = () => {
+        signIn('google', { callbackUrl: "/" });
+    }
     const [email, setEmail] = useState("opu@gmail.com");
     const [password, setPassword] = useState("opu");
     const [error, setError] = useState("");
@@ -29,7 +34,6 @@ const LoginPage = () => {
     useEffect(() => {
         if (isSuccess) {
             setUserLoading(true);
-            setCookieToBrowser(data.data.accessToken);
             router.push("/");
         }
         if (resError) {
@@ -96,7 +100,9 @@ const LoginPage = () => {
 
                         </form>
                         <div className="space-x-6 flex justify-center mt-6">
-                            <button type="button"
+                            <button
+                                onClick={handleSignIn}
+                                type="button"
                                 className="border-none outline-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32px" className="inline" viewBox="0 0 512 512">
                                     <path fill="#fbbd00"
