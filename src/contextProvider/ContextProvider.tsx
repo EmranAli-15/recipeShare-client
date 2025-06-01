@@ -18,7 +18,7 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
 
     const handleUser = async (currentUser: any) => {
         setUser(currentUser);
-        setUserLoading(false)
+        setUserLoading(false);
     }
 
     const getUserFromCookie = async () => {
@@ -27,10 +27,11 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
             localStorage.setItem("accessToken", token.token);
             setUserLoading(true);
         }
+        return;
     }
 
     useEffect(() => {
-        if (!user) {
+        if (!user && userLoading) {
             getUserFromCookie();
         }
 

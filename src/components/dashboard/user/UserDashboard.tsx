@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { AddRecipe, Logout, User } from "@/ui/icons/Icons";
-import { useUser } from "@/contextProvider/ContextProvider";
 import Image from "next/image";
-import { userLoggedOut } from "@/redux/features/auth/authSlice";
+import { AddRecipe, Logout, User } from "@/ui/icons/Icons";
 import { useAppDispatch } from "@/redux/hooks";
+import { userLoggedOut } from "@/redux/features/auth/authSlice";
 import { logOutUser } from "@/services/auth/auth";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/contextProvider/ContextProvider";
 
 
 type TState = {

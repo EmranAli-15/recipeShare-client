@@ -12,11 +12,10 @@ const authApi = baseApi.injectEndpoints({
             async onQueryStarted(arg, { queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
-                    const accessToken = result.data.data.accessToken;
+                    const accessToken = result.data.data;
 
                     localStorage.setItem("accessToken", accessToken);
                     setCookieToBrowser(accessToken);
-
                 } catch (error) { }
             }
         }),
@@ -30,11 +29,10 @@ const authApi = baseApi.injectEndpoints({
             async onQueryStarted(arg, { queryFulfilled }) {
                 try {
                     const result = await queryFulfilled;
-                    const accessToken = result.data.data.accessToken;
+                    const accessToken = result.data.data;
 
                     localStorage.setItem("accessToken", accessToken);
                     setCookieToBrowser(accessToken);
-
                 } catch (error) { }
             }
         }),

@@ -1,0 +1,31 @@
+.pointerBtn button:hover {
+    cursor: pointer;
+}
+
+.wrapper {
+    position: relative;
+    top: 4px;
+}
+
+.wrapper:hover .colorPalette {
+    position: absolute;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: rgb(68, 161, 253);
+    gap: 8px;
+    padding: 5px;
+    right: 0px;
+    top: 0;
+    border-radius: 2px;
+}
+
+.colorPalette {
+    display: none;
+}
+
+.image img {
+    max-width: 500px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
