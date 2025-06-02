@@ -2,11 +2,11 @@
 
 import styles from './styles.module.css';
 import React, { useRef, useEffect } from 'react';
+import { uploadImage } from '@/utils/utils';
 import {
     BgColorIcon, BoldIcon, CenterAlignIcon, ColorIcon, FullJustifyIcon,
     HeadingIcon, ImgIcon, ItalicIcon, LeftAlignIcon, UnderlIneIcon
 } from '../../ui/icons/editorIcons/EditorIcons';
-import { uploadImage } from '@/utils/utils';
 
 export default function Editor({ data, setContent }: { data: string, setContent: any }) {
     const editorRef = useRef<HTMLDivElement>(null);

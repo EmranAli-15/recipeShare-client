@@ -108,6 +108,7 @@ const Page = ({ params }: { params: { userId: string } }) => {
     else if (!isRecipesLoading && !isRecipesError && recipes) {
         recipesContent = <div className="bg-[#fff] border rounded-md p-2 mt-2">
             <h1 className="font-semibold text-2xl md:text-3xl my-2">{name}'s <span className="text-green-700 font-bold">recipes</span></h1>
+            {recipes.length == 0 && <h1 className="text-center text-gray-500">No recipe you shared yet !</h1>}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
                 {
                     recipes.map((recipe: recipeType) => (

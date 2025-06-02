@@ -2,6 +2,7 @@ import Comments from "@/components/recipeDetails/Comments";
 import Likes from "@/components/recipeDetails/Likes";
 import Image from "next/image";
 import Error from "@/ui/Error/Error";
+import styles from "./styles.module.css";
 import RecipeDetails from "@/components/recipeDetails/RecipeDetails";
 import { getSingleRecipe } from "@/services/recipes/recipes";
 import { Metadata } from "next";
@@ -77,7 +78,7 @@ const RecipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
 
 
                 {/* This is the recipe or ingredient section */}
-                <div>
+                <div className={styles.recipeDetails}>
                     <h1 className="mt-4 mb-2 md:text-2xl myTextColor border-b-2 border-b-[#74bd2c] border-dashed inline-block">INGREDIENTS</h1>
                     <div
                         className="bg-[#fff] rounded-md p-2"

@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
-import { loadMoreRecipes, moreScheduleRecipes } from "./recipeSlice";
+import { moreScheduleRecipes } from "./recipeSlice";
 
 export const recipeApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -63,7 +63,8 @@ export const recipeApi = baseApi.injectEndpoints({
             query: (recipeId) => ({
                 url: `api/recipe/deleteRecipe/${recipeId}`,
                 method: 'DELETE',
-            })
+            }),
+            invalidatesTags: ["myRecipe"]
         }),
 
         getMyRecipes: builder.query({
