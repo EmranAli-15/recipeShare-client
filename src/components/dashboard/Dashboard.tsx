@@ -1,11 +1,9 @@
 "use client"
 
 import { Close } from "@/ui/icons/Icons";
-import { useState } from "react";
 import { useUser } from "@/contextProvider/ContextProvider";
 import UserDashboard from "./user/UserDashboard";
 import AdminDashboard from "./admin/AdminDashboard";
-import BookmarkModal from "./user/BookmarkModal";
 import styles from "../../app/(mainLayout)/userProfile/[userId]/styles.module.css";
 
 type TParams = {

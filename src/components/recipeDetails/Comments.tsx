@@ -60,9 +60,9 @@ const Comments = ({ id, comments }: { id: string, comments: [] }) => {
     return (
         <div>
             <Toaster toastOptions={{ duration: 1000 }}></Toaster>
-            <p className="font-semibold md:text-xl">Comments :</p>
+            <p className="font-semibold px-2 md:text-xl">Comments :</p>
             <div className="mb-4 text-gray-500">
-                Paste a comment
+                <p className="px-2">Paste a comment</p>
                 <div>
                     <textarea value={comment} onChange={(e) => setComment(e.target.value)} className="border w-full myInput" rows={3} id=""></textarea>
                     <button disabled={isLoading} onClick={handleSubmitComment} className="myBtn w-full h-10">

@@ -76,12 +76,11 @@ const RecipeDetailsPage = async ({ params }: { params: { recipeId: string } }) =
                     </div>
                 </div>
 
-
                 {/* This is the recipe or ingredient section */}
-                <div className={styles.recipeDetails}>
+                <div>
                     <h1 className="mt-4 mb-2 md:text-2xl myTextColor border-b-2 border-b-[#74bd2c] border-dashed inline-block">INGREDIENTS</h1>
                     <div
-                        className="bg-[#fff] rounded-md p-2"
+                        className={`bg-[#fff] rounded-md p-2 ${styles.recipeDetails}`}
                         dangerouslySetInnerHTML={{ __html: recipe }}
                     >
                     </div>
