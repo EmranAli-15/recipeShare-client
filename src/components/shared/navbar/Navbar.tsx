@@ -77,10 +77,17 @@ const Navbar = () => {
             <section className="w-full h-[60px] border-b px-2 md:px-0">
                 <div>
                     <div className="h-[60px] flex items-center justify-around md:justify-between">
-                        <div onClick={() => setOpenMenu(!openMenu)} className={`${openMenu ? 'rotate-90' : 'rotate-0'} transition duration-300 cursor-pointer`}>
-                            {
-                                openMenu ? <Close></Close> : <Menu></Menu>
-                            }
+                        <div className="md:flex items-center gap-x-5">
+                            <div onClick={() => setOpenMenu(!openMenu)} className={`${openMenu ? 'rotate-90' : 'rotate-0'} transition duration-300 cursor-pointer`}>
+                                {
+                                    openMenu ? <Close></Close> : <Menu></Menu>
+                                }
+                            </div>
+                            <Link
+                                href="/recipeAssistant"
+                                className="hidden md:block font-semibold font-sans bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded text-white px-1">
+                                AI Recipe
+                            </Link>
                         </div>
 
                         <div className="w-full md:w-auto flex items-center md:gap-x-3">
@@ -191,6 +198,16 @@ const Navbar = () => {
                                             </div>
                                         </Link>
                                 }
+                            </div>
+                            <div className="border-b px-2 py-2 hover:bg-white">
+                                <Link href={`/recipeAssistant`}>
+                                    <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
+                                        <div
+                                            className="font-semibold font-sans bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded text-white px-1">
+                                            AI Recipe
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
                             <div className="border-b px-2 py-2 hover:bg-white">
                                 <Link href={`/moreRecipes/Breakfast`}>
