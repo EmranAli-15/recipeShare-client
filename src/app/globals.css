@@ -12,7 +12,7 @@ html {
 
 /* For text color */
 .myTextColor {
-    @apply text-[#74bd2c]
+    @apply text-[#fd992e]
 }
 
 
@@ -21,7 +21,6 @@ html {
 .myInput {
     @apply w-full text-gray-800 text-sm border px-4 py-3 outline-none rounded-md
 }
-
 
 
 /* For all button entire the project */

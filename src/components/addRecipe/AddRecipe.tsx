@@ -1,15 +1,15 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import Editor from '../editor/Editor'
-import { useUser } from '@/contextProvider/ContextProvider';
-import { Gallery } from '@/ui/icons/Icons';
-import { uploadImage } from '@/utils/utils';
-import { useCreateRecipeMutation } from '@/redux/features/recipe/recipeApi';
-import { BeatLoader } from 'react-spinners';
 import Error from '@/ui/Error/Error';
+import Editor from '../editor/Editor'
 import Success from '@/ui/success/Success';
 import CommonLoader from '@/ui/loader/CommonLoader';
+import { useUser } from '@/contextProvider/ContextProvider';
+import { Gallery } from '@/ui/icons/Icons';
+import { BeatLoader } from 'react-spinners';
+import { uploadImage } from '@/utils/utils';
+import { useCreateRecipeMutation } from '@/redux/features/recipe/recipeApi';
 
 export default function AddRecipe() {
   const [content, setContent] = useState("");
@@ -102,7 +102,7 @@ export default function AddRecipe() {
           <label className='text-gray-400'>{!thumbnail && <span className='text-red-600'>*</span>} Select Thumbnail Image</label>
           {
             thumbnailLoading ? <div className='flex items-center justify-center'>
-              <BeatLoader></BeatLoader>
+              <BeatLoader color="#fff"></BeatLoader>
             </div> :
               <label className="myInput bg-[#fff] text-center block cursor-pointer" htmlFor="thumbnailImg">
                 <div className="flex items-center h-[21px] justify-center gap-x-2">

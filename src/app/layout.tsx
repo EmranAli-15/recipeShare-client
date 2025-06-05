@@ -6,6 +6,12 @@ import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import ContextProvider from "@/contextProvider/ContextProvider";
 
+import { Maven_Pro } from 'next/font/google'
+
+const geist = Maven_Pro({
+  subsets: ['latin'],
+})
+
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -14,13 +20,13 @@ import ContextProvider from "@/contextProvider/ContextProvider";
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={geist.className}>
       <body>
-          <ContextProvider>
-            <Provider store={store}>
-              {children}
-            </Provider>
-          </ContextProvider>
+        <ContextProvider>
+          <Provider store={store}>
+            {children}
+          </Provider>
+        </ContextProvider>
       </body>
     </html>
   );

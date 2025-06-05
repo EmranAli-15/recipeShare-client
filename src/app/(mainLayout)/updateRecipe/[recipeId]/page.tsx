@@ -158,7 +158,7 @@ export default function page({ params }: { params: { recipeId: string } }) {
             <div className="flex items-center h-[21px] justify-center gap-x-2">
               {
                 thumbnailLoading ? <div className='flex items-center justify-center'>
-                  <BeatLoader></BeatLoader>
+                  <BeatLoader color="#fff"></BeatLoader>
                 </div> : thumbnailName ? <span>{thumbnailName.slice(0, 20)}</span> :
                   <span className='text-gray-400'>Select Thumbnail Image</span>
               }

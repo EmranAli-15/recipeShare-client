@@ -48,7 +48,7 @@ const Page = ({ params }: { params: { categoryId: string } }) => {
 
     return (
         <div className="max-w-7xl md:mx-auto m-2 p-2 bg-[#fff] border rounded-md h-full">
-            <h1 className="font-semibold text-2xl md:text-3xl mb-4">Browse <span className="text-green-700 font-bold">{category} recipes</span></h1>
+            <h1 className="font-semibold text-2xl md:text-3xl mb-4">Browse <span className="myTextColor font-bold">{category} recipes</span></h1>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 ">
                 {
                     recipes.map((recipe: TRecipe) => (

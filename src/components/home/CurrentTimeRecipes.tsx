@@ -110,7 +110,7 @@ export default function CurrentTimeRecipes() {
     return (
         <section>
             <div className="bg-[#fff] border rounded-md p-2 h-full">
-                <h1 className="font-semibold text-2xl md:text-3xl">Good <span className="text-green-700 font-bold">{currentState?.heading}</span></h1>
+                <h1 className="font-semibold text-2xl md:text-3xl">Good <span className="myTextColor font-bold">{currentState?.heading}</span></h1>
                 <h1 className="text-gray-500 mb-4 -mt-1 text-sm md:text-lg md:-mt-0">{currentState?.about}</h1>
                 {
                     content

@@ -36,7 +36,7 @@ export default function LoadMoreRecipes() {
 
     return (
         <div>
-            <h1 className="font-semibold text-2xl md:text-3xl mb-4">Browse <span className="text-green-700 font-bold">all recipes</span></h1>
+            <h1 className="font-semibold text-2xl md:text-3xl mb-4">Browse <span className="myTextColor font-bold">all recipes</span></h1>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
                 {
                     recipes.map((data: any) => {
