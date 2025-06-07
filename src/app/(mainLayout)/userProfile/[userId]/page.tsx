@@ -1,19 +1,20 @@
 "use client"
 
-import { useUser } from "@/contextProvider/ContextProvider";
-import { useGetMyRecipesQuery } from "@/redux/features/recipe/recipeApi";
-import { useAnyUserProfileQuery, useUpdateFollowingMutation } from "@/redux/features/user/userApi";
+import Link from "next/link";
+import Image from "next/image";
 import Error from "@/ui/Error/Error";
+import styles from './styles.module.css';
+import toast, { Toaster } from "react-hot-toast";
+import RecipeCard from "@/ui/recipeCard/RecipeCard";
+import RecipeCardLoader from "@/ui/loader/RecipeCardLoader";
+import AnyUserProfileLoader from "@/ui/loader/AnyUserProfileLoader";
+
+import { User } from "@/ui/icons/Icons";
+import { useUser } from "@/contextProvider/ContextProvider";
 import { debounce } from "@/utils/debounce";
 import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import styles from './styles.module.css';
-import Link from "next/link";
-import AnyUserProfileLoader from "@/ui/loader/AnyUserProfileLoader";
-import RecipeCardLoader from "@/ui/loader/RecipeCardLoader";
-import RecipeCard from "@/ui/recipeCard/RecipeCard";
-import Image from "next/image";
-import { User } from "@/ui/icons/Icons";
+import { useGetMyRecipesQuery } from "@/redux/features/recipe/recipeApi";
+import { useAnyUserProfileQuery, useUpdateFollowingMutation } from "@/redux/features/user/userApi";
 
 type recipeType = {
     _id: string;
@@ -107,8 +108,8 @@ const Page = ({ params }: { params: { userId: string } }) => {
     else if (!isRecipesLoading && isRecipesError) { recipesContent = <Error heading="Recipes Not Founded" description="Please Try Again!"></Error> }
     else if (!isRecipesLoading && !isRecipesError && recipes) {
         recipesContent = <div className="bg-[#fff] border rounded-md p-2 mt-2">
-            <h1 className="font-semibold text-2xl md:text-3xl my-2">{name}'s <span className="text-green-700 font-bold">recipes</span></h1>
-            {recipes.length == 0 && <h1 className="text-center text-gray-500">No recipe you shared yet !</h1>}
+            <h1 className="font-semibold text-2xl md:text-3xl my-2">{name}'s <span className="myTextColor font-bold">recipes</span></h1>
+            {recipes.length == 0 && <h1 className="text-center text-gray-500">No recipe shared yet !</h1>}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
                 {
                     recipes.map((recipe: recipeType) => (

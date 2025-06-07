@@ -1,20 +1,21 @@
 "use client"
 
-import { useGetOTPMutation, useSetForgotPasswordMutation } from '@/redux/features/auth/authApi';
-import { EyeClose, EyeOpen } from '@/ui/icons/Icons';
-import { useRouter } from 'next/navigation';
-import React, { FormEvent, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
+import React, { FormEvent, useEffect, useState } from 'react'
+
+import { useRouter } from 'next/navigation';
+import { EyeClose, EyeOpen } from '@/ui/icons/Icons';
+import { useGetOTPMutation, useSetForgotPasswordMutation } from '@/redux/features/auth/authApi';
 
 export default function page() {
     const router = useRouter();
 
-    const [isSentOTP, setIsSentOTP] = useState(false);
-    const [isPassShow, setIsPassShow] = useState(false);
+    const [OTP, setOTP] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isSentOTP, setIsSentOTP] = useState(false);
     const [confirmPass, setConfirmPass] = useState("");
-    const [OTP, setOTP] = useState("");
+    const [isPassShow, setIsPassShow] = useState(false);
 
     const [getOTPPassword, { isLoading: OTPLoading, error: OTPError, isSuccess: OTPSuccess }] = useGetOTPMutation();
     const [updatePassword, { isLoading: updatePasswordLoading, error: updatePasswordError, isSuccess: updatePasswordSuccess }] = useSetForgotPasswordMutation()
@@ -100,7 +101,7 @@ export default function page() {
                         className='myInput h-9' type="email"
                     />
                     <button
-                        className='mt-1 w-full h-9 bg-gray-300 rounded-md font-mono active:scale-95'
+                        className='myBtn mt-1 w-full h-9'
                         type='submit'
                         disabled={OTPLoading}>
                         Get OTP
@@ -136,7 +137,7 @@ export default function page() {
                                 className='myInput h-9' type={isPassShow ? "text" : "password"}
                             />
                             <button
-                                className='mt-1 w-full h-9 bg-gray-300 rounded-md font-mono active:scale-95'
+                                className='myBtn mt-1 w-full h-9'
                                 type='submit'
                                 disabled={updatePasswordLoading}>
                                 Set new password

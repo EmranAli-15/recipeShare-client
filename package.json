@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
     "@reduxjs/toolkit": "^2.8.2",
     "cloudinary": "^2.5.1",
     "jwt-decode": "^4.0.0",

@@ -93,7 +93,7 @@ export default function SettingsPage() {
                         </div>
                         <button
                             type="submit"
-                            className='mt-1 w-full h-9 bg-gray-300 rounded-md font-mono active:scale-95'
+                            className='myBtn mt-1 w-full h-9'
                             disabled={updatePassLoading}
                         >SAVE</button>
                     </form>
@@ -127,7 +127,7 @@ export default function SettingsPage() {
                         </span>
                     </div>
                 </div>
-                <button className='mt-1 w-full h-9 bg-gray-300 rounded-md font-mono active:scale-95'>DELETE</button>
+                <button className='myBtn mt-1 w-full h-9'>DELETE</button>
             </section>
         </div>
     )
