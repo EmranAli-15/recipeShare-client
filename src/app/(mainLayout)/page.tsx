@@ -1,6 +1,11 @@
 import { Metadata } from "next";
-import LoadMoreRecipes from "@/components/home/LoadMoreRecipes";
-import CurrentTimeRecipes from "@/components/home/CurrentTimeRecipes";
+import dynamic from 'next/dynamic';
+// import LoadMoreRecipes from "@/components/home/LoadMoreRecipes";
+// import CurrentTimeRecipes from "@/components/home/CurrentTimeRecipes";
+
+const LoadMoreRecipes = dynamic(() => import("@/components/home/LoadMoreRecipes"))
+const CurrentTimeRecipes = dynamic(() => import("@/components/home/CurrentTimeRecipes"))
+
 
 export const metadata: Metadata = {
   title: "Halal Foods",
