@@ -4,7 +4,7 @@ const aiRecipeApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         generateAiRecipe: builder.mutation({
             query: (data) => ({
-                url: '/api/aiRecipe/generateAiRecipe',
+                url: '/api/aiRecipe',
                 body: data,
                 method: 'POST'
             })
