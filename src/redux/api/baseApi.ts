@@ -1,6 +1,6 @@
 import { BaseQueryApi, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const BASE_URL = 'https://foodrecipe-server.vercel.app'
-// const BASE_URL = 'http://localhost:5000'
+// const BASE_URL = 'https://foodrecipe-server.vercel.app'
+const BASE_URL = 'http://localhost:5000'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: BASE_URL,

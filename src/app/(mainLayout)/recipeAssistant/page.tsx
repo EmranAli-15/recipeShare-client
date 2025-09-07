@@ -18,7 +18,8 @@ export default function page() {
     const [rawText, setRawText] = useState("");
 
     useEffect(() => {
-        const data = generatedAiRecipe?.data?.response?.candidates[0].content.parts[0].text;
+        console.log(generatedAiRecipe)
+        const data = generatedAiRecipe?.data?.content;
         setRawText(data);
     }, [isError, isSuccess])
 
