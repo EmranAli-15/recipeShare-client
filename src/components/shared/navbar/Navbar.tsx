@@ -1,6 +1,7 @@
 "use client"
 
 import logo from "@/assets/logo.png"
+import deepseekLogo from "@/assets/deepseek.png"
 import Image from "next/image";
 import Link from "next/link";
 import Dashboard from "@/components/dashboard/Dashboard";
@@ -85,7 +86,12 @@ const Navbar = () => {
                             </div>
                             <Link
                                 href="/recipeAssistant"
-                                className="hidden md:block font-semibold font-sans bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded text-white px-1">
+                                className="hidden md:flex items-center gap-x-2 font-semibold font-sans bg-gradient-to-r from-indigo-300 to-slate-400 rounded text-white px-1">
+                                <Image
+                                    src={deepseekLogo}
+                                    alt=""
+                                    className="h-[20px] w-[20px]"
+                                ></Image>
                                 AI Recipe
                             </Link>
                         </div>
@@ -203,7 +209,12 @@ const Navbar = () => {
                                 <Link href={`/recipeAssistant`}>
                                     <div onClick={() => setOpenMenu(false)} className="w-full flex items-center gap-x-2">
                                         <div
-                                            className="font-semibold font-sans bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded text-white px-1">
+                                            className="hidden md:flex items-center gap-x-2 font-semibold font-sans bg-gradient-to-r from-indigo-300 to-slate-400 rounded text-white px-1">
+                                            <Image
+                                                src={deepseekLogo}
+                                                alt=""
+                                                className="h-[20px] w-[20px]"
+                                            ></Image>
                                             AI Recipe
                                         </div>
                                     </div>

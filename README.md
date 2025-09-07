@@ -3,7 +3,7 @@
 ### Next.js, Express.js, MongoDB, TypeScript
 
 ## Key Features:
-### Gemini Api
+### DeepSeek Api
 For generate recipe using given ingredients.
 
 ### Authentication
